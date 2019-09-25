@@ -3,9 +3,10 @@ import api from '../../api'
 
 export default function Signup(props) {
   const [state, setState] = useState({
-    username: '',
+    email: '',
     name: '',
     password: '',
+    picture: null,
     message: null,
   })
 
@@ -16,15 +17,17 @@ export default function Signup(props) {
     })
   }
 
+  function handleFileChange(event) {
+    setState({
+      ...state,
+      picture: event.target.files[0],
+    })
+  }
+
   function handleClick(e) {
     e.preventDefault()
-    let data = {
-      username: state.username,
-      name: state.name,
-      password: state.password,
-    }
     api
-      .signup(data)
+      .addUser(state.email, state.name, state.password, state.picture)
       .then(result => {
         console.log('SUCCESS!')
         props.history.push('/') // Redirect to the home page
@@ -35,11 +38,11 @@ export default function Signup(props) {
     <div className="Signup">
       <h2>Signup</h2>
       <form>
-        Username:{' '}
+        Email:{' '}
         <input
-          type="text"
-          value={state.username}
-          name="username"
+          type="email"
+          value={state.email}
+          name="email"
           onChange={handleInputChange}
         />{' '}
         <br />
@@ -59,9 +62,13 @@ export default function Signup(props) {
           onChange={handleInputChange}
         />{' '}
         <br />
+        Picture:{' '}
+        <input type="file" name="picture" onChange={handleFileChange}></input>
+        <br />
         <button onClick={e => handleClick(e)}>Signup</button>
       </form>
       {state.message && <div className="info info-danger">{state.message}</div>}
+      <pre>{JSON.stringify(state)}</pre>
     </div>
   )
 }
