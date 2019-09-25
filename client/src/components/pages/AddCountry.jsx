@@ -1,90 +1,50 @@
-import React, { useState } from 'react'
-import api from '../../api'
+import React, { useState } from 'react';
+import api from '../../api';
 
 export default function AddCountry(props) {
-  const [state, setState] = useState({
-    name: '',
-    capitals: '',
-    area: '',
-    description: '',
-  })
-  const [message, setMessage] = useState(null)
+	const [ state, setState ] = useState({
+		distance: '',
+		mode: ''
+	});
 
-  console.log(state)
+	function handleInputChange(event) {
+		setState({
+			...state,
+			[event.target.name]: event.target.value
+		});
+	}
 
-  function handleInputChange(event) {
-    setState({
-      ...state,
-      [event.target.name]: event.target.value,
-    })
-  }
-
-  function handleClick(e) {
-    e.preventDefault()
-    console.log(state.name, state.description)
-    let data = {
-      name: state.name,
-      capitals: state.capitals,
-      area: state.area,
-      description: state.description,
-    }
-    api
-      .addCountry(data)
-      .then(result => {
-        console.log('SUCCESS!')
-        setState({
-          name: '',
-          capitals: '',
-          area: '',
-          description: '',
-        })
-        setMessage(`Your country '${state.name}' has been created`)
-        setTimeout(() => {
-          setMessage(null)
-        }, 2000)
-      })
-      .catch(err => setState({ message: err.toString() }))
-  }
-  return (
-    <div className="AddCountry">
-      <h2>Add country</h2>
-      <form>
-        Name:{' '}
-        <input
-          type="text"
-          value={state.name}
-          name="name"
-          onChange={handleInputChange}
-        />{' '}
-        <br />
-        Capitals:{' '}
-        <input
-          type="text"
-          value={state.capitals}
-          name="capitals"
-          onChange={handleInputChange}
-        />{' '}
-        <br />
-        Area:{' '}
-        <input
-          type="number"
-          value={state.area}
-          name="area"
-          onChange={handleInputChange}
-        />{' '}
-        <br />
-        Description:{' '}
-        <textarea
-          value={state.description}
-          name="description"
-          cols="30"
-          rows="10"
-          onChange={handleInputChange}
-        />{' '}
-        <br />
-        <button onClick={e => handleClick(e)}>Create country</button>
-      </form>
-      {message && <div className="info">{message}</div>}
-    </div>
-  )
+	function handleClick(e) {
+		e.preventDefault();
+		console.log(state.distance, state.mode);
+		let distance = state.distance;
+		let mode = state.mode;
+		api
+			.getCarbon(distance, mode)
+			.then((result) => {
+				console.log('result', distance, mode, result);
+				// setState({
+				// 	distance: '',
+				// 	mode: ''
+				// });
+			})
+			.catch((err) => console.log(err));
+	}
+	return (
+		<div className="AddCountry">
+			<h2>Add country</h2>
+			<form>
+				distance: <input
+					type="number"
+					value={state.distance}
+					name="distance"
+					onChange={handleInputChange}
+				/>{' '}
+				<br />
+				mode: <input type="text" value={state.mode} name="mode" onChange={handleInputChange} /> <br />
+				<button onClick={(e) => handleClick(e)}>submit</button>
+			</form>
+			<pre>{JSON.stringify(state, null, 2)}</pre>
+		</div>
+	);
 }
