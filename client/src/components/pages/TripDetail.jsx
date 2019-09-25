@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import api from '../../api';
+import React from 'react';
 
 export default function Countries() {
 	return <div className="Countries" />;
