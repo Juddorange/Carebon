@@ -47,10 +47,10 @@ export default {
       .catch(errHandler)
   },
 
-  login(username, password) {
+  login(email, password) {
     return service
       .post('/login', {
-        username,
+        email,
         password,
       })
       .then(res => {
@@ -89,11 +89,27 @@ export default {
       .catch(errHandler)
   },
 
-  addPicture(file) {
+  // addPicture(file) {
+  //   const formData = new FormData()
+  //   formData.append('picture', file)
+  //   return service
+  //     .post('/signup', formData, {
+  //       headers: {
+  //         'Content-Type': 'multipart/form-data
+  //       },
+  //     })
+  //     .then(res => res.data)
+  //     .catch(errHandler)
+  // },
+
+  addUser(email, name, password, picture) {
     const formData = new FormData()
-    formData.append('picture', file)
+    formData.append('email', email)
+    formData.append('name', name)
+    formData.append('password', password)
+    formData.append('picture', picture)
     return service
-      .post('/endpoint/to/add/a/picture', formData, {
+      .post('/signup', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
