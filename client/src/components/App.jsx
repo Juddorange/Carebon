@@ -4,6 +4,7 @@ import MainNavbar from './MainNavbar';
 import Home from './pages/Home';
 import TripDetail from './pages/TripDetail';
 import AddCountry from './pages/AddCountry';
+import Profile from './pages/Profile';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 
@@ -15,6 +16,7 @@ export default function App() {
 				<Route path="/" exact component={Home} />
 				<Route path="/add-country" component={AddCountry} />
 				<Route path="/:trip-detail" component={TripDetail} />
+				<Route path="/profile" component={Profile} />
 				<Route path="/signup" component={Signup} />
 				<Route path="/login" component={Login} />
 				<Route render={() => <h2>404</h2>} />

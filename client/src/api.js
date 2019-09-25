@@ -55,7 +55,7 @@ export default {
       })
       .catch(errHandler)
   },
-
+  
   // signup(userInfo) {
   //   return service
   //     .post('/signup', userInfo)
@@ -112,17 +112,35 @@ export default {
       .then()
       .catch()
   },
-
-  // addPicture(file) {
-  //   const formData = new FormData()
-  //   formData.append('picture', file)
-  //   return service
-  //     .post('/signup', formData, {
-  //       headers: {
-  //         'Content-Type': 'multipart/form-data
-  //       },
-  //     })
-  //     .then(res => res.data)
-  //     .catch(errHandler)
-  // },
 }
+	getProfile() {
+		return service.get('/profile').then((res) => res.data).catch((err) => console.log(err));
+	},
+
+	// addPicture(file) {
+	//   const formData = new FormData()
+	//   formData.append('picture', file)
+	//   return service
+	//     .post('/signup', formData, {
+	//       headers: {
+	//         'Content-Type': 'multipart/form-data
+	//       },
+	//     })
+	//     .then(res => res.data)
+	//     .catch(errHandler)
+	// },
+
+	addPicture(file) {
+		const formData = new FormData();
+		formData.append('picture', file);
+		return service
+			.post('/profile', formData, {
+				headers: {
+					'Content-Type': 'multipart/form-data'
+				}
+			})
+			.then((res) => res.data)
+			.catch(errHandler);
+	},
+};
+
