@@ -55,7 +55,7 @@ export default {
       })
       .catch(errHandler)
   },
-  
+
   // signup(userInfo) {
   //   return service
   //     .post('/signup', userInfo)
@@ -86,8 +86,81 @@ export default {
     return service.get('/logout')
   },
 
-  // Carbon API
+  // This is an example on how to use this method in a different file
   getCarbon(distance, mode) {
+    return service
+      .post(`/trip`, { distance, mode })
+      .then(res => res.data)
+      .catch(errHandler)
+  },
+
+  // This is an example on how to use this method in a different file
+  // api.getCountries().then(countries => { /* ... */ })
+  // getTripOld(origin, destination) {
+  //   return service
+  //     .get(
+  //       `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${origin}&destinations=${destination}&key=${process.env.GOOGLE_KEY}`
+  //     )
+  //     .then()
+  //     .catch()
+  // },
+
+  // getGoogleTrip(origin, destination) {
+  getEveryAnswer(origin, destination) {
+    return service
+      .post('/google-trip', {
+        // toto: 'toto',
+        origin,
+        destination,
+      })
+      .then(res => console.log(res))
+      .catch(err => console.log(err))
+  },
+
+  // const modes = ["driving", "walking", "transit"];
+  // let transitMode = null
+
+  // let driving = this.getGoogleTrip(
+  //   origin,
+  //   destination,
+  //   'driving',
+  //   transitMode
+  // )
+  // let walking = this.getGoogleTrip(
+  //   origin,
+  //   destination,
+  //   'walking',
+  //   transitMode
+  // )
+  // let training = this.getGoogleTrip(origin, destination, 'transit', 'train')
+  // let busing = this.getGoogleTrip(origin, destination, 'transit', 'bus')
+
+  // return Promise.all([driving, walking, training, busing])
+  //   .then(values => {
+  //     let car = values[0]
+  //     let foot = values[1]
+  //     let train = values[2]
+  //     let bus = values[3]
+  //     console.log('car :', car)
+  //     console.log('foot :', foot)
+  //     console.log('train :', train)
+  //     console.log('bus :', bus)
+  //   })
+  //   .catch(err => console.log(err))
+
+  // First idea, on hold
+  // modes.map(mode => {
+  //   if (mode !== "transit")
+  //     this.getGoogleTrip(origin, destination, mode, (transitMode = null));
+  //   else {
+  //     let transitOptions = [];
+  //     transitMode = ["train", "bus"];
+  //     this.getGoogleTrip(origin, destination, mode, transitmode);
+  //   }
+  // });
+  // },
+
+  addCountry(body) {
     return service
       .post(`/trip`, { distance, mode })
       .then(res => res.data)
@@ -112,35 +185,37 @@ export default {
       .then()
       .catch()
   },
+
+  getProfile() {
+    return service
+      .get('/profile')
+      .then(res => res.data)
+      .catch(err => console.log(err))
+  },
+
+  // addPicture(file) {
+  //   const formData = new FormData()
+  //   formData.append('picture', file)
+  //   return service
+  //     .post('/signup', formData, {
+  //       headers: {
+  //         'Content-Type': 'multipart/form-data
+  //       },
+  //     })
+  //     .then(res => res.data)
+  //     .catch(errHandler)
+  // },
+
+  addPicture(file) {
+    const formData = new FormData()
+    formData.append('picture', file)
+    return service
+      .post('/profile', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      .then(res => res.data)
+      .catch(errHandler)
+  },
 }
-	getProfile() {
-		return service.get('/profile').then((res) => res.data).catch((err) => console.log(err));
-	},
-
-	// addPicture(file) {
-	//   const formData = new FormData()
-	//   formData.append('picture', file)
-	//   return service
-	//     .post('/signup', formData, {
-	//       headers: {
-	//         'Content-Type': 'multipart/form-data
-	//       },
-	//     })
-	//     .then(res => res.data)
-	//     .catch(errHandler)
-	// },
-
-	addPicture(file) {
-		const formData = new FormData();
-		formData.append('picture', file);
-		return service
-			.post('/profile', formData, {
-				headers: {
-					'Content-Type': 'multipart/form-data'
-				}
-			})
-			.then((res) => res.data)
-			.catch(errHandler);
-	},
-};
-
