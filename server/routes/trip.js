@@ -1,5 +1,7 @@
 const express = require('express')
 const axios = require('axios')
+const Trip = require('./../models/Trip')
+const { isLoggedIn } = require('../middlewares')
 
 const router = express.Router()
 
@@ -7,15 +9,9 @@ function getCarbonPrint(distance, mode) {
   return axios.get(
     `https://api.triptocarbon.xyz/v1/footprint?activity=${distance}&activityType=miles&country=def&mode=${mode}`
   )
-  //  ; .then(res => {
-  //   console.log(res.data)
-  //   res.data.carbonFootprint
-  // })
-  // .catch(err => console.log(err))
 }
 
 router.post('/trip', (req, res) => {
-  console.log(req.body)
   const { distance, mode } = req.body
   getCarbonPrint(distance, mode)
     .then(carbonPrint => res.send(carbonPrint))
@@ -45,33 +41,63 @@ router.post('/google-trip', (req, res, next) => {
   handleGoogleResponse(req, res)
     .then(response => {
       let anyCar = {
+        mode: 'Car',
         distance: Math.floor(
-          response[2].data.routes[0].legs[0].distance.value / 1609.344
+          response[0].data.routes[0].legs[0].distance.value / 1609.344
         ),
-        time: response[0].data.routes[0].legs[0].duration,
+        time: response[0].data.routes[0].legs[0].duration.text,
+        carbon: 0,
       }
       let foot = {
-        distance: response[1].data.routes[0].legs[0].distance.value,
-        time: response[1].data.routes[0].legs[0].duration,
+        mode: 'Walking',
+        distance: Math.floor(
+          response[1].data.routes[0].legs[0].distance.value / 1000
+        ),
+        time: response[1].data.routes[0].legs[0].duration.text,
+        carbon: 0,
       }
       let transitRail = {
+        mode: 'Train',
         distance: Math.floor(
           response[2].data.routes[0].legs[0].distance.value / 1609.344
         ),
-        time: response[2].data.routes[0].legs[0].duration,
+        time: response[2].data.routes[0].legs[0].duration.text,
+        carbon: 0,
       }
 
       let railCarbon = getCarbonPrint(transitRail.distance, 'transitRail')
       let carCarbon = getCarbonPrint(anyCar.distance, 'anyCar')
-      let footCarbon = 'not much'
-      console.log('RailCarbon', railCarbon)
+      // let footCarbon = 'not much'
       Promise.all([railCarbon, carCarbon]).then(value => {
-        console.log(value)
-        let railCarbon = value[0].data.carbonFootprint
-        let carCarbon = value[1].data.carbonFootprint
-        res.send({ railCarbon, carCarbon, footCarbon })
+        transitRail.carbon = Number(value[0].data.carbonFootprint)
+        anyCar.carbon = Number(value[1].data.carbonFootprint)
+
+        transitRail.distance = Math.floor(
+          (transitRail.distance * 1609.344) / 1000
+        )
+        anyCar.distance = Math.floor((anyCar.distance * 1609.344) / 1000)
+        res.send([transitRail, anyCar, foot])
       })
     })
+    .catch(err => console.log(err))
+})
+
+//saved trip
+
+router.post('/saved-trip', isLoggedIn, (req, res) => {
+  const { departure, arrival, transport, duration, carbon, distance } = req.body
+  const newTrip = {
+    departure,
+    arrival,
+    transport,
+    duration,
+    carbon,
+    distance,
+  }
+  newTrip.userId = req.user._id
+
+  Trip.create(newTrip)
+    .then(response => res.send('SUCCEED!'))
     .catch(err => console.log(err))
 })
 
