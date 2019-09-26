@@ -84,5 +84,5 @@ app.use((err, req, res, next) => {
       res.json(JSON.parse(JSON.stringify(err, Object.getOwnPropertyNames(err))))
   }
 })
-
+console.log('hello')
 module.exports = app
