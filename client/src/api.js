@@ -168,5 +168,20 @@ export default {
 			})
 			.then((res) => res.data)
 			.catch(errHandler);
+	},
+	// Save Trip
+
+	savedTrips(trip) {
+		console.log('trip', trip);
+		const newTrip = {
+			departure: trip[0].origin,
+			arrival: trip[0].destination,
+			transport: trip[0].mode,
+			duration: trip[0].time,
+			carbon: trip[0].carbon,
+			distance: trip[0].distance
+		};
+		console.log('new trip', newTrip);
+		return service.post('/saved-trip', newTrip).then((res) => res).catch((err) => console.log(err));
 	}
 };
