@@ -83,9 +83,21 @@ export default {
 		return service.get('/logout');
 	},
 
-	// Carbon API
+	// This is an example on how to use this method in a different file
 	getCarbon(distance, mode) {
 		return service.post(`/trip`, { distance, mode }).then((res) => res.data).catch(errHandler);
+	},
+
+	// getGoogleTrip(origin, destination) {
+	getEveryAnswer(origin, destination) {
+		return service
+			.post('/google-trip', {
+				// toto: 'toto',
+				origin,
+				destination
+			})
+			.then((res) => console.log(res))
+			.catch((err) => console.log(err));
 	},
 
 	//GOOGLE API
