@@ -54,7 +54,7 @@ require('./passport')(app)
 
 app.use('/api', require('./routes/index'))
 app.use('/api', require('./routes/auth'))
-// app.use('/api/trip', require('./routes/trip'))
+app.use('/api', require('./routes/profile'))
 app.use('/api', require('./routes/trip'))
 
 // For any routes that starts with "/api", catch 404 and forward to error handler
@@ -84,8 +84,6 @@ app.use((err, req, res, next) => {
       res.json(JSON.parse(JSON.stringify(err, Object.getOwnPropertyNames(err))))
   }
 })
+console.log('proot')
 
-console.log('yo')
-
-console.log('heeey')
 module.exports = app

@@ -6,13 +6,13 @@ const router = express.Router()
 function getCarbonPrint(distance, mode) {
   return axios
     .get(
-      `https://api.triptocarbon.xyz/v1/footprint?activity=${distance}&activityType=miles&country=def&mode=${mode}&key=${process.env.GOOGLE_KEY}`
+      `https://api.triptocarbon.xyz/v1/footprint?activity=${distance}&activityType=miles&country=def&mode=${mode}`
     )
     .then(res => res.data)
     .catch(err => console.log(err))
 }
 
-router.post('/trip/', (req, res) => {
+router.post('/trip', (req, res) => {
   console.log(req.body)
   const { distance, mode } = req.body
   getCarbonPrint(distance, mode)

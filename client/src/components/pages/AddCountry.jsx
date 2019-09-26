@@ -23,10 +23,6 @@ export default function AddCountry(props) {
 			.getCarbon(distance, mode)
 			.then((result) => {
 				console.log('result', distance, mode, result);
-				// setState({
-				// 	distance: '',
-				// 	mode: ''
-				// });
 			})
 			.catch((err) => console.log(err));
 	}

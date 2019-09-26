@@ -36,16 +36,36 @@ export default {
   },
 
   // This method signs up and logs in the user
-  signup(userInfo) {
+
+  addUser(email, name, password, picture) {
+    const formData = new FormData()
+    formData.append('email', email)
+    formData.append('name', name)
+    formData.append('password', password)
+    formData.append('picture', picture)
     return service
-      .post('/signup', userInfo)
+      .post('/signup', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
       .then(res => {
-        // If we have localStorage.getItem('user') saved, the application will consider we are loggedin
         localStorage.setItem('user', JSON.stringify(res.data))
         return res.data
       })
       .catch(errHandler)
   },
+
+  // signup(userInfo) {
+  //   return service
+  //     .post('/signup', userInfo)
+  //     .then(res => {
+  //       // If we have localStorage.getItem('user') saved, the application will consider we are loggedin
+  //       localStorage.setItem('user', JSON.stringify(res.data))
+  //       return res.data
+  //     })
+  //     .catch(errHandler)
+  // },
 
   login(email, password) {
     return service
@@ -142,16 +162,35 @@ export default {
 
   addCountry(body) {
     return service
-      .post('/countries', body)
+      .post(`/trip`, { distance, mode })
       .then(res => res.data)
       .catch(errHandler)
   },
 
-  getSecret() {
+  //GOOGLE API
+  getTrip(origin, destination) {
     return service
-      .get('/secret')
+      .get(
+        `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${origin}&destinations=${destination}&key=${process.env.GOOGLE_KEY}`
+      )
+      .then()
+      .catch()
+  },
+
+  getTripTrain(origin, destination) {
+    return service
+      .get(
+        `https://maps.googleapis.com/maps/api/directions/json?origins=${origin}&destination=${destination}&transit_mode=train&key=${process.env.GOOGLE_KEY}`
+      )
+      .then()
+      .catch()
+  },
+
+  getProfile() {
+    return service
+      .get('/profile')
       .then(res => res.data)
-      .catch(errHandler)
+      .catch(err => console.log(err))
   },
 
   // addPicture(file) {
@@ -167,14 +206,11 @@ export default {
   //     .catch(errHandler)
   // },
 
-  addUser(email, name, password, picture) {
+  addPicture(file) {
     const formData = new FormData()
-    formData.append('email', email)
-    formData.append('name', name)
-    formData.append('password', password)
-    formData.append('picture', picture)
+    formData.append('picture', file)
     return service
-      .post('/signup', formData, {
+      .post('/profile', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

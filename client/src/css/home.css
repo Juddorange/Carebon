@@ -1,0 +1,17 @@
+.tripsAnswer {
+  display: flex;
+  flex-direction: column;
+}
+.oneAnswer {
+  display: flex;
+  background-color: grey;
+}
+
+.oneAnswer ul {
+  list-style-type: none;
+}
+
+.oneAnswer li {
+  display: inline;
+  margin: 0 20px;
+}

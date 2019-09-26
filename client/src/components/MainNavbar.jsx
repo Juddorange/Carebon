@@ -26,7 +26,7 @@ function MainNavbar(props) {
 				</NavLink>
 			)}
 			{api.isLoggedIn() && (
-				<NavLink className="link" to="/profile" onClick={handleLogoutClick}>
+				<NavLink className="link" to="/profile">
 					Profile
 				</NavLink>
 			)}
