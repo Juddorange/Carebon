@@ -183,5 +183,9 @@ export default {
 		};
 		console.log('new trip', newTrip);
 		return service.post('/saved-trip', newTrip).then((res) => res).catch((err) => console.log(err));
+	},
+
+	getSavedTrip() {
+		return service.get('/saved-trip').then((res) => res.data).catch((err) => console.log(err));
 	}
 };

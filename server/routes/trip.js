@@ -90,4 +90,8 @@ router.post('/saved-trip', isLoggedIn, (req, res) => {
 	Trip.create(newTrip).then((response) => res.send('SUCCEED!')).catch((err) => console.log(err));
 });
 
+router.get('/saved-trip', (req, res) => {
+	Trip.find().then((dbRes) => res.json(dbRes)).catch((err) => console.log(err));
+});
+
 module.exports = router;

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import api from '../../api';
 
 export default function Profile() {
+	//edit profile
 	const [ user, setUser ] = useState({
 		email: '',
 		name: '',
@@ -50,6 +51,13 @@ export default function Profile() {
 		}
 	}
 
+	//saved trips
+
+	const [ trip, setTrip ] = useState([]);
+	useEffect(() => {
+		api.getSavedTrip().then((res) => setTrip(res)).catch((err) => console.log(err));
+	}, []);
+
 	return (
 		<div className="profile">
 			<div className="profile_info">
@@ -88,12 +96,16 @@ export default function Profile() {
 			</div>
 			<div className="profile_trips">
 				<h1>Your trips</h1>
-				<ul>
-					<li />
-					<li />
-					<li />
-					<li />
-				</ul>
+				{trip.map((trips, i) => (
+					<ul key={i}>
+						<h2>Trip n° {[ i ]}</h2>
+						<li>Departure: {trips.departure}</li>
+						<li>Arrival: {trips.arrival}</li>
+						<li>Transport: {trips.transport}</li>
+						<li>Duration: {trips.duration}</li>
+						<li>Cabron footprint: {trips.carbon} kg</li>
+					</ul>
+				))}
 			</div>
 		</div>
 	);
