@@ -175,12 +175,12 @@ export default {
 	savedTrips(trip) {
 		console.log('trip', trip);
 		const newTrip = {
-			departure: trip[0].origin,
-			arrival: trip[0].destination,
-			transport: trip[0].mode,
-			duration: trip[0].time,
-			carbon: trip[0].carbon,
-			distance: trip[0].distance
+			departure: trip[trip.length - 1].origin,
+			arrival: trip[trip.length - 1].destination,
+			transport: trip[trip.length - 1].mode,
+			duration: trip[trip.length - 1].time,
+			carbon: trip[trip.length - 1].carbon,
+			distance: trip[trip.length - 1].distance
 		};
 		console.log('new trip', newTrip);
 		return service.post('/saved-trip', newTrip).then((res) => res).catch((err) => console.log(err));
