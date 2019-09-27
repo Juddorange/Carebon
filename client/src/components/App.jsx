@@ -39,31 +39,33 @@ export default function App() {
 
 	useEffect(
 		() => {
+			console.log('saved issu du user', savedTrip);
 			if (!savedTrip.length) return;
 			api
 				.savedTrips(savedTrip)
 				.then((res) => {
-					console.log('SAVED TRIP!!!', res);
+					console.log('is the trip saved?', res);
 				})
 				.catch((err) => console.log(err));
 		},
 		[ savedTrip ]
 	);
 
+	useEffect(() => {
+		api.getSavedTrip().then((res) => setSavedTrip([ ...savedTrip, res ])).catch((err) => console.log(err));
+	}, []);
+
 	function handlesaveTrip(i) {
-		setSavedTrip([
-			...savedTrip,
-			{
-				origin: trip.origin.toUpperCase(),
-				destination: trip.destination.toUpperCase(),
-				mode: trip.transports[i].mode.toUpperCase(),
-				time: trip.transports[i].time.toUpperCase(),
-				distance: trip.transports[i].distance,
-				carbon: trip.transports[i].carbon,
-				return: trip.return,
-				recurrence: 1
-			}
-		]);
+		setSavedTrip([ ...savedTrip ], {
+			origin: trip.origin.toUpperCase(),
+			destination: trip.destination.toUpperCase(),
+			mode: trip.transports[i].mode.toUpperCase(),
+			time: trip.transports[i].time.toUpperCase(),
+			distance: trip.transports[i].distance,
+			carbon: trip.transports[i].carbon,
+			return: trip.return,
+			recurrence: 1
+		});
 	}
 
 	function handleAddTrip(i) {}

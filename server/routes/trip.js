@@ -109,7 +109,11 @@ router.post('/saved-trip', isLoggedIn, (req, res) => {
 });
 
 router.get('/saved-trip', isLoggedIn, (req, res) => {
-	Trip.find({ userId: req.user._id }).then((dbRes) => res.json(dbRes)).catch((err) => console.log(err));
+	Trip.find({ userId: req.user._id })
+		.then((dbRes) => {
+			console.log(dbRes), res.json(dbRes);
+		})
+		.catch((err) => console.log(err));
 });
 
 module.exports = router;

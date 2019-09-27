@@ -182,7 +182,6 @@ export default {
 			carbon: trip[trip.length - 1].carbon,
 			distance: trip[trip.length - 1].distance
 		};
-		console.log('new trip', newTrip);
 		return service.post('/saved-trip', newTrip).then((res) => res).catch((err) => console.log(err));
 	},
 
