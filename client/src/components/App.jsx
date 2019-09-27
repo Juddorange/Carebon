@@ -16,6 +16,7 @@ export default function App() {
     destination: 'Lyon',
     transports: [],
     return: 'ONE WAY',
+    errorMsg: '',
   })
 
   function handleChange(event) {
@@ -29,7 +30,9 @@ export default function App() {
       .getEveryAnswer(trip.origin, trip.destination)
       .then(res => {
         console.log('res', res)
-        setTrip({ ...trip, transports: res })
+        if (res.err) {
+          setTrip({ ...trip, errorMsg: res.err })
+        } else setTrip({ ...trip, transports: res })
       })
       .catch(err => console.log(err))
   }
@@ -45,7 +48,7 @@ export default function App() {
     api
       .savedTrips(savedTrip)
       .then(res => {
-        console.log('is the trip saved?', res)
+        console.log('SAVED TRIP!!!', res)
       })
       .catch(err => console.log(err))
   }, [savedTrip])

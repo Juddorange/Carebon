@@ -2,9 +2,11 @@ import React from 'react'
 
 export default function Search(props) {
   let transports = props.trip.transports
+  console.log('Transports ', transports)
   return (
     <div className="Home">
       <h2>Where do you want to go?</h2>
+      <p>{props.trip.errorMsg}</p>
       <form action="" onSubmit={props.onSubmit}>
         Departure:{' '}
         <input
