@@ -3,7 +3,6 @@ import { Route, Switch } from 'react-router-dom';
 import MainNavbar from './MainNavbar';
 import Search from './pages/Search';
 import TripDetail from './pages/TripDetail';
-import AddCountry from './pages/AddCountry';
 import Profile from './pages/Profile';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -81,7 +80,6 @@ export default function App() {
 						/>
 					)}
 				/>
-				<Route path="/add-country" component={AddCountry} />
 				<Route path="/:trip-detail" component={TripDetail} />
 				<Route path="/signup" component={Signup} />
 				<Route path="/login" component={Login} />

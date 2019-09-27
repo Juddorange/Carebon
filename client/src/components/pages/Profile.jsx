@@ -52,42 +52,49 @@ export default function Profile() {
 
 	return (
 		<div className="profile">
-			<pre>
-				{'coucou'}
-				{JSON.stringify(user, null, 2)}
-			</pre>
-			<h1>Profile</h1>
-			<br />
-			<div className="profil_image">
-				<img style={{ height: '300px' }} src={user.picture} alt="img" />
-			</div>
-			<div>
-				<label>Name : </label>
-				<input type="text" name="name" value={user.name} onChange={handleOnChange} />
-				<button onClick={handleClickButton} className="edit-btn">
-					Edit
-				</button>
+			<div className="profile_info">
+				<h1>Profile</h1>
 				<br />
-				<label>Email : </label>
-				<input type="text" name="email" value={user.email} onChange={handleOnChange} />
-				<button onClick={handleClickButton} className="edit-btn">
-					Edit
-				</button>
-				<br />
-				{/* <label>Password : </label>
+				<div className="profil_image">
+					<img style={{ height: '300px' }} src={user.picture} alt="img" />
+				</div>
+				<div>
+					<label>Name : </label>
+					<input type="text" name="name" value={user.name} onChange={handleOnChange} />
+					<button onClick={handleClickButton} className="edit-btn">
+						Edit
+					</button>
+					<br />
+					<label>Email : </label>
+					<input type="text" name="email" value={user.email} onChange={handleOnChange} />
+					<button onClick={handleClickButton} className="edit-btn">
+						Edit
+					</button>
+					<br />
+					{/* <label>Password : </label>
 				<input type="password" name="password" value={user.password} onChange={handleOnChange} />
 				<button onClick={handleClickButton} className="edit-btn">
 					Edit
 				</button>
 				<br /> */}
-				<label>Profile picture : </label>
-				<input type="file" name="picture" onChange={handleOnChange} />
-				<button onClick={handleClickButton} className="edit-btn">
-					Edit
-				</button>
-				<br />
+					<label>Profile picture : </label>
+					<input type="file" name="picture" onChange={handleOnChange} />
+					<button onClick={handleClickButton} className="edit-btn">
+						Edit
+					</button>
+					<br />
+				</div>
+				<button>Delete account</button>
 			</div>
-			<button>Delete account</button>
+			<div className="profile_trips">
+				<h1>Your trips</h1>
+				<ul>
+					<li />
+					<li />
+					<li />
+					<li />
+				</ul>
+			</div>
 		</div>
 	);
 }

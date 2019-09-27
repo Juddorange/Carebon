@@ -12,9 +12,6 @@ function MainNavbar(props) {
 			<NavLink className="link" to="/" exact>
 				Home
 			</NavLink>
-			<NavLink className="link" to="/add-country">
-				Add country
-			</NavLink>
 			{!api.isLoggedIn() && (
 				<NavLink className="link" to="/signup">
 					Signup
