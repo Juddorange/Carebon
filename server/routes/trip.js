@@ -37,8 +37,9 @@ function handleGoogleResponse(req, res) {
   let driving = getGoogleTrip(origin, destination, 'driving', transitMode)
   let walking = getGoogleTrip(origin, destination, 'walking', transitMode)
   let training = getGoogleTrip(origin, destination, 'transit', 'train')
+  let cycling = getGoogleTrip(origin, destination, 'bicycling', transitMode)
 
-  return Promise.all([driving, walking, training])
+  return Promise.all([driving, walking, training, cycling])
 }
 
 router.post('/google-trip', (req, res, next) => {
@@ -59,6 +60,12 @@ router.post('/google-trip', (req, res, next) => {
           response[2].data.routes[0].legs[0].distance.value / 1609.344
         ),
         time: response[2].data.routes[0].legs[0].duration,
+      }
+      let bicycle = {
+        distance: Math.floor(
+          response[3].data.routes[0].legs[0].distance.value / 1609.344
+        ),
+        time: response[3].data.routes[0].legs[0].duration,
       }
 
       let railCarbon = getCarbonPrint(transitRail.distance, 'transitRail')
