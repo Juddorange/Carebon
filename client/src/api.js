@@ -23,8 +23,7 @@ const errHandler = err => {
 export default {
   service: service,
 
-  // This method is synchronous and returns true or false
-  // To know if the user is connected, we just check if we have a value for localStorage.getItem('user')
+  //SIGNUP / LOGIN
   isLoggedIn() {
     return localStorage.getItem('user') != null
   },
@@ -86,7 +85,7 @@ export default {
     return service.get('/logout')
   },
 
-  // This is an example on how to use this method in a different file
+  // get carbon api
   getCarbon(distance, mode) {
     return service
       .post(`/trip`, { distance, mode })
@@ -178,32 +177,29 @@ export default {
       .then(res => res.data)
       .catch(errHandler)
   },
-
   // Save Trip
 
-  // getSavedTrip() {
-  //   return service
-  //     .get('/all-saved-trips')
-  //     .then(res => console.log(res))
-  //     .catch(err => console.log(err))
-  // },
-
   savedTrips(trip) {
-    console.log(trip)
+    console.log('trip', trip)
     const newTrip = {
-      departure: trip[trip.length - 1].origin,
-      arrival: trip[trip.length - 1].destination,
-      transport: trip[trip.length - 1].mode,
-      duration: trip[trip.length - 1].time,
-      carbon: trip[trip.length - 1].carbon,
-      distance: trip[trip.length - 1].distance,
-      returnTrip: trip[trip.length - 1].return,
-      recurrence: trip[trip.length - 1].recurrence,
+      departure: trip[0].origin,
+      arrival: trip[0].destination,
+      transport: trip[0].mode,
+      duration: trip[0].time,
+      carbon: trip[0].carbon,
+      distance: trip[0].distance,
     }
     console.log('new trip', newTrip)
     return service
       .post('/saved-trip', newTrip)
       .then(res => res)
+      .catch(err => console.log(err))
+  },
+
+  getSavedTrip() {
+    return service
+      .get('/saved-trip')
+      .then(res => res.data)
       .catch(err => console.log(err))
   },
 }
