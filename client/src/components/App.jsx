@@ -35,11 +35,13 @@ export default function App() {
   }
 
   //state saved user trips
-  const [savedTrip, setSavedTrip] = useState([])
+  const [savedTrip, setSavedTrip] = useState({
+    previousSaved: [],
+    newSaved: [],
+  })
 
   useEffect(() => {
-    console.log('saved issu du user', savedTrip)
-    if (!savedTrip.length) return
+    if (!savedTrip.newSaved.length) return
     api
       .savedTrips(savedTrip)
       .then(res => {
@@ -49,22 +51,31 @@ export default function App() {
   }, [savedTrip])
 
   useEffect(() => {
+    if (!api.isLoggedIn()) return
     api
       .getSavedTrip()
-      .then(res => setSavedTrip([...savedTrip, res]))
+      .then(res => {
+        setSavedTrip({ ...savedTrip, previousSaved: res })
+      })
       .catch(err => console.log(err))
   }, [])
 
   function handlesaveTrip(i) {
-    setSavedTrip([...savedTrip], {
-      origin: trip.origin.toUpperCase(),
-      destination: trip.destination.toUpperCase(),
-      mode: trip.transports[i].mode.toUpperCase(),
-      time: trip.transports[i].time.toUpperCase(),
-      distance: trip.transports[i].distance,
-      carbon: trip.transports[i].carbon,
-      return: trip.return,
-      recurrence: 1,
+    if (!api.isLoggedIn()) return
+    setSavedTrip({
+      ...savedTrip,
+      newSaved: [
+        {
+          origin: trip.origin.toUpperCase(),
+          destination: trip.destination.toUpperCase(),
+          mode: trip.transports[i].mode.toUpperCase(),
+          time: trip.transports[i].time.toUpperCase(),
+          distance: trip.transports[i].distance,
+          carbon: trip.transports[i].carbon,
+          return: trip.return,
+          recurrence: 1,
+        },
+      ],
     })
   }
 

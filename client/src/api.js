@@ -180,18 +180,21 @@ export default {
   // Save Trip
 
   savedTrips(trip) {
-    console.log('trip', trip)
+    let newSave = trip.newSaved
     const newTrip = {
-      departure: trip[trip.length - 1].origin,
-      arrival: trip[trip.length - 1].destination,
-      transport: trip[trip.length - 1].mode,
-      duration: trip[trip.length - 1].time,
-      carbon: trip[trip.length - 1].carbon,
-      distance: trip[trip.length - 1].distance,
+      departure: newSave[newSave.length - 1].origin,
+      arrival: newSave[newSave.length - 1].destination,
+      transport: newSave[newSave.length - 1].mode,
+      duration: newSave[newSave.length - 1].time,
+      carbon: newSave[newSave.length - 1].carbon,
+      distance: newSave[newSave.length - 1].distance,
+      returnTrip: newSave[newSave.length - 1].return,
+      recurrence: newSave[newSave.length - 1].recurrence,
     }
+    console.log(newTrip)
     return service
       .post('/saved-trip', newTrip)
-      .then(res => res)
+      .then(res => res.data)
       .catch(err => console.log(err))
   },
 
