@@ -40,7 +40,11 @@ export default function Search(props) {
         {transports
           .sort((m1, m2) => {
             if (m1.carbon > m2.carbon) return 1
-            return -1
+            else if (m1.carbon < m2.carbon) return -1
+            else {
+              if (m1.time > m2.time) return 1
+              if (m1.time < m2.time) return -1
+            }
           })
           .map((mode, i) => (
             <div key={i}>
