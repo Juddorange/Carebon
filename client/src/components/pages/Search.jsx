@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Home(props) {
+export default function Search(props) {
   let transports = props.trip.transports
   return (
     <div className="Home">
@@ -20,6 +20,17 @@ export default function Home(props) {
           value={props.trip.destination}
           onChange={props.onChange}
         />
+        <select
+          name="return"
+          value={props.trip.return}
+          id="return"
+          onChange={props.onChange}
+          required
+        >
+          <option value="">Select an option</option>
+          <option value="ONE WAY">One Way</option>
+          <option value="RETURN TRIP">Return Trip</option>
+        </select>
         <button>Go!</button>
       </form>
       <pre>{JSON.stringify(props.trip)}</pre>
@@ -37,8 +48,13 @@ export default function Home(props) {
                 <li>{mode.time}</li>
                 <li>Carbon footprint: {mode.carbon} kg</li>
                 <li>
-                  <button onClick={() => props.onClick(i)}>
+                  <button onClick={() => props.onClickSave(i)}>
                     Save this itinerary
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => props.onClickAdd(i)}>
+                    Add a trip
                   </button>
                 </li>
               </ul>

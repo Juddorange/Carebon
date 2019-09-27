@@ -13,9 +13,10 @@ import api from './../api'
 export default function App() {
   //state trip
   const [trip, setTrip] = useState({
-    origin: '',
-    destination: '',
+    origin: 'Paris',
+    destination: 'Lyon',
     transports: [],
+    return: 'ONE WAY',
   })
 
   function handleChange(event) {
@@ -51,15 +52,19 @@ export default function App() {
     setSavedTrip([
       ...savedTrip,
       {
-        origin: trip.origin,
-        destination: trip.destination,
-        mode: trip.transports[i].mode,
-        time: trip.transports[i].time,
+        origin: trip.origin.toUpperCase(),
+        destination: trip.destination.toUpperCase(),
+        mode: trip.transports[i].mode.toUpperCase(),
+        time: trip.transports[i].time.toUpperCase(),
         distance: trip.transports[i].distance,
         carbon: trip.transports[i].carbon,
+        return: trip.return,
+        recurrence: 1,
       },
     ])
   }
+
+  function handleAddTrip(i) {}
 
   return (
     <div className="App">
@@ -74,7 +79,8 @@ export default function App() {
               savedTrip={savedTrip}
               onChange={handleChange}
               onSubmit={handleSubmit}
-              onClick={handlesaveTrip}
+              onClickSave={handlesaveTrip}
+              onClickAdd={handleAddTrip}
             />
           )}
         />

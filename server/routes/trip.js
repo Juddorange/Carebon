@@ -85,7 +85,16 @@ router.post('/google-trip', (req, res, next) => {
 //saved trip
 
 router.post('/saved-trip', isLoggedIn, (req, res) => {
-  const { departure, arrival, transport, duration, carbon, distance } = req.body
+  const {
+    departure,
+    arrival,
+    transport,
+    duration,
+    carbon,
+    distance,
+    returnTrip,
+    recurrence,
+  } = req.body
   const newTrip = {
     departure,
     arrival,
@@ -93,11 +102,29 @@ router.post('/saved-trip', isLoggedIn, (req, res) => {
     duration,
     carbon,
     distance,
+    returnTrip,
+    recurrence,
   }
   newTrip.userId = req.user._id
 
-  Trip.create(newTrip)
-    .then(response => res.send('SUCCEED!'))
+  Trip.findOne({
+    $and: [
+      { departure: newTrip.departure },
+      { arrival: newTrip.arrival },
+      { transport: newTrip.transport },
+      { returnTrip: newTrip.returnTrip },
+      { userId: req.user._id },
+    ],
+  })
+    .then(dbRes => {
+      if (!dbRes) {
+        Trip.create(newTrip)
+          .then(response => res.send('SUCCEED!'))
+          .catch(err => console.log(err))
+      } else {
+        res.json('you already have this trip register')
+      }
+    })
     .catch(err => console.log(err))
 })
 
