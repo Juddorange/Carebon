@@ -41,40 +41,49 @@ function handleGoogleResponse(req, res) {
 router.post('/google-trip', (req, res, next) => {
   handleGoogleResponse(req, res)
     .then(response => {
-      let anyCar = {
-        mode: 'Car',
-        distance: Math.floor(
-          response[0].data.routes[0].legs[0].distance.value / 1609.344
-        ),
-        time: response[0].data.routes[0].legs[0].duration.text,
-        carbon: 0,
-      }
-      let foot = {
-        mode: 'Walking',
-        distance: Math.floor(
-          response[1].data.routes[0].legs[0].distance.value / 1000
-        ),
-        time: response[1].data.routes[0].legs[0].duration.text,
-        carbon: 0,
-      }
-      let transitRail = {
-        mode: 'Train',
-        distance: Math.floor(
-          response[2].data.routes[0].legs[0].distance.value / 1609.344
-        ),
-        time: response[2].data.routes[0].legs[0].duration.text,
-        carbon: 0,
-      }
-      let bicycle = {
-        distance: Math.floor(
-          response[3].data.routes[0].legs[0].distance.value / 1609.344
-        ),
-        time: response[3].data.routes[0].legs[0].duration,
-      }
+      let anyCar = response[0].data.routes
+        ? {
+            mode: 'Car',
+            distance: Math.floor(
+              response[0].data.routes[0].legs[0].distance.value / 1609.344
+            ),
+            time: response[0].data.routes[0].legs[0].duration.text,
+            carbon: 0,
+          }
+        : { error: 'No route found' }
+      let foot = response[1].data.routes
+        ? {
+            mode: 'Walking',
+            distance: Math.floor(
+              response[1].data.routes[0].legs[0].distance.value / 1000
+            ),
+            time: response[1].data.routes[0].legs[0].duration.text,
+            carbon: 0,
+          }
+        : { error: 'No route found' }
+      let transitRail = response[2].data.routes
+        ? {
+            mode: 'Train',
+            distance: Math.floor(
+              response[2].data.routes[0].legs[0].distance.value / 1609.344
+            ),
+            time: response[2].data.routes[0].legs[0].duration.text,
+            carbon: 0,
+          }
+        : { error: 'No route found' }
+      let bicycle = response[3].data.routes
+        ? {
+            distance: Math.floor(
+              response[3].data.routes[0].legs[0].distance.value / 1609.344
+            ),
+            time: response[3].data.routes[0].legs[0].duration,
+          }
+        : { error: 'No route found' }
+      let railCarbon, carCarbon
+      if (!transitRail.error)
+        railCarbon = getCarbonPrint(transitRail.distance, 'transitRail')
+      if (!anyCar.error) carCarbon = getCarbonPrint(anyCar.distance, 'anyCar')
 
-      let railCarbon = getCarbonPrint(transitRail.distance, 'transitRail')
-      let carCarbon = getCarbonPrint(anyCar.distance, 'anyCar')
-      // let footCarbon = 'not much'
       Promise.all([railCarbon, carCarbon]).then(value => {
         transitRail.carbon = Number(value[0].data.carbonFootprint)
         anyCar.carbon = Number(value[1].data.carbonFootprint)
