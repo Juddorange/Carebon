@@ -181,12 +181,12 @@ export default {
 
   // Save Trip
 
-  getSavedTrip() {
-    return service
-      .get('/all-saved-trips')
-      .then(res => console.log(res))
-      .catch(err => console.log(err))
-  },
+  // getSavedTrip() {
+  //   return service
+  //     .get('/all-saved-trips')
+  //     .then(res => console.log(res))
+  //     .catch(err => console.log(err))
+  // },
 
   savedTrips(trip) {
     console.log(trip)
