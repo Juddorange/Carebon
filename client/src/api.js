@@ -96,7 +96,7 @@ export default {
 				origin,
 				destination
 			})
-			.then((res) => console.log(res))
+			.then((res) => res.data)
 			.catch((err) => console.log(err));
 	},
 
