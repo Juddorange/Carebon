@@ -51,9 +51,9 @@ export default function App() {
 		[ savedTrip ]
 	);
 
-	useEffect(() => {
-		api.getSavedTrip().then((res) => setSavedTrip([ ...savedTrip, res ])).catch((err) => console.log(err));
-	}, []);
+	// useEffect(() => {
+	// 	api.getSavedTrip().then((res) => setSavedTrip([ ...savedTrip, res ])).catch((err) => console.log(err));
+	// }, []);
 
 	function handlesaveTrip(i) {
 		setSavedTrip([ ...savedTrip ], {
