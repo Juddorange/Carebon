@@ -1,27 +1,86 @@
 .profile {
   display: flex;
+  width: 100%;
+  height: 100vh;
+  background-color: rgb(247, 249, 249)
 }
 
 .profile_trips ul{
   list-style-type: none;
 }
 
+.profile_info{
+  background-color: #fecc46;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin-right: 20px;
+  width: 500px;
+  padding-left: 15px;
+  box-shadow: 5px 0px 6px -4px #602200;
+}
+
 .trip_details{
   display: flex;
+  flex-wrap: wrap;
 }
 
 .edit-btn {
-  border-radius: 10px;
-  font-size: 15px;
-  padding: 5px 35px;
+  background-color: #fecc46;
+  padding: 5px;
+  border: none;
 }
 
 .input_profile{
-  padding: 5px;
-  margin-right: 20px;
-  margin-bottom: 20px;
+  border-radius: 15px;
+  border: none;
+  font-size: 15px;
+  width: 45%;
+  padding: 10px 20px;;
+  margin: 0 20px;
+  text-align: center;
+  background-color: #fa990e;
+  color: white
 }
 
 .profile_detail_info {
   margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.title_detail{
+  color: #fecc46
+}
+
+.fas.fa-pencil-alt{
+  color: #fa990e;
+  font-size: 25px;
+}
+
+.btn-delete{
+  border-radius: 20px;
+  border: none;
+  color: white;
+  font-size: 20px;
+  background-color: #b44a22;
+  padding: 25px;
+}
+
+.edit_items{
+  display: flex;
+  margin-bottom: 20px;
+  align-items: center;
+  color: white;
+  font-size: 20px;
+}
+
+.profile_image{
+  display: flex;
+  border-radius: 50%;
+  justify-content: center;
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
 }

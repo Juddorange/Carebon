@@ -36,4 +36,8 @@ router.put('/profile/updatePicture', uploader.single('picture'), (req, res) => {
 		.catch((err) => console.log(err));
 });
 
+router.delete('/profile/deleteAccount', (req, res) => {
+	User.findOneAndRemove({ email: req.user.email }).then((dbRes) => res.json(dbRes)).catch((err) => console.log(err));
+});
+
 module.exports = router;

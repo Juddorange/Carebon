@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Bar } from 'react-chartjs-2';
 import api from '../../api';
 
-export default function Profile() {
+export default function Profile(props) {
 	//edit profile
 	const [ user, setUser ] = useState({
 		email: '',
@@ -34,22 +33,34 @@ export default function Profile() {
 
 	function handleClickButton(e) {
 		e.preventDefault();
-		let name = e.target.previousSibling.getAttribute('name');
+		// e.target.parentElement.previousSibling.getAttribute('name')
+		let name = e.target.parentElement.parentElement.childNodes[1].getAttribute('name');
 		if (name === 'name') {
 			api
 				.updateProfile('name', user.name)
-				.then((res) => setUser(...user, user.name))
+				.then((res) => setUser({ ...user, name: user.name }))
 				.catch((err) => console.log(err));
 		}
+
 		if (name === 'email') {
 			api
 				.updateProfile('email', user.email)
-				.then((res) => setUser(...user, user.email))
+				.then((res) => setUser({ ...user, email: user.email }))
 				.catch((err) => console.log(err));
 		}
 		if (name === 'picture') {
 			api.updatePicture(user.pictureToUpdate).then((res) => setUser(res)).catch((err) => console.log(err));
 		}
+	}
+
+	//delete profile
+	function handleDelete() {
+		api
+			.deleteProfile()
+			.then((res) => {
+				props.history.push('/signup');
+			})
+			.catch((err) => console.log(err));
 	}
 
 	//saved trips
@@ -59,131 +70,93 @@ export default function Profile() {
 		api.getSavedTrip().then((res) => setTrip(res)).catch((err) => console.log(err));
 	}, []);
 
-	const [ percentage, setpercentage ] = useState(1);
-	const [ data, setData ] = useState([]);
-
-	useEffect(
-		() => {
-			setpercentage(80);
-
-			setData({
-				labels: [ 'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange' ],
-				datasets: [
-					{
-						label: '# of Votes',
-						data: [ 12, 19, 3, 5, 2, 3 ],
-						backgroundColor: [
-							'rgba(255, 99, 132, 0.2)',
-							'rgba(54, 162, 235, 0.2)',
-							'rgba(255, 206, 86, 0.2)',
-							'rgba(75, 192, 192, 0.2)',
-							'rgba(153, 102, 255, 0.2)',
-							'rgba(255, 159, 64, 0.2)'
-						],
-						borderColor: [
-							'rgba(255, 99, 132, 1)',
-							'rgba(54, 162, 235, 1)',
-							'rgba(255, 206, 86, 1)',
-							'rgba(75, 192, 192, 1)',
-							'rgba(153, 102, 255, 1)',
-							'rgba(255, 159, 64, 1)'
-						],
-						borderWidth: 1
-					}
-				]
-			});
-		},
-		[ setpercentage, setData ]
-	);
-
 	return (
 		<div className="profile">
 			<div className="profile_info">
 				<h1>Profile</h1>
 				<br />
-				<div className="profil_image">
-					<img style={{ height: '300px' }} src={user.picture} alt="img" />
+				<div className="profile_image">
+					<img style={{ width: '100%' }} src={user.picture} alt="img" />
 				</div>
 				<div className="profile_detail_info">
-					<label>Name </label>
-					<input
-						className="input_profile"
-						type="text"
-						name="name"
-						value={user.name}
-						onChange={handleOnChange}
-					/>
-					<button onClick={handleClickButton} className="edit-btn">
-						Edit
-					</button>
-					<br />
-					<label>Email </label>
-					<input
-						className="input_profile"
-						type="text"
-						name="email"
-						value={user.email}
-						onChange={handleOnChange}
-					/>
-					<button onClick={handleClickButton} className="edit-btn">
-						Edit
-					</button>
-					<br />
-					<label>Profile picture </label>
-					<input className="input_profile" type="file" name="picture" onChange={handleOnChange} />
-					<button onClick={handleClickButton} className="edit-btn">
-						Edit
-					</button>
-					<br />
+					<div className="edit_items">
+						<label>
+							<strong>Name </strong>
+						</label>
+						<input
+							className="input_profile"
+							type="text"
+							name="name"
+							value={user.name}
+							onChange={handleOnChange}
+						/>
+						<button onClick={handleClickButton} className="edit-btn">
+							<i className="fas fa-pencil-alt" />
+						</button>
+					</div>
+					<div className="edit_items">
+						<label>
+							<strong>Email</strong>
+						</label>
+						<input
+							className="input_profile"
+							type="text"
+							name="email"
+							value={user.email}
+							onChange={handleOnChange}
+						/>
+						<button onClick={handleClickButton} className="edit-btn">
+							<i className="fas fa-pencil-alt" />
+						</button>
+					</div>
+					<div className="edit_items">
+						<label>
+							<strong>Profile picture</strong>
+						</label>
+						<input className="input_profile" type="file" name="picture" onChange={handleOnChange} />{' '}
+						<button onClick={handleClickButton} className="edit-btn">
+							<i className="fas fa-pencil-alt" />
+						</button>
+					</div>
 				</div>
-				<button className="edit-btn">Delete account</button>
+				<button className="btn-delete" onClick={handleDelete}>
+					Delete account
+				</button>
 			</div>
 			<div className="profile_trips">
-				<h1>Your trips</h1>
-				<div classname="trip_details">
+				<h1 style={{ textAlign: 'center' }}>Your trips</h1>
+				<div className="trip_details">
 					{trip.map((trips, i) => (
 						<ul key={i}>
 							<h2>Trip n° {[ i + 1 ]}</h2>
 
 							<li>
-								<strong>Departure: </strong> {trips.departure}
+								<strong className="title_detail">Departure : </strong> {trips.departure}
 							</li>
 							<li>
-								<strong>Arrival: </strong>
+								<strong className="title_detail">Arrival : </strong>
 								{trips.arrival}
 							</li>
 							<li>
-								<strong>Transport: </strong>
+								<strong className="title_detail">Transport : </strong>
 								{trips.transport}
 							</li>
 							<li>
-								<strong>Duration: </strong>
+								<strong className="title_detail">Duration : </strong>
 								{trips.duration}
 							</li>
 							<li>
-								<strong>Distance: </strong>
+								<strong className="title_detail">Distance : </strong>
 								{trips.distance} km
 							</li>
 							<li>
-								<strong>Cabron footprint: </strong>
+								<strong className="title_detail">Cabron footprint : </strong>
 								{trips.carbon} kg
 							</li>
 						</ul>
 					))}
 				</div>
 			</div>
-			{/* <div>
-				<div>
-					<ErrorChart data={data} />
-				</div>
-			</div> */}
 		</div>
 	);
 }
-// const ErrorChart = ({ data }) => {
-// 	return (
-// 		<div>
-// 			<Bar data={data} />
-// 		</div>
-// 	);
-// };
