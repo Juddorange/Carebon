@@ -31,21 +31,33 @@ export default function Search(props) {
           onChange={props.onChange}
           placeholder="Destination"
         />
-        <select
-          name="return"
-          value={props.trip.return}
-          id="return"
-          onChange={props.onChange}
-          required
-          className="selectInput"
-        >
-          <option value="">Type of trip</option>
-          <option value="ONE WAY">One Way</option>
-          <option value="RETURN TRIP">Return Trip</option>
-        </select>
+        <div className="checkbox">
+          <label className="labelCheckbox">Return Trip</label>
+          <input
+            type="checkbox"
+            name="return"
+            value={props.trip.return}
+            id="return"
+            onChange={props.onChange}
+          />
+        </div>
         <button className="searchBtn">GO</button>
       </form>
       <div className="tripsAnswer">
+        {!transports.length ? (
+          ''
+        ) : (
+          <div className="firstAnswer">
+            <ul>
+              <li className="iconLi">MODE</li>
+              <li className="textLi">DISTANCE</li>
+              <li className="textLi">DURATION</li>
+              <li className="textLi">CARBON FOOTPRINT</li>
+              <li className="btnLi"></li>
+              <li className="btnLi"></li>
+            </ul>
+          </div>
+        )}
         {transports
           .sort((m1, m2) => {
             if (m1.carbon > m2.carbon) return 1
@@ -58,9 +70,9 @@ export default function Search(props) {
           .map((mode, i) =>
             !mode.error ? (
               <div className="answer" key={i}>
-                {props.trip.return === 'RETURN TRIP' ? (
+                {props.trip.return === true ? (
                   <ul>
-                    <li>
+                    <li className="iconLi">
                       {(mode.mode === 'Car' && <i class="fas fa-car"></i>) ||
                         (mode.mode === 'Train' && (
                           <i class="fas fa-train"></i>
@@ -72,10 +84,10 @@ export default function Search(props) {
                           <i class="fas fa-walking"></i>
                         ))}
                     </li>
-                    <li>{mode.distance * 2} km</li>
-                    <li>{timeConvert(mode.time * 2)}</li>
-                    <li>Carbon footprint: {mode.carbon * 2} kg</li>
-                    <li>
+                    <li className="textLi">{mode.distance * 2} km</li>
+                    <li className="textLi">{timeConvert(mode.time * 2)}</li>
+                    <li className="textLi">{mode.carbon * 2} kg</li>
+                    <li className="btnLi">
                       <button
                         className="saveTrip"
                         onClick={() => props.onClickSave(i)}
@@ -83,13 +95,13 @@ export default function Search(props) {
                         <i class="far fa-bookmark"></i>
                       </button>
                     </li>
-                    <li>
+                    <li className="btnLi">
                       <button className="addTrip">Add</button>
                     </li>
                   </ul>
                 ) : (
                   <ul>
-                    <li>
+                    <li className="iconLi">
                       {(mode.mode === 'Car' && <i class="fas fa-car"></i>) ||
                         (mode.mode === 'Train' && (
                           <i class="fas fa-train"></i>
@@ -101,10 +113,10 @@ export default function Search(props) {
                           <i class="fas fa-walking"></i>
                         ))}
                     </li>
-                    <li>{mode.distance} km</li>
-                    <li>{timeConvert(mode.time)}</li>
-                    <li>Carbon footprint: {mode.carbon} kg</li>
-                    <li>
+                    <li className="textLi">{mode.distance} km</li>
+                    <li className="textLi">{timeConvert(mode.time)}</li>
+                    <li className="textLi">{mode.carbon} kg</li>
+                    <li className="btnLi">
                       <button
                         className="saveTrip"
                         onClick={() => props.onClickSave(i)}
@@ -112,7 +124,7 @@ export default function Search(props) {
                         <i class="far fa-bookmark"></i>
                       </button>
                     </li>
-                    <li>
+                    <li className="btnLi">
                       <button className="addTrip">0</button>
                     </li>
                   </ul>

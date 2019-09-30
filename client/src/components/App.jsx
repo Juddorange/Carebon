@@ -16,13 +16,16 @@ export default function App() {
     origin: '',
     destination: '',
     transports: [],
-    return: '',
+    return: true,
     errorMsg: '',
   })
 
   function handleChange(event) {
-    event.preventDefault()
-    setTrip({ ...trip, [event.target.name]: event.target.value })
+    let value =
+      event.target.type === 'checkbox'
+        ? event.target.checked
+        : event.target.value
+    setTrip({ ...trip, [event.target.name]: value })
   }
 
   function handleSubmit(event) {
