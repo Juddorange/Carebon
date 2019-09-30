@@ -141,6 +141,7 @@ export default function Profile() {
 						<li>Arrival: {trips.arrival}</li>
 						<li>Transport: {trips.transport}</li>
 						<li>Duration: {trips.duration}</li>
+						<li>Distance: {trips.distance} km</li>
 						<li>Cabron footprint: {trips.carbon} kg</li>
 					</ul>
 				))}
