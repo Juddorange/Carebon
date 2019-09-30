@@ -1,8 +1,23 @@
 @import url('./css/home.css');
 @import url('./css/navbar.css');
 @import url('./css/profile.css');
+@import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
 
-body{
+/*color palette
+white: #f7f9f9
+box-shadow: #e0e0e0;
+light blue: #a5dbe5
+box-shadow: #80acb2;
+orange: #fa990e
+box-shadow: #b58f3c;
+yellow: #fecc46
+light green: #5b8d27
+dark green: #114a0b
+grey font: #1e1e1e
+*/
+
+body {
   margin: 0;
   box-sizing: border-box;
+  font-family: Raleway;
 }
