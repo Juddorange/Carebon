@@ -25,7 +25,7 @@ export default function LineCarbonGraph(props) {
         pointRadius: 5,
         pointHitRadius: 50,
         data: props.data,
-        options: props.options,
+        options: { maintainAspectRatio: false, responsive: true },
       },
     ],
   }

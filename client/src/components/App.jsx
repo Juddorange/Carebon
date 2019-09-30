@@ -73,7 +73,7 @@ export default function App() {
           origin: trip.origin.toUpperCase(),
           destination: trip.destination.toUpperCase(),
           mode: trip.transports[i].mode.toUpperCase(),
-          time: trip.transports[i].time.toUpperCase(),
+          time: trip.transports[i].time,
           distance: trip.transports[i].distance,
           carbon: trip.transports[i].carbon,
           return: trip.return,
