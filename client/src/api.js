@@ -187,9 +187,11 @@ export default {
       duration: newSave[newSave.length - 1].time,
       carbon: newSave[newSave.length - 1].carbon,
       distance: newSave[newSave.length - 1].distance,
-      returnTrip: newSave[newSave.length - 1].return,
       recurrence: newSave[newSave.length - 1].recurrence,
     }
+    if (newSave[newSave.length - 1].return === false)
+      newTrip.returnTrip = 'ONE WAY'
+    else newTrip.returnTrip = 'RETURN TRIP'
     console.log(newTrip)
     return service
       .post('/saved-trip', newTrip)
