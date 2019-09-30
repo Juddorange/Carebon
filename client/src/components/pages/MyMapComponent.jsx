@@ -33,14 +33,14 @@ export default function Map(props) {
   useEffect(() => {
     const directionsService = new google.maps.DirectionsService()
 
-    const origin = 'Nantes'
-    const destination = 'Brest'
+    const origin = 'la marne 44270'
+    const destination = 'machecoul'
 
     directionsService.route(
       {
         origin: origin,
         destination: destination,
-        travelMode: google.maps.TravelMode.TRANSIT,
+        travelMode: google.maps.TravelMode.DRIVING,
       },
       (result, status) => {
         if (status === google.maps.DirectionsStatus.OK) {

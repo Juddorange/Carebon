@@ -6,8 +6,8 @@ import Map from './MyMapComponent'
 // import './style.css'
 
 export default function Test() {
-  let a = 'Paris'
-  let b = 'Lyon'
+  let a = 'machecoul'
+  let b = 'la marne'
   function handleClick() {
     api.getEveryAnswer(a, b)
   }
