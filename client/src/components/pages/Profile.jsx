@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Bar } from 'react-chartjs-2'
 import api from '../../api'
+import LineCarbonGraph from './LineCarbonGraph'
+import TripsDoughnut from './TripsDoughnut'
 
 export default function Profile() {
   //edit profile
@@ -99,6 +101,59 @@ export default function Profile() {
     })
   }, [setpercentage, setData])
 
+      .then(res => {
+        console.log(res)
+        setTrip(res)
+      })
+      .catch(err => console.log(err))
+  }, [])
+
+  //fake saved trips coz not working
+  const tripette1 = {
+    departure: 'Paris',
+    arrival: 'Brest',
+    transport: 'train',
+    duration: '4 hours 54 mins',
+    carbon: 64.22,
+    distance: 394,
+    returnTrip: 'ONE WAY',
+    recurrence: 2,
+  }
+  const tripette2 = {
+    departure: 'Paris',
+    arrival: 'Lyon',
+    transport: 'car',
+    duration: '4 hours 54 mins',
+    carbon: 130.25,
+    distance: 502,
+    returnTrip: 'ONE WAY',
+    recurrence: 1,
+  }
+  const tripette3 = {
+    departure: 'Paris',
+    arrival: 'Lyon',
+    transport: 'car',
+    duration: '4 hours 54 mins',
+    carbon: 1300,
+    distance: 502,
+    returnTrip: 'ONE WAY',
+    recurrence: 1,
+  }
+
+  const tripettes = [tripette1, tripette2, tripette3]
+
+  let datounes = []
+  let carbon = 0
+  for (let data of tripettes) {
+    carbon += data.carbon
+    datounes.push(carbon)
+  }
+
+  tripettes.map(trip => trip.carbon)
+  let labelounes = []
+  for (let i = 1; i <= tripettes.length; i++) {
+    labelounes.push(i)
+  }
   return (
     <div className="profile">
       <div className="profile_info">
@@ -150,6 +205,7 @@ export default function Profile() {
         {trip.map((trips, i) => (
           <ul key={i}>
             <h2>Trip n° {[i + 1]}</h2>
+            {/* <h2>Trip n° {[i]}</h2> */}
             <li>Departure: {trips.departure}</li>
             <li>Arrival: {trips.arrival}</li>
             <li>Transport: {trips.transport}</li>
@@ -158,18 +214,20 @@ export default function Profile() {
           </ul>
         ))}
       </div>
-      <div>
-        <div>
-          <ErrorChart data={data} />
-        </div>
-      </div>
-    </div>
-  )
-}
-const ErrorChart = ({ data }) => {
-  return (
-    <div>
-      <Bar data={data} />
+      <LineCarbonGraph
+        width={'50vw'}
+        height={'50vh'}
+        options={{ maintainAspectRatio: false, responsive: true }}
+        labels={labelounes}
+        data={datounes}
+      />
+      <TripsDoughnut
+        width={'50vw'}
+        height={'50vh'}
+        options={{ maintainAspectRatio: false, responsive: true }}
+        labels={labelounes}
+        data={datounes}
+      />
     </div>
   )
 }

@@ -7,6 +7,7 @@ import Profile from './pages/Profile'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Test from './pages/Test'
+import TestCharts from './pages/TestCharts'
 import api from './../api'
 
 export default function App() {
@@ -107,6 +108,7 @@ export default function App() {
         <Route path="/login" component={Login} />
         <Route path="/profile" component={Profile} />
         <Route path="/test" component={Test} />
+        <Route path="/test-charts" component={TestCharts} />
         <Route render={() => <h2>404</h2>} />
       </Switch>
     </div>
