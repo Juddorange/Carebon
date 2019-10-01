@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import api from '../../api'
 
-export default function Search(props) {
+export default function Home() {
   function timeConvert(n) {
     var num = n
     var hours = num / 60
@@ -33,6 +33,11 @@ export default function Search(props) {
     errorMsg: '',
   })
 
+  const [title, setTitle] = useState({
+    origin: '',
+    destination: '',
+  })
+
   let transports = trip.transports
 
   function handleChange(event) {
@@ -54,39 +59,66 @@ export default function Search(props) {
 
   function handleSubmit(event) {
     event.preventDefault()
-    Promise.all([
-      api.getEveryAnswer(trip.origin, trip.destination),
-      api.getSavedTrip(),
-    ])
-      .then(values => {
-        if (values[0].err) {
-          setTrip({ ...trip, errorMsg: values[0].err })
-        } else {
-          let searchedTrips = values[0]
-          let savedTrips = values[1]
-          for (let i = 0; i < searchedTrips.length; i++) {
-            for (let j = 0; j < savedTrips.length; j++)
-              if (
-                searchedTrips[i].mode.toUpperCase() ===
-                  savedTrips[j].transport &&
-                trip.origin.toUpperCase() === savedTrips[j].departure &&
-                trip.destination.toUpperCase() === savedTrips[j].arrival
-              ) {
+    if (api.isLoggedIn()) {
+      Promise.all([
+        api.getEveryAnswer(trip.origin, trip.destination),
+        api.getSavedTrip(),
+      ])
+        .then(values => {
+          if (values[0].err) {
+            setTrip({
+              origin: '',
+              destination: '',
+              frequency: 0,
+              period: '',
+              transports: [],
+              return: false,
+              errorMsg: values[0].err,
+            })
+          } else {
+            let searchedTrips = values[0]
+            let savedTrips = values[1]
+            for (let i = 0; i < searchedTrips.length; i++) {
+              for (let j = 0; j < savedTrips.length; j++)
                 if (
-                  (trip.return === true &&
-                    savedTrips[j].returnTrip === 'RETURN TRIP') ||
-                  (trip.return === false &&
-                    savedTrips[j].returnTrip === 'ONE WAY')
+                  searchedTrips[i].mode.toUpperCase() ===
+                    savedTrips[j].transport &&
+                  trip.origin.toUpperCase() === savedTrips[j].departure &&
+                  trip.destination.toUpperCase() === savedTrips[j].arrival
                 ) {
-                  searchedTrips[i].saved = true
+                  if (
+                    (trip.return === true &&
+                      savedTrips[j].returnTrip === 'RETURN TRIP') ||
+                    (trip.return === false &&
+                      savedTrips[j].returnTrip === 'ONE WAY')
+                  ) {
+                    searchedTrips[i].saved = true
+                  }
                 }
-              }
+            }
+            setTrip({ ...trip, errorMsg: '', transports: searchedTrips })
+            setPreviousSavedTrip(savedTrips)
+            setTitle({
+              ...title,
+              origin: trip.origin,
+              destination: trip.destination,
+            })
           }
-          setTrip({ ...trip, errorMsg: '', transports: searchedTrips })
-          setPreviousSavedTrip(savedTrips)
-        }
-      })
-      .catch(err => console.log(err))
+        })
+        .catch(err => console.log(err))
+    } else {
+      api
+        .getEveryAnswer(trip.origin, trip.destination)
+        .then(response => {
+          setTrip({ ...trip, errorMsg: '', transports: response })
+          setTitle({
+            ...title,
+            origin: trip.origin,
+            destination: trip.destination,
+          })
+        })
+        .catch(err => console.log(err))
+    }
   }
 
   //state saved user trips
@@ -144,7 +176,7 @@ export default function Search(props) {
   return (
     <div className="Home">
       <h2>TRACK A JOURNEY</h2>
-      {/*<pre>{JSON.stringify(previousSavedTrip)}</pre> */}
+      <pre>{JSON.stringify(previousSavedTrip)}</pre>
       <form action="" onSubmit={handleSubmit} className="searchForm">
         <input
           className="searchInput"
@@ -175,32 +207,35 @@ export default function Search(props) {
           />
         </div>
         <div id="frequency">
-          <label htmlFor="">Frequency:</label>
+          <label>Frequency:</label>
           <input
             className="frequencyInput"
-            value={trip.frequencyNumber}
             name="frequency"
             type="number"
             min="0"
             required
+            placeholder="0"
             onChange={handleChange}
           />
-          Day
+          <label>Day</label>
           <input
+            className="radioInput"
             type="radio"
             name="period"
             value="DAY"
             onChange={handleChange}
           />
-          Week
+          <label>Week</label>
           <input
+            className="radioInput"
             type="radio"
             name="period"
             value="WEEK"
             onChange={handleChange}
           />
-          Month
+          <label>Month</label>
           <input
+            className="radioInput"
             type="radio"
             name="period"
             value="MONTH"
@@ -215,15 +250,16 @@ export default function Search(props) {
           ''
         ) : (
           <div className="firstAnswer">
-            <p className="result">
-              Results for {trip.origin} to {trip.destination}
+            <p className="resultText">
+              Results for <span>{title.origin}</span> to{' '}
+              <span>{title.destination}</span>
             </p>
             <ul>
               <li className="iconLi">MODE</li>
               <li className="textLi">DISTANCE</li>
               <li className="textLi">DURATION</li>
               <li className="textLi">CARBON FOOTPRINT</li>
-              <li className="btnLi" />
+              {api.isLoggedIn() ? <li className="btnLi" /> : ''}
             </ul>
           </div>
         )}
@@ -239,7 +275,7 @@ export default function Search(props) {
           .map(
             (mode, i) =>
               mode.error || (
-                <div className="answer" key={i}>
+                <div className="answer slide-fade" key={i}>
                   <ul>
                     <li className="iconLi">
                       <i className={displayMode(mode.mode)} />
@@ -256,18 +292,22 @@ export default function Search(props) {
                     <li className="textLi">
                       {trip.return === true ? mode.carbon * 2 : mode.carbon} kg
                     </li>
-                    <li className="btnLi">
-                      <button
-                        className="saveTrip"
-                        onClick={() => handlesaveTrip(i)}
-                      >
-                        {mode.saved ? (
-                          <i class="fas fa-star" />
-                        ) : (
-                          <i class="far fa-star" />
-                        )}
-                      </button>
-                    </li>
+                    {api.isLoggedIn() ? (
+                      <li className="btnLi">
+                        <button
+                          className="saveTrip"
+                          onClick={() => handlesaveTrip(i)}
+                        >
+                          {mode.saved ? (
+                            <i className="fas fa-star" />
+                          ) : (
+                            <i className="far fa-star" />
+                          )}
+                        </button>
+                      </li>
+                    ) : (
+                      ''
+                    )}
                   </ul>
                 </div>
               )
