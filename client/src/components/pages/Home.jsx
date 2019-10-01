@@ -43,8 +43,16 @@ export default function Search(props) {
     setTrip({ ...trip, [event.target.name]: value })
   }
 
+  function handleVisited(i) {
+    let clone = [...trip.transports]
+    clone[i].saved = true
+    setTrip({
+      ...trip,
+      transports: clone,
+    })
+  }
+
   function handleSubmit(event) {
-    console.log('previous', previousSavedTrip)
     event.preventDefault()
     Promise.all([
       api.getEveryAnswer(trip.origin, trip.destination),
@@ -56,24 +64,24 @@ export default function Search(props) {
         } else {
           let searchedTrips = values[0]
           let savedTrips = values[1]
-          // for (let i = 0; i < searchedTrips.length; i++) {
-          //   for (let j = 0; j < savedTrips.length; j++)
-          //     if (
-          //       searchedTrips[i].mode === savedTrips[j].transport &&
-          //       trip.origin === savedTrips[j].departure &&
-          //       trip.destination === savedTrips[j].arrival
-          //     ) {
-          //       if (
-          //         (trip.return === true &&
-          //           savedTrips[j].returnTrip === 'RETURN TRIP') ||
-          //         (trip.return === false &&
-          //           savedTrips[j].returnTrip === 'ONE WAY')
-          //       ) {
-          //         searchedTrips[i].visited = true
-          //       }
-          //     }
-          // }
-          // console.log('searchtrips', searchedTrips)
+          for (let i = 0; i < searchedTrips.length; i++) {
+            for (let j = 0; j < savedTrips.length; j++)
+              if (
+                searchedTrips[i].mode.toUpperCase() ===
+                  savedTrips[j].transport &&
+                trip.origin.toUpperCase() === savedTrips[j].departure &&
+                trip.destination.toUpperCase() === savedTrips[j].arrival
+              ) {
+                if (
+                  (trip.return === true &&
+                    savedTrips[j].returnTrip === 'RETURN TRIP') ||
+                  (trip.return === false &&
+                    savedTrips[j].returnTrip === 'ONE WAY')
+                ) {
+                  searchedTrips[i].saved = true
+                }
+              }
+          }
           setTrip({ ...trip, errorMsg: '', transports: searchedTrips })
           setPreviousSavedTrip(savedTrips)
         }
@@ -91,7 +99,6 @@ export default function Search(props) {
       .savedTrips(savedTrip)
       .then(res => {
         console.log(res)
-        console.log('previous', previousSavedTrip)
       })
       .catch(err => console.log(err))
   }, [savedTrip])
@@ -104,7 +111,7 @@ export default function Search(props) {
         setPreviousSavedTrip(res)
       })
       .catch(err => console.log(err))
-  }, [])
+  }, [savedTrip])
 
   function handlesaveTrip(i) {
     if (!api.isLoggedIn()) return
@@ -123,20 +130,21 @@ export default function Search(props) {
           period: trip.period,
         },
       ])
-      console.log('state savedTrip', savedTrip)
+      handleVisited(i)
     }
   }
 
   function displayMode(mode) {
-    if (mode === 'Car') return <i className="fas fa-car" />
-    else if (mode === 'Train') return <i className="fas fa-train" />
-    else if (mode === 'Bicycle') return <i className="fas fa-biking" />
-    else return <i className="fas fa-walking" />
+    if (mode === 'Car') return 'fas fa-car'
+    else if (mode === 'Train') return 'fas fa-train'
+    else if (mode === 'Bicycle') return 'fas fa-biking'
+    else return 'fas fa-walking'
   }
 
   return (
     <div className="Home">
       <h2>TRACK A JOURNEY</h2>
+      {/*<pre>{JSON.stringify(previousSavedTrip)}</pre> */}
       <form action="" onSubmit={handleSubmit} className="searchForm">
         <input
           className="searchInput"
@@ -145,6 +153,7 @@ export default function Search(props) {
           value={trip.origin}
           onChange={handleChange}
           placeholder="Departure"
+          required
         />
         <input
           className="searchInput"
@@ -153,6 +162,7 @@ export default function Search(props) {
           value={trip.destination}
           onChange={handleChange}
           placeholder="Destination"
+          required
         />
         <div className="checkbox">
           <label className="labelCheckbox">Return Trip</label>
@@ -171,6 +181,7 @@ export default function Search(props) {
             value={trip.frequencyNumber}
             name="frequency"
             type="number"
+            min="0"
             required
             onChange={handleChange}
           />
@@ -195,22 +206,6 @@ export default function Search(props) {
             value="MONTH"
             onChange={handleChange}
           />
-          {/* Week
-          <input
-            className="frequencyInput"
-            value={trip.frequencyWeek}
-            name="frequencyWeek"
-            type="number"
-            onChange={handleChange}
-          />
-          Month
-          <input
-            className="frequencyInput"
-            value={trip.frequencyMonth}
-            name="frequencyMonth"
-            type="number"
-            onChange={handleChange}
-          /> */}
         </div>
         <button className="searchBtn">GO</button>
       </form>
@@ -220,12 +215,14 @@ export default function Search(props) {
           ''
         ) : (
           <div className="firstAnswer">
+            <p className="result">
+              Results for {trip.origin} to {trip.destination}
+            </p>
             <ul>
               <li className="iconLi">MODE</li>
               <li className="textLi">DISTANCE</li>
               <li className="textLi">DURATION</li>
               <li className="textLi">CARBON FOOTPRINT</li>
-              <li className="btnLi" />
               <li className="btnLi" />
             </ul>
           </div>
@@ -239,58 +236,41 @@ export default function Search(props) {
               if (m1.time < m2.time) return -1
             }
           })
-          .map((mode, i) =>
-            !mode.error ? (
-              <div className="answer" key={i}>
-                {trip.return === true ? (
+          .map(
+            (mode, i) =>
+              mode.error || (
+                <div className="answer" key={i}>
                   <ul>
-                    <li className="iconLi">{() => displayMode(mode.mode)}</li>
-                    <li className="textLi">{mode.distance * 2} km</li>
-                    <li className="textLi">{timeConvert(mode.time * 2)}</li>
-                    <li className="textLi">{mode.carbon * 2} kg</li>
+                    <li className="iconLi">
+                      <i className={displayMode(mode.mode)} />
+                    </li>
+                    <li className="textLi">
+                      {trip.return === true ? mode.distance * 2 : mode.distance}{' '}
+                      km
+                    </li>
+                    <li className="textLi">
+                      {trip.return === true
+                        ? timeConvert(mode.time * 2)
+                        : timeConvert(mode.time)}
+                    </li>
+                    <li className="textLi">
+                      {trip.return === true ? mode.carbon * 2 : mode.carbon} kg
+                    </li>
                     <li className="btnLi">
                       <button
                         className="saveTrip"
                         onClick={() => handlesaveTrip(i)}
                       >
-                        {transports.visited ? (
-                          <i class="fas fa-bookmark" />
+                        {mode.saved ? (
+                          <i class="fas fa-star" />
                         ) : (
-                          <i className="far fa-bookmark" />
+                          <i class="far fa-star" />
                         )}
                       </button>
                     </li>
-                    <li className="btnLi">
-                      <button className="addTrip">0</button>
-                    </li>
                   </ul>
-                ) : (
-                  <ul>
-                    <li className="iconLi">{() => displayMode(mode.mode)}</li>
-                    <li className="textLi">{mode.distance} km</li>
-                    <li className="textLi">{timeConvert(mode.time)}</li>
-                    <li className="textLi">{mode.carbon} kg</li>
-                    <li className="btnLi">
-                      <button
-                        className="saveTrip"
-                        onClick={() => handlesaveTrip(i)}
-                      >
-                        {/* {props.savedTrip.includes(transports[i]) ? ( */}
-                        <i className="far fa-bookmark" />
-                        {/* ) : (
-                          <i class="fas fa-bookmark"></i>
-                        )} */}
-                      </button>
-                    </li>
-                    <li className="btnLi">
-                      <button className="addTrip">0</button>
-                    </li>
-                  </ul>
-                )}
-              </div>
-            ) : (
-              ''
-            )
+                </div>
+              )
           )}
       </div>
     </div>
