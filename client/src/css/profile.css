@@ -1,7 +1,6 @@
 .profile {
   display: flex;
   width: 100%;
-  height: 100vh;
   background-color: rgb(247, 249, 249)
 }
 
@@ -16,9 +15,10 @@
   justify-content: flex-start;
   align-items: center;
   margin-right: 20px;
-  width: 500px;
-  padding-left: 15px;
+  width: 30%;
+  padding: 0 15px;
   box-shadow: 5px 0px 6px -4px #602200;
+  min-height: 100vh;
 }
 
 .trip_details{
@@ -60,12 +60,12 @@
 }
 
 .btn-delete{
-  border-radius: 20px;
+  border-radius: 15px;
   border: none;
   color: white;
-  font-size: 20px;
+  font-size: 15px;
   background-color: #b44a22;
-  padding: 25px;
+  padding: 10px 40px;
 }
 
 .edit_items{
@@ -83,4 +83,17 @@
   width: 200px;
   height: 200px;
   overflow: hidden;
+}
+
+.charts{
+  text-align: center;
+}
+
+.trip-chart{
+  padding: 0 30px;
+    width: 60%;
+}
+
+.line, .doughnut{
+  margin-bottom: 50px;
 }

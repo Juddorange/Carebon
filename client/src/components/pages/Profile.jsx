@@ -143,6 +143,7 @@ export default function Profile(props) {
 					<div className="edit_items">
 						<label>
 							<strong>Profile picture</strong>
+							<br />
 						</label>
 						<input className="input_profile" type="file" name="picture" onChange={handleOnChange} />{' '}
 						<button onClick={handleClickButton} className="edit-btn">
@@ -154,41 +155,9 @@ export default function Profile(props) {
 					Delete account
 				</button>
 			</div>
-			<div className="profile_trips">
-				<h1 style={{ textAlign: 'center' }}>Your trips</h1>
-				<div className="trip_details">
-					{trip.map((trips, i) => (
-						<ul key={i}>
-							<h2>Trip n° {[ i + 1 ]}</h2>
-
-							<li>
-								<strong className="title_detail">Departure : </strong> {trips.departure}
-							</li>
-							<li>
-								<strong className="title_detail">Arrival : </strong>
-								{trips.arrival}
-							</li>
-							<li>
-								<strong className="title_detail">Transport : </strong>
-								{trips.transport}
-							</li>
-							<li>
-								<strong className="title_detail">Duration : </strong>
-								{trips.duration}
-							</li>
-							<li>
-								<strong className="title_detail">Distance : </strong>
-								{trips.distance} km
-							</li>
-							<li>
-								<strong className="title_detail">Cabron footprint : </strong>
-								{trips.carbon} kg
-							</li>
-						</ul>
-					))}
-				</div>
-			</div>
-			{/* 
+			<div className="trip-charts">
+				<div className="charts">
+					{/* 
       <CarbonOverTime
         title={'Carbon stack'}
         width={'50vw'}
@@ -196,19 +165,57 @@ export default function Profile(props) {
         labels={labelounes}
         // data={statistics}
       /> */}
+					<div className="line">
+						<CarbonOverTime
+							title={'Carbon stack'}
+							max-width={'50vw'}
+							height={'50vh'}
+							labels={statistics.labels}
+							data={{
+								each: statistics.each,
+								average: statistics.average
+							}}
+						/>
+					</div>
+					<div className="doughnut">
+						<TripsDoughnut width={'50vw'} height={'50vh'} labels={labelounes} data={[ 1, 2, 3 ]} />
+					</div>
+				</div>
+				<div className="profile_trips">
+					<h1 style={{ textAlign: 'center' }}>Your trips</h1>
+					<div className="trip_details">
+						{trip.map((trips, i) => (
+							<ul key={i}>
+								<h2>Trip n° {[ i + 1 ]}</h2>
 
-			<CarbonOverTime
-				title={'Carbon stack'}
-				max-width={'50vw'}
-				height={'50vh'}
-				labels={statistics.labels}
-				data={{
-					each: statistics.each,
-					average: statistics.average
-				}}
-			/>
-
-			<TripsDoughnut width={'50vw'} height={'50vh'} labels={labelounes} data={[ 1, 2, 3 ]} />
+								<li>
+									<strong className="title_detail">Departure : </strong> {trips.departure}
+								</li>
+								<li>
+									<strong className="title_detail">Arrival : </strong>
+									{trips.arrival}
+								</li>
+								<li>
+									<strong className="title_detail">Transport : </strong>
+									{trips.transport}
+								</li>
+								<li>
+									<strong className="title_detail">Duration : </strong>
+									{trips.duration}
+								</li>
+								<li>
+									<strong className="title_detail">Distance : </strong>
+									{trips.distance} km
+								</li>
+								<li>
+									<strong className="title_detail">Cabron footprint : </strong>
+									{trips.carbon} kg
+								</li>
+							</ul>
+						))}
+					</div>
+				</div>
+			</div>
 		</div>
 	);
 }
