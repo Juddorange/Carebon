@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
-import { Bar } from 'react-chartjs-2'
+import React, { useState, useEffect, useRef } from 'react'
+
 import api from '../../api'
-import LineCarbonGraph from './LineCarbonGraph'
+import CarbonOverTime from './CarbonOverTime'
 import TripsDoughnut from './TripsDoughnut'
 
 export default function Profile() {
@@ -10,6 +10,13 @@ export default function Profile() {
     email: '',
     name: '',
     picture: '',
+  })
+  //saved trips
+  const [trip, setTrip] = useState([])
+  const [statistics, setStatistics] = useState({
+    each: [],
+    average: [],
+    labels: [],
   })
 
   useEffect(() => {
@@ -57,106 +64,33 @@ export default function Profile() {
     }
   }
 
-  //saved trips
+  function formatStates(arr) {
+    let each = arr.map(v => v.carbon)
+    let averageNumber =
+      Math.round((each.reduce((acc, cv) => acc + cv, 0) / each.length) * 100) /
+      100
+    let labels = []
+    let average = []
+    for (let i = 1; i < arr.length + 1; i++) {
+      labels.push(i)
+      average.push(averageNumber)
+    }
 
-  const [trip, setTrip] = useState([])
+    setStatistics({ ...statistics, each, average, labels })
+  }
   useEffect(() => {
     api
       .getSavedTrip()
       .then(res => {
         console.log('TRIP ??????', res)
         setTrip(res)
+        formatStates(res)
       })
       .catch(err => console.log(err))
   }, [])
 
-  const [percentage, setpercentage] = useState(1)
-  const [data, setData] = useState([])
+  let labelounes = [1, 2, 3]
 
-  // useEffect(() => {
-  //   setpercentage(80)
-
-  //   setData({
-  //     labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-  //     datasets: [
-  //       {
-  //         label: '# of Votes',
-  //         data: [12, 19, 3, 5, 2, 3],
-  //         backgroundColor: [
-  //           'rgba(255, 99, 132, 0.2)',
-  //           'rgba(54, 162, 235, 0.2)',
-  //           'rgba(255, 206, 86, 0.2)',
-  //           'rgba(75, 192, 192, 0.2)',
-  //           'rgba(153, 102, 255, 0.2)',
-  //           'rgba(255, 159, 64, 0.2)',
-  //         ],
-  //         borderColor: [
-  //           'rgba(255, 99, 132, 1)',
-  //           'rgba(54, 162, 235, 1)',
-  //           'rgba(255, 206, 86, 1)',
-  //           'rgba(75, 192, 192, 1)',
-  //           'rgba(153, 102, 255, 1)',
-  //           'rgba(255, 159, 64, 1)',
-  //         ],
-  //         borderWidth: 1,
-  //       },
-  //     ],
-  //   })
-  // }, [setpercentage, setData])
-
-  //     .then(res => {
-  //       console.log(res)
-  //       setTrip(res)
-  //     })
-  //     .catch(err => console.log(err))
-  // }, [])
-
-  //fake saved trips coz not working
-  const tripette1 = {
-    departure: 'Paris',
-    arrival: 'Brest',
-    transport: 'train',
-    duration: '4 hours 54 mins',
-    carbon: 64.22,
-    distance: 394,
-    returnTrip: 'ONE WAY',
-    recurrence: 2,
-  }
-  const tripette2 = {
-    departure: 'Paris',
-    arrival: 'Lyon',
-    transport: 'car',
-    duration: '4 hours 54 mins',
-    carbon: 130.25,
-    distance: 502,
-    returnTrip: 'ONE WAY',
-    recurrence: 1,
-  }
-  const tripette3 = {
-    departure: 'Paris',
-    arrival: 'Lyon',
-    transport: 'car',
-    duration: '4 hours 54 mins',
-    carbon: 1300,
-    distance: 502,
-    returnTrip: 'ONE WAY',
-    recurrence: 1,
-  }
-
-  const tripettes = [tripette1, tripette2, tripette3]
-
-  let datounes = []
-  let carbon = 0
-  for (let data of tripettes) {
-    carbon += data.carbon
-    datounes.push(carbon)
-  }
-
-  tripettes.map(trip => trip.carbon)
-  let labelounes = []
-  for (let i = 1; i <= tripettes.length; i++) {
-    labelounes.push(i)
-  }
   return (
     <div className="profile">
       <div className="profile_info">
@@ -208,7 +142,6 @@ export default function Profile() {
         {trip.map((trips, i) => (
           <ul key={i}>
             <h2>Trip n° {[i + 1]}</h2>
-            {/* <h2>Trip n° {[i]}</h2> */}
             <li>Departure: {trips.departure}</li>
             <li>Arrival: {trips.arrival}</li>
             <li>Transport: {trips.transport}</li>
@@ -217,17 +150,31 @@ export default function Profile() {
           </ul>
         ))}
       </div>
-      <LineCarbonGraph
+      {/* 
+      <CarbonOverTime
+        title={'Carbon stack'}
         width={'50vw'}
         height={'50vh'}
         labels={labelounes}
-        data={datounes}
+        // data={statistics}
+      /> */}
+
+      <CarbonOverTime
+        title={'Carbon stack'}
+        width={'50vw'}
+        height={'50vh'}
+        labels={statistics.labels}
+        data={{
+          each: statistics.each,
+          average: statistics.average,
+        }}
       />
+
       <TripsDoughnut
         width={'50vw'}
         height={'50vh'}
         labels={labelounes}
-        data={datounes}
+        data={[1, 2, 3]}
       />
     </div>
   )
