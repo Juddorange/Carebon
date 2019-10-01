@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import api from './../../api'
+import api from '../../api'
 
-export default function Search() {
+export default function Search(props) {
   function timeConvert(n) {
     var num = n
     var hours = num / 60
@@ -26,6 +26,8 @@ export default function Search() {
   const [trip, setTrip] = useState({
     origin: '',
     destination: '',
+    frequency: 0,
+    period: '',
     transports: [],
     return: false,
     errorMsg: '',
@@ -42,7 +44,7 @@ export default function Search() {
   }
 
   function handleSubmit(event) {
-    console.log('trip', trip)
+    console.log('previous', previousSavedTrip)
     event.preventDefault()
     Promise.all([
       api.getEveryAnswer(trip.origin, trip.destination),
@@ -73,7 +75,7 @@ export default function Search() {
           // }
           // console.log('searchtrips', searchedTrips)
           setTrip({ ...trip, errorMsg: '', transports: searchedTrips })
-          setSavedTrip(savedTrips)
+          setPreviousSavedTrip(savedTrips)
         }
       })
       .catch(err => console.log(err))
@@ -81,13 +83,16 @@ export default function Search() {
 
   //state saved user trips
   const [savedTrip, setSavedTrip] = useState([])
+  const [previousSavedTrip, setPreviousSavedTrip] = useState([])
 
   useEffect(() => {
     if (!savedTrip.length) return
-    console.log(savedTrip)
     api
       .savedTrips(savedTrip)
-      .then(res => {})
+      .then(res => {
+        console.log(res)
+        console.log('previous', previousSavedTrip)
+      })
       .catch(err => console.log(err))
   }, [savedTrip])
 
@@ -96,7 +101,7 @@ export default function Search() {
     api
       .getSavedTrip()
       .then(res => {
-        setSavedTrip(res)
+        setPreviousSavedTrip(res)
       })
       .catch(err => console.log(err))
   }, [])
@@ -110,13 +115,15 @@ export default function Search() {
           origin: trip.origin.toUpperCase(),
           destination: trip.destination.toUpperCase(),
           mode: trip.transports[i].mode.toUpperCase(),
-          time: trip.transports[i].time,
+          time: timeConvert(trip.transports[i].time),
           distance: trip.transports[i].distance,
           carbon: trip.transports[i].carbon,
           return: trip.return,
-          recurrence: 1,
+          frequency: trip.frequency,
+          period: trip.period,
         },
       ])
+      console.log('state savedTrip', savedTrip)
     }
   }
 
@@ -156,6 +163,54 @@ export default function Search() {
             id="return"
             onChange={handleChange}
           />
+        </div>
+        <div id="frequency">
+          <label htmlFor="">Frequency:</label>
+          <input
+            className="frequencyInput"
+            value={trip.frequencyNumber}
+            name="frequency"
+            type="number"
+            required
+            onChange={handleChange}
+          />
+          Day
+          <input
+            type="radio"
+            name="period"
+            value="DAY"
+            onChange={handleChange}
+          />
+          Week
+          <input
+            type="radio"
+            name="period"
+            value="WEEK"
+            onChange={handleChange}
+          />
+          Month
+          <input
+            type="radio"
+            name="period"
+            value="MONTH"
+            onChange={handleChange}
+          />
+          {/* Week
+          <input
+            className="frequencyInput"
+            value={trip.frequencyWeek}
+            name="frequencyWeek"
+            type="number"
+            onChange={handleChange}
+          />
+          Month
+          <input
+            className="frequencyInput"
+            value={trip.frequencyMonth}
+            name="frequencyMonth"
+            type="number"
+            onChange={handleChange}
+          /> */}
         </div>
         <button className="searchBtn">GO</button>
       </form>

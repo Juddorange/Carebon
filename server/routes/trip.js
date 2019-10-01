@@ -142,7 +142,8 @@ router.post('/saved-trip', isLoggedIn, (req, res) => {
     carbon,
     distance,
     returnTrip,
-    recurrence,
+    number,
+    period,
   } = req.body
   const newTrip = {
     departure,
@@ -152,7 +153,10 @@ router.post('/saved-trip', isLoggedIn, (req, res) => {
     carbon,
     distance,
     returnTrip,
-    recurrence,
+    frequency: {
+      number,
+      period,
+    },
   }
   newTrip.userId = req.user._id
 
@@ -166,10 +170,9 @@ router.post('/saved-trip', isLoggedIn, (req, res) => {
     ],
   })
     .then(dbRes => {
-      console.log('dbRes', dbRes)
       if (dbRes === null) {
         Trip.create(newTrip)
-          .then(response => res.send('SUCCEED!'))
+          .then(response => res.send('Succeed to save trip'))
           .catch(err => console.log(err))
       } else {
         res.json('you already have this trip register')
