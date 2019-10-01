@@ -71,10 +71,11 @@ export default function Profile(props) {
 				.catch((err) => console.log(err));
 		}
 		if (name === 'picture') {
+			console.log('ici');
 			api
 				.updatePicture(user.pictureToUpdate)
 				.then((res) => {
-					setUser(res);
+					setUser({ ...user, picture: res.dbRes.picture });
 					setUIMessage(res.msg);
 				})
 				.catch((err) => console.log(err));
