@@ -1,15 +1,25 @@
 .navbar {
-  background-color: dodgerblue;
+  background-color: rgba(247, 249, 249);
   height: 70px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
 }
 
-.link {
-  color: white;
+.link,
+.logo {
+  color: #fecc46;
   text-decoration: none;
   padding: 5px;
-  font-family: Arial, Helvetica, sans-serif;
   font-size: 25px;
+  margin: 0 20px;
+}
+
+.logo {
+  width: 20%;
+}
+
+.logLinks {
+  display: flex;
+  width: 80%;
+  justify-content: flex-end;
 }

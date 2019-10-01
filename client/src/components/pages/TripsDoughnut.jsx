@@ -11,6 +11,7 @@ export default function TripsDoughnut(props) {
         hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
       },
     ],
+    options: { maintainAspectRatio: false, responsive: true },
   }
 
   return (

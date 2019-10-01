@@ -10,7 +10,10 @@ const tripSchema = new Schema(
     carbon: Number,
     distance: Number,
     returnTrip: { type: String, enum: ['RETURN TRIP', 'ONE WAY'] },
-    recurrence: Number,
+    frequency: {
+      number: Number,
+      period: String,
+    },
     userId: {
       type: Schema.Types.ObjectId,
       ref: 'User',

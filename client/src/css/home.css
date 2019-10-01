@@ -1,17 +1,197 @@
+.Home {
+  padding-top: 30px;
+  width: 100vw;
+  background-image: url('/img/header.jpg');
+  height: 100vh;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Home h2 {
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+  color: #a5dbe5;
+  margin: 0;
+  font-size: 60px;
+  padding-bottom: 30px;
+}
+
+.searchForm {
+  width: 70%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.searchInput {
+  border: none;
+  border-radius: 20px;
+  padding: 0 10px;
+  height: 40px;
+  width: 40%;
+  margin-right: 30px;
+  background-color: #f7f9f9;
+  box-shadow: 0px 0px 8px 0px #e0e0e0;
+  font-size: 12px;
+  text-align: center;
+  font-family: Raleway;
+  font-size: 15px;
+  color: #777777;
+}
+
+#frequency {
+  display: flex;
+  align-items: center;
+  margin-top: 30px;
+  width: 70%;
+}
+
+#frequency label {
+  color: #777777;
+  font-size: 15px;
+  /* margin-right: 30px; */
+  width: 25%;
+}
+
+.frequencyInput {
+  border: none;
+  border-radius: 20px;
+  padding: 0 10px;
+  height: 40px;
+  width: 25%;
+  /* margin-right: 30px; */
+  background-color: #f7f9f9;
+  box-shadow: 0px 0px 8px 0px #e0e0e0;
+  font-size: 12px;
+  text-align: center;
+  font-family: Raleway;
+  font-size: 15px;
+  color: #777777;
+}
+
+.labelCheckbox {
+  color: #777777;
+  font-size: 15px;
+}
+
+.checkbox {
+  display: flex;
+  width: 10%;
+}
+
+.searchBtn {
+  width: 10%;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  margin-left: 40%;
+  margin-right: 40%;
+  background-color: #fecc46;
+  border-radius: 20px;
+  border: none;
+  box-shadow: 0px 0px 8px 0px #e0e0e0;
+  color: #f7f9f9;
+  padding: 10px 5px;
+  font-size: 18px;
+}
+
 .tripsAnswer {
   display: flex;
   flex-direction: column;
-}
-.oneAnswer {
-  display: flex;
-  background-color: grey;
+  align-items: center;
+  width: 100vw;
 }
 
-.oneAnswer ul {
+.firstAnswer {
+  padding: 0 20px;
+  width: 70%;
+  font-size: 18px;
+  border-bottom: 1px solid #a5dbe5;
+  color: #a5dbe5;
+}
+
+.answer {
+  width: 70%;
+  background-color: #fecc46;
+  box-shadow: 0px 0px 8px 0px #b79039;
+  margin: 15px 0;
+  border: none;
+  border-radius: 20px;
+  padding: 0 20px;
+  color: #f7f9f9;
+}
+
+.answer:hover {
+  background-color: #a5dbe5;
+  box-shadow: 0px 0px 8px 0px #80acb2;
+}
+
+.answer ul,
+.firstAnswer ul {
+  -webkit-padding-start: 0;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   list-style-type: none;
 }
 
-.oneAnswer li {
-  display: inline;
-  margin: 0 20px;
+.answer li {
+  font-size: 20px;
+  margin: 0;
+}
+
+.iconLi {
+  width: 10%;
+}
+
+.textLi {
+  width: 25%;
+}
+
+.btnLi {
+  width: 5%;
+}
+
+.far fa-star {
+  font-size: 20px;
+  color: #f7f9f9;
+}
+
+.fas fa-star {
+  font-size: 30px;
+  color: #f7f9f9;
+}
+
+.saveTrip,
+.addTrip {
+  border: none;
+  color: #f7f9f9;
+  font-family: Raleway;
+  font-size: 12px;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.saveTrip,
+.addTrip {
+  background-color: rgba(247, 249, 249, 0);
+  font-size: 20px;
+}
+
+.Home .fas {
+  font-size: 30px;
+}
+
+.errorSearch {
+  color: #fa990e;
+  font-size: 30px;
+}
+
+input:focus,
+button:focus {
+  outline: none;
 }

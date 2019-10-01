@@ -14,10 +14,6 @@ const Map = React.memo(props => {
     return arr.map(a => a.lat_lngs[0])
   }
 
-  // const myWayPoints = props.markers.map(m => {
-  //   const str = m.position.lat + ',' + m.position.lng
-  //   return { location: str }
-  // })
   // console.log(props.directions.routes[0].legs[0].steps)
   console.log(props.directions)
   useEffect(() => {
@@ -47,6 +43,7 @@ const Map = React.memo(props => {
   function handleMe(e) {
     console.log(e, 'this is meee')
   }
+
   return (
     <GoogleMap
       onClick={props.handleMapClicked}
@@ -55,13 +52,6 @@ const Map = React.memo(props => {
       center={props.center}
       defaultCenter={{ lat: 48.866667, lng: 2.333333 }}
     >
-      {/* {props.markers.map((marker, i) => (
-        <Marker
-          onClick={props.handleMarkerClick}
-          key={i}
-          position={marker.position}
-        />
-      ))} */}
       {props.directions && (
         <Polyline
           onClick={handleMe}
@@ -94,13 +84,13 @@ const AppMap = props => {
   }, [])
 
   const onMapMounted = ref => (refs.map = ref)
-  const onBoundsChanged = () => {
-    setState({
-      ...state,
-      bounds: refs.map.getBounds(),
-      center: refs.map.getCenter(),
-    })
-  }
+  // const onBoundsChanged = () => {
+  //   setState({
+  //     ...state,
+  //     bounds: refs.map.getBounds(),
+  //     center: refs.map.getCenter(),
+  //   })
+  // }
 
   const onPlacesChanged = () => {
     const places = refs.searchBox.getPlaces()
