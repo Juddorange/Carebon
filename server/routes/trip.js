@@ -53,6 +53,7 @@ router.post('/google-trip', (req, res, next) => {
                 response[0].data.routes[0].legs[0].duration.value / 60
               ),
               carbon: 0,
+              saved: false,
               tag: 'anyCar',
             }
           : { error: 'No route found' }
@@ -67,6 +68,7 @@ router.post('/google-trip', (req, res, next) => {
                 response[1].data.routes[0].legs[0].duration.value / 60
               ),
               carbon: 0,
+              saved: false,
               tag: 'walking',
             }
           : { error: 'No route found' }
@@ -81,6 +83,7 @@ router.post('/google-trip', (req, res, next) => {
                 response[2].data.routes[0].legs[0].duration.value / 60
               ),
               carbon: 0,
+              saved: false,
               tag: 'transitRail',
             }
           : { error: 'No route found' }
@@ -95,6 +98,7 @@ router.post('/google-trip', (req, res, next) => {
                 response[3].data.routes[0].legs[0].duration.value / 60
               ),
               carbon: 0,
+              saved: false,
               tag: 'bicycle',
             }
           : { error: 'No route found' }
