@@ -1,17 +1,26 @@
 import React from 'react'
 import MyMapComponent from './MyMapComponent'
-import { withGoogleMap, GoogleMap, DirectionsRenderer } from 'react-google-maps'
 
 export default function Search(props) {
   let transports = props.trip.transports
-  console.log('transports : ::: :: :', transports)
   function timeConvert(n) {
     var num = n
     var hours = num / 60
+    var day = hours / 24
+    var hour = hours - 24 * day
     var rhours = Math.floor(hours)
+    var rhour = Math.floor(hour)
     var minutes = (hours - rhours) * 60
     var rminutes = Math.round(minutes)
-    return rhours > 0 ? rhours + ' h ' + rminutes + ' min' : rminutes + ' min'
+    var rday = Math.round(day)
+    if (rday > 1 && rhour > 0)
+      return rday + ' days ' + rhour + ' h ' + rminutes + ' min '
+    if (rday > 1 && rhour === 0) return rday + ' days ' + rminutes + ' min '
+    if (rhours > 24 && rhour > 0)
+      return rday + ' day ' + rhour + ' h ' + rminutes + ' min '
+    if (rhours > 24 && rhour === 0) return rday + ' day ' + rminutes + ' min '
+    else if (rhours > 0) return rhours + ' h ' + rminutes + ' min'
+    else return rminutes + ' min'
   }
   return (
     <div className="Home">
@@ -150,8 +159,6 @@ export default function Search(props) {
             )
           )}
       </div>
-      {/* {transports && (
-				)} */}
       <MyMapComponent />
     </div>
   )
