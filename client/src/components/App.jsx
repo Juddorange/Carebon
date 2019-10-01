@@ -8,6 +8,7 @@ import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Test from './pages/Test'
 import api from './../api'
+import Map from './pages/Home'
 
 export default function App() {
   //state trip
@@ -131,6 +132,7 @@ export default function App() {
         <Route path="/login" component={Login} />
         <Route path="/profile" component={Profile} />
         <Route path="/test" component={Test} />
+        <Route path="/trips-map" component={Map} />
         <Route render={() => <h2>404</h2>} />
       </Switch>
     </div>

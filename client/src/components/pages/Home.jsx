@@ -1,10 +1,8 @@
 import React from 'react'
-import MyMapComponent from './MyMapComponent'
-import { withGoogleMap, GoogleMap, DirectionsRenderer } from 'react-google-maps'
+import { Link } from 'react-router-dom'
 
 export default function Search(props) {
   let transports = props.trip.transports
-  console.log('transports : ::: :: :', transports)
   function timeConvert(n) {
     var num = n
     var hours = num / 60
@@ -15,6 +13,7 @@ export default function Search(props) {
   }
   return (
     <div className="Home">
+      <Link to={'/trips-map/:origin?&destination&mode'} />
       <h2>TRACK A JOURNEY</h2>
       <form action="" onSubmit={props.onSubmit} className="searchForm">
         <input
@@ -150,9 +149,6 @@ export default function Search(props) {
             )
           )}
       </div>
-      {/* {transports && (
-				)} */}
-      <MyMapComponent />
     </div>
   )
 }

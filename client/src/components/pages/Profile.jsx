@@ -211,7 +211,7 @@ export default function Profile(props) {
 
       <CarbonOverTime
         title={'Carbon stack'}
-        width={'50vw'}
+        max-width={'50vw'}
         height={'50vh'}
         labels={statistics.labels}
         data={{
