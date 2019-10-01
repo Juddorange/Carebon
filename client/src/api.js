@@ -144,6 +144,10 @@ export default {
 			.then((res) => res.data)
 			.catch(errHandler);
 	},
+
+	deleteProfile() {
+		return service.delete('/profile/deleteAccount').then((res) => res.data).catch((err) => console.log(err));
+	},
 	// addPicture(file) {
 	//   const formData = new FormData()
 	//   formData.append('picture', file)

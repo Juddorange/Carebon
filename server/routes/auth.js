@@ -53,7 +53,7 @@ router.post('/login', (req, res, next) => {
 			// "userDoc" will be empty if the username is wrong (no document in database)
 			if (!userDoc) {
 				// create an error object to send to our error handler with "next()"
-				next(new Error('Incorrect email'));
+				next(new Error('Incorrect email or password'));
 				return;
 			}
 
@@ -61,7 +61,7 @@ router.post('/login', (req, res, next) => {
 			// "compareSync()" will return false if the "password" is wrong
 			if (!bcrypt.compareSync(password, userDoc.password)) {
 				// create an error object to send to our error handler with "next()"
-				next(new Error('Password is wrong'));
+				next(new Error('Incorrect email or password'));
 				return;
 			}
 
