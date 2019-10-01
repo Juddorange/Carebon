@@ -1,9 +1,12 @@
 .Home {
-  padding-top: 80px;
+  padding-top: 30px;
   width: 100vw;
   background-image: url('/img/header.jpg');
   height: 100vh;
   background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .Home h2 {
@@ -17,9 +20,10 @@
 }
 
 .searchForm {
+  width: 70%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
 }
 
@@ -27,26 +31,26 @@
   border: none;
   border-radius: 20px;
   padding: 0 10px;
-  height: 30px;
-  width: 35%;
+  height: 40px;
+  width: 40%;
+  margin-right: 30px;
   background-color: #f7f9f9;
   box-shadow: 0px 0px 8px 0px #e0e0e0;
   font-size: 12px;
-  color: #1e1e1e;
+  text-align: center;
   font-family: Raleway;
-  font-weight: bold;
+  font-size: 15px;
+  color: #777777;
 }
 
-.selectInput {
-  border-radius: 20px;
-  background-color: #f7f9f9;
-  border: none;
-  box-shadow: 0px 0px 8px 0px #e0e0e0;
-  padding: 10px;
-  font-family: Raleway;
-  border-radius: 20px;
-  height: 30px;
-  color: #1e1e1e;
+.labelCheckbox {
+  color: #777777;
+  font-size: 15px;
+}
+
+.checkbox {
+  display: flex;
+  width: 10%;
 }
 
 .searchBtn {
@@ -68,12 +72,21 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100vw;
+}
+
+.firstAnswer {
+  padding: 0 20px;
+  width: 70%;
+  font-size: 18px;
+  border-bottom: 1px solid #a5dbe5;
+  color: #a5dbe5;
 }
 
 .answer {
   width: 70%;
-  background-color: #a5dbe5;
-  box-shadow: 0px 0px 8px 0px #80acb2;
+  background-color: #fecc46;
+  box-shadow: 0px 0px 8px 0px #b79039;
   margin: 15px 0;
   border: none;
   border-radius: 20px;
@@ -82,11 +95,12 @@
 }
 
 .answer:hover {
-  background-color: #5b8d27;
-  box-shadow: 0px 0px 8px 0px #44661e;
+  background-color: #a5dbe5;
+  box-shadow: 0px 0px 8px 0px #80acb2;
 }
 
-.answer ul {
+.answer ul,
+.firstAnswer ul {
   -webkit-padding-start: 0;
   text-align: center;
   display: flex;
@@ -97,14 +111,27 @@
 
 .answer li {
   font-size: 20px;
+  margin: 0;
 }
 
-.saveTrip.far {
+.iconLi {
+  width: 10%;
+}
+
+.textLi {
+  width: 25%;
+}
+
+.btnLi {
+  width: 5%;
+}
+
+.far.fa-bookmark {
   font-size: 30px;
   color: #f7f9f9;
 }
 
-.saveTrip.far.is-active {
+.far.fa-bookmark .is-active {
   color: #114a0b;
 }
 
@@ -118,15 +145,22 @@
   padding: 10px;
 }
 
-.saveTrip {
-  background-color: #a5dbe5;
-  font-size: 20px;
-}
-
+.saveTrip,
 .addTrip {
-  background-color: #fa990e;
+  background-color: rgba(247, 249, 249, 0);
+  font-size: 20px;
 }
 
 .Home .fas {
   font-size: 30px;
+}
+
+.errorSearch {
+  color: #fa990e;
+  font-size: 30px;
+}
+
+input:focus,
+button:focus {
+  outline: none;
 }

@@ -15,41 +15,65 @@ export default function App() {
     origin: '',
     destination: '',
     transports: [],
-    return: '',
+    return: true,
     errorMsg: '',
   })
 
   function handleChange(event) {
-    event.preventDefault()
-    setTrip({ ...trip, [event.target.name]: event.target.value })
+    let value =
+      event.target.type === 'checkbox'
+        ? event.target.checked
+        : event.target.value
+    setTrip({ ...trip, [event.target.name]: value })
   }
 
   function handleSubmit(event) {
+    console.log('trip', trip)
     event.preventDefault()
-    api
-      .getEveryAnswer(trip.origin, trip.destination)
-      .then(res => {
-        console.log('res', res)
-        if (res.err) {
-          setTrip({ ...trip, errorMsg: res.err })
-        } else setTrip({ ...trip, transports: res })
+    Promise.all([
+      api.getEveryAnswer(trip.origin, trip.destination),
+      api.getSavedTrip(),
+    ])
+      .then(values => {
+        if (values[0].err) {
+          setTrip({ ...trip, errorMsg: values[0].err })
+        } else {
+          let searchedTrips = values[0]
+          let savedTrips = values[1]
+          for (let i = 0; i < searchedTrips.length; i++) {
+            for (let j = 0; j < savedTrips.length; j++)
+              if (
+                searchedTrips[i].mode === savedTrips[j].transport &&
+                trip.origin === savedTrips[j].departure &&
+                trip.destination === savedTrips[j].arrival
+              ) {
+                if (
+                  (trip.return === true &&
+                    savedTrips[j].returnTrip === 'RETURN TRIP') ||
+                  (trip.return === false &&
+                    savedTrips[j].returnTrip === 'ONE WAY')
+                ) {
+                  searchedTrips[i].visited = true
+                }
+              }
+          }
+          console.log('searchtrips', searchedTrips)
+          setTrip({ ...trip, errorMsg: '', transports: searchedTrips })
+          setSavedTrip(savedTrips)
+        }
       })
       .catch(err => console.log(err))
   }
 
   //state saved user trips
-  const [savedTrip, setSavedTrip] = useState({
-    previousSaved: [],
-    newSaved: [],
-  })
+  const [savedTrip, setSavedTrip] = useState([])
 
   useEffect(() => {
-    if (!savedTrip.newSaved.length) return
+    if (!savedTrip.length) return
+    console.log(savedTrip)
     api
       .savedTrips(savedTrip)
-      .then(res => {
-        console.log('SAVED TRIP!!!', res)
-      })
+      .then(res => {})
       .catch(err => console.log(err))
   }, [savedTrip])
 
@@ -58,28 +82,28 @@ export default function App() {
     api
       .getSavedTrip()
       .then(res => {
-        setSavedTrip({ ...savedTrip, previousSaved: res })
+        setSavedTrip(res)
       })
       .catch(err => console.log(err))
   }, [])
 
   function handlesaveTrip(i) {
     if (!api.isLoggedIn()) return
-    setSavedTrip({
-      ...savedTrip,
-      newSaved: [
+    else {
+      setSavedTrip([
+        ...savedTrip,
         {
           origin: trip.origin.toUpperCase(),
           destination: trip.destination.toUpperCase(),
           mode: trip.transports[i].mode.toUpperCase(),
-          time: trip.transports[i].time.toUpperCase(),
+          time: trip.transports[i].time,
           distance: trip.transports[i].distance,
           carbon: trip.transports[i].carbon,
           return: trip.return,
           recurrence: 1,
         },
-      ],
-    })
+      ])
+    }
   }
 
   function handleAddTrip(i) {}

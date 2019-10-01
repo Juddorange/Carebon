@@ -13,7 +13,6 @@ export default function Search(props) {
 	return (
 		<div className="Home">
 			<h2>TRACK A JOURNEY</h2>
-			<p>{props.trip.errorMsg}</p>
 			<form action="" onSubmit={props.onSubmit} className="searchForm">
 				<input
 					className="searchInput"
@@ -31,21 +30,34 @@ export default function Search(props) {
 					onChange={props.onChange}
 					placeholder="Destination"
 				/>
-				<select
-					name="return"
-					value={props.trip.return}
-					id="return"
-					onChange={props.onChange}
-					required
-					className="selectInput"
-				>
-					<option value="">Type of trip</option>
-					<option value="ONE WAY">One Way</option>
-					<option value="RETURN TRIP">Return Trip</option>
-				</select>
+				<div className="checkbox">
+					<label className="labelCheckbox">Return Trip</label>
+					<input
+						type="checkbox"
+						name="return"
+						value={props.trip.return}
+						id="return"
+						onChange={props.onChange}
+					/>
+				</div>
 				<button className="searchBtn">GO</button>
 			</form>
 			<div className="tripsAnswer">
+				{props.trip.errorMsg ? <p className="errorSearch">{props.trip.errorMsg}</p> : ''}
+				{!transports.length ? (
+					''
+				) : (
+					<div className="firstAnswer">
+						<ul>
+							<li className="iconLi">MODE</li>
+							<li className="textLi">DISTANCE</li>
+							<li className="textLi">DURATION</li>
+							<li className="textLi">CARBON FOOTPRINT</li>
+							<li className="btnLi" />
+							<li className="btnLi" />
+						</ul>
+					</div>
+				)}
 				{transports
 					.sort((m1, m2) => {
 						if (m1.carbon > m2.carbon) return 1;
@@ -59,43 +71,51 @@ export default function Search(props) {
 						(mode, i) =>
 							!mode.error ? (
 								<div className="answer" key={i}>
-									{props.trip.return === 'RETURN TRIP' ? (
+									{props.trip.return === true ? (
 										<ul>
-											<li>
-												{(mode.mode === 'Car' && <i class="fas fa-car" />) ||
-													(mode.mode === 'Train' && <i class="fas fa-train" />) ||
-													(mode.mode === 'Bicycle' && <i class="fas fa-biking" />) ||
-													(mode.mode === 'Walking' && <i class="fas fa-walking" />)}
+											<li className="iconLi">
+												{(mode.mode === 'Car' && <i className="fas fa-car" />) ||
+													(mode.mode === 'Train' && <i className="fas fa-train" />) ||
+													(mode.mode === 'Bicycle' && <i className="fas fa-biking" />) ||
+													(mode.mode === 'Walking' && <i className="fas fa-walking" />)}
 											</li>
-											<li>{mode.distance * 2} km</li>
-											<li>{timeConvert(mode.time * 2)}</li>
-											<li>Carbon footprint: {mode.carbon * 2} kg</li>
-											<li>
+											<li className="textLi">{mode.distance * 2} km</li>
+											<li className="textLi">{timeConvert(mode.time * 2)}</li>
+											<li className="textLi">{mode.carbon * 2} kg</li>
+											<li className="btnLi">
 												<button className="saveTrip" onClick={() => props.onClickSave(i)}>
-													<i class="far fa-bookmark" />
+													{transports.visited ? (
+														<i class="fas fa-bookmark" />
+													) : (
+														<i className="far fa-bookmark" />
+													)}
 												</button>
 											</li>
-											<li>
+											<li className="btnLi">
 												<button className="addTrip">Add</button>
 											</li>
 										</ul>
 									) : (
 										<ul>
-											<li>
-												{(mode.mode === 'Car' && <i class="fas fa-car" />) ||
-													(mode.mode === 'Train' && <i class="fas fa-train" />) ||
-													(mode.mode === 'Bicycle' && <i class="fas fa-biking" />) ||
-													(mode.mode === 'Walking' && <i class="fas fa-walking" />)}
+											<li className="iconLi">
+												{(mode.mode === 'Car' && <i className="fas fa-car" />) ||
+													(mode.mode === 'Train' && <i className="fas fa-train" />) ||
+													(mode.mode === 'Bicycle' && <i className="fas fa-biking" />) ||
+													(mode.mode === 'Walking' && <i className="fas fa-walking" />)}
 											</li>
-											<li>{mode.distance} km</li>
-											<li>{timeConvert(mode.time)}</li>
-											<li>Carbon footprint: {mode.carbon} kg</li>
-											<li>
+											<li className="textLi">{mode.distance} km</li>
+											<li className="textLi">{timeConvert(mode.time)}</li>
+											<li className="textLi">{mode.carbon} kg</li>
+											<li className="btnLi">
 												<button className="saveTrip" onClick={() => props.onClickSave(i)}>
-													<i class="far fa-bookmark" />
+													{/* {props.savedTrip.includes(transports[i]) ? ( */}
+													<i className="far fa-bookmark" />
+													{/* ) : (
+                          <i class="fas fa-bookmark"></i>
+                        )} */}
 												</button>
 											</li>
-											<li>
+											<li className="btnLi">
 												<button className="addTrip">0</button>
 											</li>
 										</ul>
