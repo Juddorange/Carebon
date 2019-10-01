@@ -156,13 +156,14 @@
   width: 5%;
 }
 
-.far.fa-bookmark {
-  font-size: 30px;
+.far fa-star {
+  font-size: 20px;
   color: #f7f9f9;
 }
 
-.far.fa-bookmark .is-active {
-  color: #114a0b;
+.fas fa-star {
+  font-size: 30px;
+  color: #f7f9f9;
 }
 
 .saveTrip,
