@@ -16,6 +16,7 @@ router.put('/profile/update', (req, res) => {
 	let picture = null;
 	if (req.file) picture.file;
 	const { name, email } = req.body;
+
 	console.log(req.body);
 	if (name) {
 		User.findOneAndUpdate({ email: req.user.email }, { name }, { new: true })
