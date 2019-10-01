@@ -35,23 +35,61 @@ export default function Signup(props) {
 			.catch((err) => setState({ message: err.toString() }));
 	}
 	return (
-		<div className="Signup">
-			<h2>Signup</h2>
-			<form>
-				Email: <input type="email" value={state.email} name="email" onChange={handleInputChange} /> <br />
-				Name: <input type="text" value={state.name} name="name" onChange={handleInputChange} /> <br />
-				Password: <input
-					type="password"
-					value={state.password}
-					name="password"
-					onChange={handleInputChange}
-				/>{' '}
-				<br />
-				Picture: <input type="file" name="picture" onChange={handleFileChange} />
-				<br />
-				<button onClick={(e) => handleClick(e)}>Signup</button>
-			</form>
-			{state.message && <div className="info info-danger">{state.message}</div>}
+		<div id="signup">
+			<div className="signup">
+				<h2 className="h2_signup">Signup</h2>
+				<form className="form">
+					<div className="signup_detail">
+						<label>
+							<strong>Email : </strong>
+						</label>
+						<input
+							className="input_signup"
+							type="email"
+							value={state.email}
+							name="email"
+							onChange={handleInputChange}
+							placeholder="Email"
+						/>{' '}
+					</div>
+					<div className="signup_detail">
+						<label>
+							<strong>Name : </strong>
+						</label>
+						<input
+							className="input_signup"
+							type="text"
+							value={state.name}
+							name="name"
+							onChange={handleInputChange}
+							placeholder="Name"
+						/>{' '}
+					</div>
+					<div className="signup_detail">
+						<label>
+							<strong>Password : </strong>
+						</label>
+						<input
+							className="input_signup"
+							type="password"
+							value={state.password}
+							name="password"
+							onChange={handleInputChange}
+							placeholder="Password"
+						/>{' '}
+					</div>
+					<div className="signup_detail">
+						<label>
+							<strong>Picture : </strong>
+						</label>{' '}
+						<input className="input_signup" type="file" name="picture" onChange={handleFileChange} />
+					</div>
+					<button className="btn-signup" onClick={(e) => handleClick(e)}>
+						Signup
+					</button>
+				</form>
+				<strong>{state.message && <div className="info-danger">{state.message}</div>}</strong>
+			</div>
 		</div>
 	);
 }
