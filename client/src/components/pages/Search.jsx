@@ -13,7 +13,6 @@ export default function Search(props) {
   return (
     <div className="Home">
       <h2>TRACK A JOURNEY</h2>
-      <p>{props.trip.errorMsg}</p>
       <form action="" onSubmit={props.onSubmit} className="searchForm">
         <input
           className="searchInput"
@@ -44,6 +43,11 @@ export default function Search(props) {
         <button className="searchBtn">GO</button>
       </form>
       <div className="tripsAnswer">
+        {props.trip.errorMsg ? (
+          <p className="errorSearch">{props.trip.errorMsg}</p>
+        ) : (
+          ''
+        )}
         {!transports.length ? (
           ''
         ) : (
@@ -73,15 +77,17 @@ export default function Search(props) {
                 {props.trip.return === true ? (
                   <ul>
                     <li className="iconLi">
-                      {(mode.mode === 'Car' && <i class="fas fa-car"></i>) ||
+                      {(mode.mode === 'Car' && (
+                        <i className="fas fa-car"></i>
+                      )) ||
                         (mode.mode === 'Train' && (
-                          <i class="fas fa-train"></i>
+                          <i className="fas fa-train"></i>
                         )) ||
                         (mode.mode === 'Bicycle' && (
-                          <i class="fas fa-biking"></i>
+                          <i className="fas fa-biking"></i>
                         )) ||
                         (mode.mode === 'Walking' && (
-                          <i class="fas fa-walking"></i>
+                          <i className="fas fa-walking"></i>
                         ))}
                     </li>
                     <li className="textLi">{mode.distance * 2} km</li>
@@ -92,7 +98,11 @@ export default function Search(props) {
                         className="saveTrip"
                         onClick={() => props.onClickSave(i)}
                       >
-                        <i class="far fa-bookmark"></i>
+                        {transports.visited ? (
+                          <i class="fas fa-bookmark"></i>
+                        ) : (
+                          <i className="far fa-bookmark"></i>
+                        )}
                       </button>
                     </li>
                     <li className="btnLi">
@@ -102,15 +112,17 @@ export default function Search(props) {
                 ) : (
                   <ul>
                     <li className="iconLi">
-                      {(mode.mode === 'Car' && <i class="fas fa-car"></i>) ||
+                      {(mode.mode === 'Car' && (
+                        <i className="fas fa-car"></i>
+                      )) ||
                         (mode.mode === 'Train' && (
-                          <i class="fas fa-train"></i>
+                          <i className="fas fa-train"></i>
                         )) ||
                         (mode.mode === 'Bicycle' && (
-                          <i class="fas fa-biking"></i>
+                          <i className="fas fa-biking"></i>
                         )) ||
                         (mode.mode === 'Walking' && (
-                          <i class="fas fa-walking"></i>
+                          <i className="fas fa-walking"></i>
                         ))}
                     </li>
                     <li className="textLi">{mode.distance} km</li>
@@ -121,7 +133,11 @@ export default function Search(props) {
                         className="saveTrip"
                         onClick={() => props.onClickSave(i)}
                       >
-                        <i class="far fa-bookmark"></i>
+                        {/* {props.savedTrip.includes(transports[i]) ? ( */}
+                        <i className="far fa-bookmark"></i>
+                        {/* ) : (
+                          <i class="fas fa-bookmark"></i>
+                        )} */}
                       </button>
                     </li>
                     <li className="btnLi">

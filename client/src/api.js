@@ -179,20 +179,17 @@ export default {
   // Save Trip
 
   savedTrips(trip) {
-    let newSave = trip.newSaved
     const newTrip = {
-      departure: newSave[newSave.length - 1].origin,
-      arrival: newSave[newSave.length - 1].destination,
-      transport: newSave[newSave.length - 1].mode,
-      duration: newSave[newSave.length - 1].time,
-      carbon: newSave[newSave.length - 1].carbon,
-      distance: newSave[newSave.length - 1].distance,
-      recurrence: newSave[newSave.length - 1].recurrence,
+      departure: trip[trip.length - 1].origin,
+      arrival: trip[trip.length - 1].destination,
+      transport: trip[trip.length - 1].mode,
+      duration: trip[trip.length - 1].time,
+      carbon: trip[trip.length - 1].carbon,
+      distance: trip[trip.length - 1].distance,
+      recurrence: trip[trip.length - 1].recurrence,
     }
-    if (newSave[newSave.length - 1].return === false)
-      newTrip.returnTrip = 'ONE WAY'
+    if (trip[trip.length - 1].return === false) newTrip.returnTrip = 'ONE WAY'
     else newTrip.returnTrip = 'RETURN TRIP'
-    console.log(newTrip)
     return service
       .post('/saved-trip', newTrip)
       .then(res => res.data)

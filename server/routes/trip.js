@@ -126,7 +126,7 @@ router.post('/google-trip', (req, res, next) => {
           })
           res.send(responseArray)
         })
-      } else res.json({ err: 'no trip found' })
+      } else res.json({ err: 'Oops, no trip found...' })
     })
     .catch(err => console.log(err))
 })
@@ -166,7 +166,8 @@ router.post('/saved-trip', isLoggedIn, (req, res) => {
     ],
   })
     .then(dbRes => {
-      if (!dbRes) {
+      console.log('dbRes', dbRes)
+      if (dbRes === null) {
         Trip.create(newTrip)
           .then(response => res.send('SUCCEED!'))
           .catch(err => console.log(err))
