@@ -9,8 +9,12 @@ export default function Profile(props) {
 	const [ user, setUser ] = useState({
 		email: '',
 		name: '',
-		picture: ''
+		picture: '',
+		msg: ''
 	});
+
+	const [ UIMessage, setUIMessage ] = useState('');
+
 	//saved trips
 
 	const [ trip, setTrip ] = useState([]);
@@ -20,6 +24,7 @@ export default function Profile(props) {
 		labels: []
 	});
 
+	//update profile
 	useEffect(() => {
 		api
 			.getProfile()
@@ -49,17 +54,30 @@ export default function Profile(props) {
 		if (name === 'name') {
 			api
 				.updateProfile('name', user.name)
-				.then((res) => setUser({ ...user, name: user.name }))
+				.then((res) => {
+					console.log('yahooo', res);
+					setUIMessage(res.msg);
+					setUser({ ...user, name: user.name });
+				})
 				.catch((err) => console.log(err));
 		}
 		if (name === 'email') {
 			api
 				.updateProfile('email', user.email)
-				.then((res) => setUser({ ...user, email: user.email }))
+				.then((res) => {
+					setUIMessage(res.msg);
+					setUser({ ...user, email: user.email });
+				})
 				.catch((err) => console.log(err));
 		}
 		if (name === 'picture') {
-			api.updatePicture(user.pictureToUpdate).then((res) => setUser(res)).catch((err) => console.log(err));
+			api
+				.updatePicture(user.pictureToUpdate)
+				.then((res) => {
+					setUser(res);
+					setUIMessage(res.msg);
+				})
+				.catch((err) => console.log(err));
 		}
 	}
 
@@ -108,6 +126,13 @@ export default function Profile(props) {
 				<br />
 				<div className="profile_image">
 					<img style={{ width: '100%' }} src={user.picture} alt="img" />
+				</div>
+				<div>
+					{UIMessage && (
+						<p className="msg-edit">
+							<strong>{UIMessage}</strong>
+						</p>
+					)}
 				</div>
 				<div className="profile_detail_info">
 					<div className="edit_items">
@@ -185,33 +210,34 @@ export default function Profile(props) {
 					<h1 style={{ textAlign: 'center' }}>Your trips</h1>
 					<div className="trip_details">
 						{trip.map((trips, i) => (
-							<ul key={i}>
+							<div key={i}>
 								<h2>Trip n° {[ i + 1 ]}</h2>
-
-								<li>
-									<strong className="title_detail">Departure : </strong> {trips.departure}
-								</li>
-								<li>
-									<strong className="title_detail">Arrival : </strong>
-									{trips.arrival}
-								</li>
-								<li>
-									<strong className="title_detail">Transport : </strong>
-									{trips.transport}
-								</li>
-								<li>
-									<strong className="title_detail">Duration : </strong>
-									{trips.duration}
-								</li>
-								<li>
-									<strong className="title_detail">Distance : </strong>
-									{trips.distance} km
-								</li>
-								<li>
-									<strong className="title_detail">Cabron footprint : </strong>
-									{trips.carbon} kg
-								</li>
-							</ul>
+								<ul>
+									<li>
+										<strong className="title_detail">Departure : </strong> {trips.departure}
+									</li>
+									<li>
+										<strong className="title_detail">Arrival : </strong>
+										{trips.arrival}
+									</li>
+									<li>
+										<strong className="title_detail">Transport : </strong>
+										{trips.transport}
+									</li>
+									<li>
+										<strong className="title_detail">Duration : </strong>
+										{trips.duration}
+									</li>
+									<li>
+										<strong className="title_detail">Distance : </strong>
+										{trips.distance} km
+									</li>
+									<li>
+										<strong className="title_detail">Cabron footprint : </strong>
+										{trips.carbon} kg
+									</li>
+								</ul>
+							</div>
 						))}
 					</div>
 				</div>

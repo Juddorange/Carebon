@@ -97,3 +97,8 @@
 .line, .doughnut{
   margin-bottom: 50px;
 }
+
+.msg-edit{
+  color: #b44a22;
+  font-size: 25px;
+}
