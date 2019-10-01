@@ -194,5 +194,11 @@ export default {
 
 	getSavedTrip() {
 		return service.get('/saved-trip').then((res) => res.data).catch((err) => console.log(err));
+	},
+
+	//delete trip
+
+	deleteTrip(_id) {
+		return service.delete('/deleteTrip/' + _id).then((res) => res.data).catch((err) => console.log(err));
 	}
 };

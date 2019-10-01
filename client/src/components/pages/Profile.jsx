@@ -92,6 +92,24 @@ export default function Profile(props) {
 			.catch((err) => console.log(err));
 	}
 
+	//delete trip
+	function deleteTrip(_id) {
+		api
+			.deleteTrip(_id)
+			.then((res) => {
+				console.log('trip deleted', res);
+				api
+					.getSavedTrip()
+					.then((res) => {
+						setTrip(res);
+						formatStates(res);
+					})
+					.catch((err) => console.log(err));
+				/*Eslint-disabled */
+			})
+			.catch((err) => console.log(err));
+	}
+
 	//charts
 	function formatStates(arr) {
 		let each = arr.map((v) => v.carbon);
@@ -236,6 +254,9 @@ export default function Profile(props) {
 									<li>
 										<strong className="title_detail">Cabron footprint : </strong>
 										{trips.carbon} kg
+									</li>
+									<li>
+										<button onClick={() => deleteTrip(trips._id)}>Delete Trip</button>
 									</li>
 								</ul>
 							</div>
