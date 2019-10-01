@@ -33,7 +33,7 @@ export default function CarbonOverTime(props) {
         fill: false,
         lineTension: 0.3,
         backgroundColor: 'rgba(75,192,192,0.4)',
-        borderColor: 'rgba(75,192,192,1)',
+        borderColor: '#fa990e',
         borderCapStyle: 'butt',
         borderDash: [],
         borderDashOffset: 0.0,

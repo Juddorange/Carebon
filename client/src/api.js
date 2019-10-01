@@ -183,10 +183,12 @@ export default {
 			duration: trip[trip.length - 1].time,
 			carbon: trip[trip.length - 1].carbon,
 			distance: trip[trip.length - 1].distance,
-			recurrence: trip[trip.length - 1].recurrence
+			number: Number(trip[trip.length - 1].frequency),
+			period: trip[trip.length - 1].period
 		};
 		if (trip[trip.length - 1].return === false) newTrip.returnTrip = 'ONE WAY';
 		else newTrip.returnTrip = 'RETURN TRIP';
+		console.log('api  newtrip', newTrip);
 		return service.post('/saved-trip', newTrip).then((res) => res.data).catch((err) => console.log(err));
 	},
 

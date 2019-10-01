@@ -43,6 +43,36 @@
   color: #777777;
 }
 
+#frequency {
+  display: flex;
+  align-items: center;
+  margin-top: 30px;
+  width: 70%;
+}
+
+#frequency label {
+  color: #777777;
+  font-size: 15px;
+  /* margin-right: 30px; */
+  width: 25%;
+}
+
+.frequencyInput {
+  border: none;
+  border-radius: 20px;
+  padding: 0 10px;
+  height: 40px;
+  width: 25%;
+  /* margin-right: 30px; */
+  background-color: #f7f9f9;
+  box-shadow: 0px 0px 8px 0px #e0e0e0;
+  font-size: 12px;
+  text-align: center;
+  font-family: Raleway;
+  font-size: 15px;
+  color: #777777;
+}
+
 .labelCheckbox {
   color: #777777;
   font-size: 15px;
