@@ -229,7 +229,7 @@ export default function Profile(props) {
 					<h1 style={{ textAlign: 'center' }}>Your trips</h1>
 					<div className="trip_details">
 						{trip.map((trips, i) => (
-							<div key={i}>
+							<div className="div-ul" key={i}>
 								<h2>Trip n° {[ i + 1 ]}</h2>
 								<ul>
 									<li>
@@ -252,11 +252,21 @@ export default function Profile(props) {
 										{trips.distance} km
 									</li>
 									<li>
-										<strong className="title_detail">Cabron footprint : </strong>
+										<strong className="title_detail">Carbon footprint : </strong>
 										{trips.carbon} kg
 									</li>
 									<li>
-										<button onClick={() => deleteTrip(trips._id)}>Delete Trip</button>
+										<strong className="title_detail">One way / Two way ? </strong>
+										{trips.returnTrip}
+									</li>
+									<li>
+										<strong className="title_detail">Recurrence of your trip : </strong>
+										{trips.frequency.number} / {trips.frequency.period}
+									</li>
+									<li>
+										<button className="btn-delete" onClick={() => deleteTrip(trips._id)}>
+											Delete Trip
+										</button>
 									</li>
 								</ul>
 							</div>
