@@ -141,7 +141,6 @@ const AppMap = props => {
         handleMapClicked={handleMapClicked}
         handleMarkerClick={handleMarkerClick}
         directions={state.directions}
-        onBoundsChanged={onBoundsChanged}
         center={state.center}
         onMapMounted={onMapMounted}
         markers={state.markers}
