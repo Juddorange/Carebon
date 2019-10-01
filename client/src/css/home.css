@@ -126,12 +126,12 @@
   width: 5%;
 }
 
-.saveTrip.far {
+.far.fa-bookmark {
   font-size: 30px;
   color: #f7f9f9;
 }
 
-.saveTrip.far.is-active {
+.far.fa-bookmark .is-active {
   color: #114a0b;
 }
 
@@ -153,4 +153,14 @@
 
 .Home .fas {
   font-size: 30px;
+}
+
+.errorSearch {
+  color: #fa990e;
+  font-size: 30px;
+}
+
+input:focus,
+button:focus {
+  outline: none;
 }

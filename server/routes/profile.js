@@ -16,6 +16,7 @@ router.put('/profile/update', (req, res) => {
 	let picture = null;
 	if (req.file) picture.file;
 	const { name, email } = req.body;
+
 	console.log(req.body);
 	if (name) {
 		User.findOneAndUpdate({ email: req.user.email }, { name }, { new: true })
@@ -34,6 +35,10 @@ router.put('/profile/updatePicture', uploader.single('picture'), (req, res) => {
 	User.findOneAndUpdate({ email: req.user.email }, { picture: req.file.secure_url }, { new: true })
 		.then((dbRes) => res.json(dbRes))
 		.catch((err) => console.log(err));
+});
+
+router.delete('/profile/deleteAccount', (req, res) => {
+	User.findOneAndRemove({ email: req.user.email }).then((dbRes) => res.json(dbRes)).catch((err) => console.log(err));
 });
 
 module.exports = router;

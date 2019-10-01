@@ -4,7 +4,7 @@ import api from '../../api'
 import CarbonOverTime from './CarbonOverTime'
 import TripsDoughnut from './TripsDoughnut'
 
-export default function Profile() {
+export default function Profile(props) {
   //edit profile
   const [user, setUser] = useState({
     email: '',
@@ -12,6 +12,7 @@ export default function Profile() {
     picture: '',
   })
   //saved trips
+
   const [trip, setTrip] = useState([])
   const [statistics, setStatistics] = useState({
     each: [],
@@ -43,17 +44,20 @@ export default function Profile() {
 
   function handleClickButton(e) {
     e.preventDefault()
-    let name = e.target.previousSibling.getAttribute('name')
+    // e.target.parentElement.previousSibling.getAttribute('name')
+    let name = e.target.parentElement.parentElement.childNodes[1].getAttribute(
+      'name'
+    )
     if (name === 'name') {
       api
         .updateProfile('name', user.name)
-        .then(res => setUser(...user, user.name))
+        .then(res => setUser({ ...user, name: user.name }))
         .catch(err => console.log(err))
     }
     if (name === 'email') {
       api
         .updateProfile('email', user.email)
-        .then(res => setUser(...user, user.email))
+        .then(res => setUser({ ...user, email: user.email }))
         .catch(err => console.log(err))
     }
     if (name === 'picture') {
@@ -62,6 +66,16 @@ export default function Profile() {
         .then(res => setUser(res))
         .catch(err => console.log(err))
     }
+  }
+
+  //delete profile
+  function handleDelete() {
+    api
+      .deleteProfile()
+      .then(res => {
+        props.history.push('/signup')
+      })
+      .catch(err => console.log(err))
   }
 
   function formatStates(arr) {
@@ -78,6 +92,7 @@ export default function Profile() {
 
     setStatistics({ ...statistics, each, average, labels })
   }
+
   useEffect(() => {
     api
       .getSavedTrip()
@@ -87,6 +102,7 @@ export default function Profile() {
         formatStates(res)
       })
       .catch(err => console.log(err))
+    /*Eslint-disabled */
   }, [])
 
   let labelounes = [1, 2, 3]
@@ -96,59 +112,93 @@ export default function Profile() {
       <div className="profile_info">
         <h1>Profile</h1>
         <br />
-        <div className="profil_image">
-          <img style={{ height: '300px' }} src={user.picture} alt="img" />
+        <div className="profile_image">
+          <img style={{ width: '100%' }} src={user.picture} alt="img" />
         </div>
-        <div>
-          <label>Name : </label>
-          <input
-            type="text"
-            name="name"
-            value={user.name}
-            onChange={handleOnChange}
-          />
-          <button onClick={handleClickButton} className="edit-btn">
-            Edit
-          </button>
-          <br />
-          <label>Email : </label>
-          <input
-            type="text"
-            name="email"
-            value={user.email}
-            onChange={handleOnChange}
-          />
-          <button onClick={handleClickButton} className="edit-btn">
-            Edit
-          </button>
-          <br />
-          {/* <label>Password : </label>
-				<input type="password" name="password" value={user.password} onChange={handleOnChange} />
-				<button onClick={handleClickButton} className="edit-btn">
-					Edit
-				</button>
-				<br /> */}
-          <label>Profile picture : </label>
-          <input type="file" name="picture" onChange={handleOnChange} />
-          <button onClick={handleClickButton} className="edit-btn">
-            Edit
-          </button>
-          <br />
+        <div className="profile_detail_info">
+          <div className="edit_items">
+            <label>
+              <strong>Name </strong>
+            </label>
+            <input
+              className="input_profile"
+              type="text"
+              name="name"
+              value={user.name}
+              onChange={handleOnChange}
+            />
+            <button onClick={handleClickButton} className="edit-btn">
+              <i className="fas fa-pencil-alt" />
+            </button>
+          </div>
+          <div className="edit_items">
+            <label>
+              <strong>Email</strong>
+            </label>
+            <input
+              className="input_profile"
+              type="text"
+              name="email"
+              value={user.email}
+              onChange={handleOnChange}
+            />
+            <button onClick={handleClickButton} className="edit-btn">
+              <i className="fas fa-pencil-alt" />
+            </button>
+          </div>
+          <div className="edit_items">
+            <label>
+              <strong>Profile picture</strong>
+            </label>
+            <input
+              className="input_profile"
+              type="file"
+              name="picture"
+              onChange={handleOnChange}
+            />{' '}
+            <button onClick={handleClickButton} className="edit-btn">
+              <i className="fas fa-pencil-alt" />
+            </button>
+          </div>
         </div>
-        <button>Delete account</button>
+        <button className="btn-delete" onClick={handleDelete}>
+          Delete account
+        </button>
       </div>
       <div className="profile_trips">
-        <h1>Your trips</h1>
-        {trip.map((trips, i) => (
-          <ul key={i}>
-            <h2>Trip n° {[i + 1]}</h2>
-            <li>Departure: {trips.departure}</li>
-            <li>Arrival: {trips.arrival}</li>
-            <li>Transport: {trips.transport}</li>
-            <li>Duration: {trips.duration}</li>
-            <li>Cabron footprint: {trips.carbon} kg</li>
-          </ul>
-        ))}
+        <h1 style={{ textAlign: 'center' }}>Your trips</h1>
+        <div className="trip_details">
+          {trip.map((trips, i) => (
+            <ul key={i}>
+              <h2>Trip n° {[i + 1]}</h2>
+
+              <li>
+                <strong className="title_detail">Departure : </strong>{' '}
+                {trips.departure}
+              </li>
+              <li>
+                <strong className="title_detail">Arrival : </strong>
+                {trips.arrival}
+              </li>
+              <li>
+                <strong className="title_detail">Transport : </strong>
+                {trips.transport}
+              </li>
+              <li>
+                <strong className="title_detail">Duration : </strong>
+                {trips.duration}
+              </li>
+              <li>
+                <strong className="title_detail">Distance : </strong>
+                {trips.distance} km
+              </li>
+              <li>
+                <strong className="title_detail">Cabron footprint : </strong>
+                {trips.carbon} kg
+              </li>
+            </ul>
+          ))}
+        </div>
       </div>
       {/* 
       <CarbonOverTime
