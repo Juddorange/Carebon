@@ -156,62 +156,74 @@ export default function Home() {
 		[ savedTrip ]
 	);
 
-	function handlesaveTrip(i) {
-		if (!api.isLoggedIn()) return;
-		else if (transports[i].saved) {
-			api
-				.getOneTrip(trip.origin, trip.destination, trip.return, transports[i].mode)
-				.then((res) => {
-					console.log('trip unsaved');
-					handleVisited(i);
-				})
-				.catch((err) => console.log(err));
-		} else {
-			setSavedTrip([
-				...savedTrip,
-				{
-					origin: trip.origin.toUpperCase(),
-					destination: trip.destination.toUpperCase(),
-					mode: trip.transports[i].mode.toUpperCase(),
-					time: timeConvert(trip.transports[i].time),
-					distance: trip.transports[i].distance,
-					carbon: trip.transports[i].carbon,
-					return: trip.return,
-					frequency: trip.frequency,
-					period: trip.period
-				}
-			]);
-			handleVisited(i);
-		}
-	}
-	function displayMode(mode) {
-		if (mode === 'Car') return 'fas fa-car';
-		else if (mode === 'Train') return 'fas fa-train';
-		else if (mode === 'Bicycle') return 'fas fa-biking';
-		else return 'fas fa-walking';
-	}
-	function handleResultOnclick(e) {
-		setTrip({ ...trip, mapSearch: false, color: '' });
-		console.log(e.target);
-		console.log(e.target.nodeName);
-		if (e.target.nodeName === 'I') e.target = e.target.parentNode.parentNode;
-		else if (e.target.nodeName !== 'UL') e.target = e.target.parentNode;
-		let displayedColor;
-		let getMode = e.target.firstElementChild.firstElementChild.id.toUpperCase();
-		console.log(getMode);
-		if (getMode === 'CAR') {
-			displayedColor = 'red';
-			getMode = 'DRIVING';
-		} else if (getMode === 'TRAIN') {
-			displayedColor = 'yellow';
-			getMode = 'TRANSIT';
-		} else if (getMode === 'BICYCLE') {
-			displayedColor = 'purple';
-			getMode = 'BICYCLING';
-		} else if (getMode === 'WALKING') {
-			displayedColor = 'green';
-			getMode = 'WALKING';
-		}
+  function handlesaveTrip(i) {
+    if (!api.isLoggedIn()) return
+    else if (transports[i].saved) {
+      api
+        .getOneTrip(
+          trip.origin,
+          trip.destination,
+          trip.return,
+          transports[i].mode
+        )
+        .then(res => {
+          console.log('trip unsaved')
+          handleVisited(i)
+        })
+        .catch(err => console.log(err))
+    } else {
+      setSavedTrip([
+        ...savedTrip,
+        {
+          origin: trip.origin.toUpperCase(),
+          destination: trip.destination.toUpperCase(),
+          mode: trip.transports[i].mode.toUpperCase(),
+          time: timeConvert(trip.transports[i].time),
+          distance: trip.transports[i].distance,
+          carbon: trip.transports[i].carbon,
+          return: trip.return,
+          frequency: trip.frequency,
+          period: trip.period,
+        },
+      ])
+      handleVisited(i)
+    }
+  }
+  function displayMode(mode) {
+    if (mode === 'Car') return 'fas fa-car'
+    else if (mode === 'Train') return 'fas fa-train'
+    else if (mode === 'Bicycle') return 'fas fa-biking'
+    else return 'fas fa-walking'
+  }
+  function handleResultOnclick(e) {
+    setTrip({ ...trip, mapSearch: false, color: '' })
+    console.log(e.target)
+    console.log(e.target.nodeName)
+    console.log('CLASSNAME', e.target.className)
+    if (
+      e.target.className === 'far fa-star' ||
+      e.target.className === 'fas fa-star'
+    ) {
+      return
+    } else if (e.target.nodeName === 'I')
+      e.target = e.target.parentNode.parentNode
+    else if (e.target.nodeName !== 'UL') e.target = e.target.parentNode
+    let displayedColor
+    let getMode = e.target.firstElementChild.firstElementChild.id.toUpperCase()
+    console.log(getMode)
+    if (getMode === 'CAR') {
+      displayedColor = 'red'
+      getMode = 'DRIVING'
+    } else if (getMode === 'TRAIN') {
+      displayedColor = 'yellow'
+      getMode = 'TRANSIT'
+    } else if (getMode === 'BICYCLE') {
+      displayedColor = 'purple'
+      getMode = 'BICYCLING'
+    } else if (getMode === 'WALKING') {
+      displayedColor = 'green'
+      getMode = 'WALKING'
+    }
 
 		setTrip({
 			...trip,
