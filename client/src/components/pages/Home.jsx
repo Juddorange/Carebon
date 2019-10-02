@@ -245,9 +245,31 @@ export default function Home() {
 						placeholder="Destination"
 						required
 					/>
-					<div className="checkbox">
-						<label className="labelCheckbox">Return Trip</label>
-						<input type="checkbox" name="return" value={trip.return} id="return" onChange={handleChange} />
+					<label>Day</label>
+					<input className="radioInput" type="radio" name="period" value="DAY" onChange={handleChange} />
+					<label>Week</label>
+					<input className="radioInput" type="radio" name="period" value="WEEK" onChange={handleChange} />
+					<label>Month</label>
+					<input className="radioInput" type="radio" name="period" value="MONTH" onChange={handleChange} />
+				</div>
+				<button className="searchBtn">GO</button>
+			</form>
+			<div className="tripsAnswer">
+				{trip.errorMsg ? <p className="errorSearch">{trip.errorMsg}</p> : ''}
+				{!transports.length ? (
+					''
+				) : (
+					<div className="firstAnswer">
+						<p className="resultText lala">
+							Results for <span>{title.origin}</span> to <span>{title.destination}</span>
+						</p>
+						<ul>
+							<li className="iconLi">MODE</li>
+							<li className="textLi">DISTANCE</li>
+							<li className="textLi">DURATION</li>
+							<li className="textLi">CARBON FOOTPRINT</li>
+							{api.isLoggedIn() ? <li className="btnLi" /> : ''}
+						</ul>
 					</div>
 					<div id="frequency">
 						<label htmlFor="">Frequency:</label>
