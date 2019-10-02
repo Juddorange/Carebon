@@ -29,7 +29,6 @@ export default function Profile(props) {
 		api
 			.getProfile()
 			.then((res) => {
-				console.log(res);
 				setUser(res);
 			})
 			.catch((err) => console.log(err));
@@ -39,7 +38,6 @@ export default function Profile(props) {
 		e.preventDefault();
 		let value = e.target.value;
 		if (e.target.name === 'picture') {
-			console.log(e.target.files);
 			setUser({
 				...user,
 				pictureToUpdate: e.target.files[0]
@@ -55,7 +53,6 @@ export default function Profile(props) {
 			api
 				.updateProfile('name', user.name)
 				.then((res) => {
-					console.log('yahooo', res);
 					setUIMessage(res.msg);
 					setUser({ ...user, name: user.name });
 				})
@@ -71,7 +68,6 @@ export default function Profile(props) {
 				.catch((err) => console.log(err));
 		}
 		if (name === 'picture') {
-			console.log('ici');
 			api
 				.updatePicture(user.pictureToUpdate)
 				.then((res) => {
@@ -97,7 +93,6 @@ export default function Profile(props) {
 		api
 			.deleteTrip(_id)
 			.then((res) => {
-				console.log('trip deleted', res);
 				api
 					.getSavedTrip()
 					.then((res) => {
@@ -128,7 +123,6 @@ export default function Profile(props) {
 		api
 			.getSavedTrip()
 			.then((res) => {
-				console.log('TRIP ??????', res);
 				setTrip(res);
 				formatStates(res);
 			})
@@ -212,8 +206,8 @@ export default function Profile(props) {
 					<div className="line">
 						<CarbonOverTime
 							title={'Carbon stack'}
-							max-width={'50vw'}
-							height={'50vh'}
+							max-width={'30vw'}
+							height={'30vh'}
 							labels={statistics.labels}
 							data={{
 								each: statistics.each,

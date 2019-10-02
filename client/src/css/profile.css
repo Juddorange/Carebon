@@ -16,7 +16,7 @@
   justify-content: flex-start;
   align-items: center;
   margin-right: 20px;
-  width: 30%;
+  min-width: 25%;
   padding: 0 15px;
   box-shadow: 5px 0px 6px -4px #602200;
   min-height: 100vh;
@@ -96,8 +96,12 @@
   margin: 0 120px;
 }
 
-.line, .doughnut{
-  margin-bottom: 50px;
+.line{
+  margin-bottom: 300px;
+}
+
+.doughnut{
+  margin-bottom: 100px;
 }
 
 .msg-edit{
