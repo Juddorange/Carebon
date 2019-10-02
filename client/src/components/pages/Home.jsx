@@ -63,6 +63,7 @@ export default function Home() {
 
   function handleSubmit(event) {
     event.preventDefault()
+
     if (api.isLoggedIn()) {
       Promise.all([
         api.getEveryAnswer(trip.origin, trip.destination),
@@ -100,7 +101,13 @@ export default function Home() {
                   }
                 }
             }
-            setTrip({ ...trip, errorMsg: '', transports: searchedTrips })
+            setTrip({
+              ...trip,
+              errorMsg: '',
+              transports: searchedTrips,
+              mapSearch: false,
+            })
+
             setPreviousSavedTrip(savedTrips)
             setTitle({
               ...title,
@@ -194,7 +201,14 @@ export default function Home() {
     setTrip({ ...trip, mapSearch: false, color: '' })
     console.log(e.target)
     console.log(e.target.nodeName)
-    if (e.target.nodeName === 'I') e.target = e.target.parentNode.parentNode
+    console.log('CLASSNAME', e.target.className)
+    if (
+      e.target.className === 'far fa-star' ||
+      e.target.className === 'fas fa-star'
+    ) {
+      return
+    } else if (e.target.nodeName === 'I')
+      e.target = e.target.parentNode.parentNode
     else if (e.target.nodeName !== 'UL') e.target = e.target.parentNode
     let displayedColor
     let getMode = e.target.firstElementChild.firstElementChild.id.toUpperCase()

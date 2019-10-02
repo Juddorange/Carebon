@@ -59,7 +59,7 @@ const Map = React.memo(props => {
           path={props.directions.routes[0].overview_path}
         />
       )}
-      <DirectionsRenderer directions={props.directions} />
+      {/* <DirectionsRenderer directions={props.directions} /> */}
     </GoogleMap>
   )
 })

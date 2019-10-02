@@ -1,12 +1,21 @@
 import React from 'react'
 import { Doughnut } from 'react-chartjs-2'
 
-export default function TripsDoughnut(props) {
+export default function GraphTripsDoughnut(props) {
+  console.log(props.data)
+  let tripsModes = []
+  let tripsValues = []
+  for (let element in props.data) {
+    tripsModes.push(element)
+    tripsValues.push(props.data[element])
+  }
+  console.log('tripsModes', tripsModes)
+  console.log('tripsValues', tripsValues)
   const data = {
-    labels: props.labels,
+    labels: tripsModes,
     datasets: [
       {
-        data: props.data,
+        data: tripsValues,
         backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
         hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
       },
@@ -16,7 +25,7 @@ export default function TripsDoughnut(props) {
 
   return (
     <div>
-      <h2>Dynamicly refreshed Doughnut Example</h2>
+      <h2>Preferred modes of travel</h2>
       <div
         style={{
           height: props.height,
