@@ -100,7 +100,12 @@ export default function Home() {
                   }
                 }
             }
-            setTrip({ ...trip, errorMsg: '', transports: searchedTrips })
+            setTrip({
+              ...trip,
+              errorMsg: '',
+              transports: searchedTrips,
+              mapSearch: false,
+            })
             setPreviousSavedTrip(savedTrips)
             setTitle({
               ...title,
@@ -116,7 +121,12 @@ export default function Home() {
         .getEveryAnswer(trip.origin, trip.destination)
         .then(response => {
           console.log(response)
-          setTrip({ ...trip, errorMsg: '', transports: response })
+          setTrip({
+            ...trip,
+            errorMsg: '',
+            transports: response,
+            mapSearch: false,
+          })
           setTitle({
             ...title,
             origin: trip.origin,
