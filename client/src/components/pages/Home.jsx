@@ -50,7 +50,7 @@ export default function Home() {
 
   function handleVisited(i) {
     let clone = [...trip.transports]
-    clone[i].saved = true
+    clone[i].saved = !clone[i].saved
     setTrip({
       ...trip,
       transports: clone,
@@ -107,9 +107,11 @@ export default function Home() {
         })
         .catch(err => console.log(err))
     } else {
+      console.log(trip)
       api
         .getEveryAnswer(trip.origin, trip.destination)
         .then(response => {
+          console.log(response)
           setTrip({ ...trip, errorMsg: '', transports: response })
           setTitle({
             ...title,
@@ -147,7 +149,20 @@ export default function Home() {
 
   function handlesaveTrip(i) {
     if (!api.isLoggedIn()) return
-    else {
+    else if (transports[i].saved) {
+      api
+        .getOneTrip(
+          trip.origin,
+          trip.destination,
+          trip.return,
+          transports[i].mode
+        )
+        .then(res => {
+          console.log('trip unsaved')
+          handleVisited(i)
+        })
+        .catch(err => console.log(err))
+    } else {
       setSavedTrip([
         ...savedTrip,
         {
@@ -176,7 +191,7 @@ export default function Home() {
   return (
     <div className="Home">
       <h2>TRACK A JOURNEY</h2>
-      <pre>{JSON.stringify(previousSavedTrip)}</pre>
+      {/* <pre>{JSON.stringify(previousSavedTrip)}</pre> */}
       <form action="" onSubmit={handleSubmit} className="searchForm">
         <input
           className="searchInput"
