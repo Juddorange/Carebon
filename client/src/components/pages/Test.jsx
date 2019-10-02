@@ -6,23 +6,16 @@ import Map from './MyMapComponent'
 // import './style.css'
 
 export default function Test() {
-  let a = 'machecoul'
-  let b = 'la marne'
-  function handleClick() {
-    api.getEveryAnswer(a, b)
-  }
-
-  const MapLoader = withScriptjs(Map)
+  let trip1 = { origin: 'Paris', destination: 'Brest', mode: 'WALKING' }
+  let trip2 = { origin: 'Paris', destination: 'Brest', mode: 'TRANSIT' }
+  let trip3 = { origin: 'Paris', destination: 'Brest', mode: 'DRIVING' }
+  let trip4 = { origin: 'Paris', destination: 'Brest', mode: 'BICYCLING' }
+  let trips = [trip1, trip2, trip3]
 
   return (
     <div>
-      <button onClick={handleClick}>TEST ME</button>
-      <MapLoader
-        origin="Paris"
-        destination="Tourcoing"
-        googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_KEY}`}
-        loadingElement={<div style={{ height: `100%` }} />}
-      />
+      <button>TEST ME</button>
+      <Map trips={{ origin: 'Paris', destination: 'Brest', mode: 'WALKING' }} />
     </div>
   )
 }
