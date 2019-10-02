@@ -231,7 +231,7 @@ export default function Home() {
 					''
 				) : (
 					<div className="firstAnswer">
-						<p className="resultText">
+						<p className="resultText lala">
 							Results for <span>{title.origin}</span> to <span>{title.destination}</span>
 						</p>
 						<ul>
