@@ -220,6 +220,7 @@ export default function Profile(props) {
 							<TripsDoughnut width={'30vw'} height={'30vh'} labels={labelounes} data={[ 1, 2, 3 ]} />
 						</div>
 						<div className="projects">
+							<h2>Carbon offset projects</h2>
 							<a
 								href="https://offset.climateneutralnow.org/allprojects"
 								target="_blank"
