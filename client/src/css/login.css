@@ -1,27 +1,27 @@
-.login{
+.login {
   height: 50vh;
-  box-shadow: 0px 0px 10px 4px #85b892;
+  box-shadow: 0px 0px 10px 4px #e0e0e0;
   border-radius: 15px;
   width: 30%;
-  margin: 40px 630px;
+  margin: 0 630px;
   background-color: rgba(247, 249, 249);
   padding-top: 15px;
 }
 
-.form-login{
+.form-login {
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
   align-items: center;
 }
 
-.login-detail{
+.login-detail {
   margin-bottom: 20px;
   font-size: 20px;
   color: #fa990e;
 }
 
-.btn-login{
+.btn-login {
   margin-top: 20px;
   border-radius: 15px;
   font-size: 25px;
@@ -36,7 +36,7 @@
   text-align: center;
 }
 
-.input_login{
+.input_login {
   width: auto;
   padding: 10px;
   font-size: 15px;
@@ -46,23 +46,19 @@
   background-color: #f7f9f9;
   box-shadow: 0px 0px 8px 0px #e0e0e0;
   margin-left: 10px;
-  color: #fa990e
+  color: #fa990e;
 }
 
-#login{
-  background-image: url("/img/header.jpg");
-  height: 88.4vh;
+#login {
+  background-image: url('/img/heade-2.jpg');
+  background-size: cover;
+  min-height: 100vh;
+  padding-top: 40px;
 }
 
-.info-danger{
-  text-align:center;
+.info-danger {
+  text-align: center;
   font-size: 25px;
   color: #b44a22;
   margin-top: 30px;
-}
-
-input:-internal-autofill-selected {
-  background-color: #f7f9f9 !important;
-  background-image: none !important;
-  color: #fa990e !important
 }
