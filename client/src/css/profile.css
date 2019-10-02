@@ -1,15 +1,16 @@
 .profile {
   display: flex;
+  justify-content: space-around;
   width: 100%;
-  background-color: rgb(247, 249, 249)
+  background-color: rgb(247, 249, 249);
 }
 
-.profile_trips ul{
+.profile_trips ul {
   list-style-type: none;
   -webkit-padding-start: 0;
 }
 
-.profile_info{
+.profile_info {
   background-color: #fecc46;
   display: flex;
   flex-direction: column;
@@ -22,9 +23,10 @@
   min-height: 100vh;
 }
 
-.trip_details{
+.trip_details {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-around;
 }
 
 .edit-btn {
@@ -33,16 +35,16 @@
   border: none;
 }
 
-.input_profile{
+.input_profile {
   border-radius: 15px;
   border: none;
   font-size: 15px;
   width: 45%;
-  padding: 10px 20px;;
+  padding: 10px 20px;
   margin: 0 20px;
   text-align: center;
   background-color: #fa990e;
-  color: white
+  color: white;
 }
 
 .profile_detail_info {
@@ -52,16 +54,16 @@
   margin-top: 50px;
 }
 
-.title_detail{
-  color: #fa990e
+.title_detail {
+  color: #fa990e;
 }
 
-.fas.fa-pencil-alt{
+.fas.fa-pencil-alt {
   color: #fa990e;
   font-size: 25px;
 }
 
-.btn-delete{
+.btn-delete {
   border-radius: 15px;
   border: none;
   color: white;
@@ -71,7 +73,7 @@
   margin-top: 10px;
 }
 
-.edit_items{
+.edit_items {
   display: flex;
   margin-bottom: 20px;
   align-items: center;
@@ -79,7 +81,7 @@
   font-size: 20px;
 }
 
-.profile_image{
+.profile_image {
   display: flex;
   border-radius: 50%;
   justify-content: center;
@@ -88,28 +90,63 @@
   overflow: hidden;
 }
 
-.charts{
+.charts {
   text-align: center;
 }
 
-.trip-charts{
+.trip-charts {
   margin: 0 120px;
 }
 
-.line{
+.line {
   margin-bottom: 300px;
 }
 
-.doughnut{
+.doughnut {
   margin-bottom: 100px;
 }
 
-.msg-edit{
+.msg-edit {
   color: #b44a22;
   font-size: 25px;
 }
 
-.div-ul{
+.div-ul {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  font-size: 20px;
+  background-color: #f7f9f9;
+  box-shadow: 0px 0px 8px 0px #e0e0e0;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.div-ul:not(:last-child) {
+  margin-right: 10px;
+  margin-bottom: 20px;
+}
+
+.div-ul,
+li {
+  margin: 5px 0;
+}
+
+.div-ul h2 {
+  font-size: 25px;
+}
+
+.div-ul .btn-delete {
+  width: auto;
+  background-color: #f7f9f9;
+  color: #fa990e;
+  font-size: 25px;
+  margin: 0;
+  padding: 0;
+  align-self: flex-end;
+}
+
+/* .div-ul{
   font-size: 20px;
 }
 
@@ -119,4 +156,4 @@
 
 .div-ul, li{
   margin: 5px 0;
-}
+} */
