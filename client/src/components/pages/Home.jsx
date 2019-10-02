@@ -245,6 +245,21 @@ export default function Home() {
 						placeholder="Destination"
 						required
 					/>
+          <div className="checkbox">
+              <label className="labelCheckbox">Return Trip</label>
+              <input type="checkbox" name="return" value={trip.return} id="return" onChange={handleChange} />
+          </div>
+          <div id="frequency">
+            <label>Frequency:</label>
+            <input
+              className="frequencyInput"
+              value={trip.frequencyNumber}
+              name="frequency"
+              type="number"
+              min="0"
+              required
+              onChange={handleChange}
+          />
 					<label>Day</label>
 					<input className="radioInput" type="radio" name="period" value="DAY" onChange={handleChange} />
 					<label>Week</label>
@@ -260,7 +275,7 @@ export default function Home() {
 					''
 				) : (
 					<div className="firstAnswer">
-						<p className="resultText lala">
+						<p className="resultText">
 							Results for <span>{title.origin}</span> to <span>{title.destination}</span>
 						</p>
 						<ul>
@@ -270,45 +285,7 @@ export default function Home() {
 							<li className="textLi">CARBON FOOTPRINT</li>
 							{api.isLoggedIn() ? <li className="btnLi" /> : ''}
 						</ul>
-					</div>
-					<div id="frequency">
-						<label htmlFor="">Frequency:</label>
-						<input
-							className="frequencyInput"
-							value={trip.frequencyNumber}
-							name="frequency"
-							type="number"
-							min="0"
-							required
-							onChange={handleChange}
-						/>
-						Day
-						<input type="radio" name="period" value="DAY" onChange={handleChange} />
-						Week
-						<input type="radio" name="period" value="WEEK" onChange={handleChange} />
-						Month
-						<input type="radio" name="period" value="MONTH" onChange={handleChange} />
-					</div>
-					<button className="searchBtn">GO</button>
-				</form>
-				<div className="tripsAnswer">
-					{trip.errorMsg ? <p className="errorSearch">{trip.errorMsg}</p> : ''}
-					{!transports.length ? (
-						''
-					) : (
-						<div className="firstAnswer">
-							<p className="result">
-								Results for {title.origin} to {title.destination}
-							</p>
-							<ul>
-								<li className="iconLi">MODE</li>
-								<li className="textLi">DISTANCE</li>
-								<li className="textLi">DURATION</li>
-								<li className="textLi">CARBON FOOTPRINT</li>
-								<li className="btnLi" />
-							</ul>
-						</div>
-					)}
+					</div>)}
 					{transports
 						.sort((m1, m2) => {
 							if (m1.carbon > m2.carbon) return 1;
