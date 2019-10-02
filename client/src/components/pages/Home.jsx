@@ -307,7 +307,7 @@ export default function Home() {
           ) : (
             <div className="firstAnswer">
               <p className="result">
-                Results for {trip.origin} to {trip.destination}
+                Results for {title.origin} to {title.destination}
               </p>
               <ul>
                 <li className="iconLi">MODE</li>
