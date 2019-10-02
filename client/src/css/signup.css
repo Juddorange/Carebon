@@ -62,3 +62,8 @@
   color: #b44a22;
   margin-top: 30px;
 }
+
+.btn-signup-flex{
+  display: flex;
+  justify-content: center;
+}
