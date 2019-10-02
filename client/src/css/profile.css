@@ -94,8 +94,9 @@
   text-align: center;
 }
 
-.trip-charts {
-  margin: 0 120px;
+.trip-charts{
+  width: 60%;
+  margin-left: 75px;
 }
 
 .line {
@@ -120,15 +121,14 @@
   box-shadow: 0px 0px 8px 0px #e0e0e0;
   padding: 20px;
   border-radius: 20px;
+  margin-bottom: 20px;
 }
 
 .div-ul:not(:last-child) {
   margin-right: 10px;
-  margin-bottom: 20px;
 }
 
-.div-ul,
-li {
+.div-ul li {
   margin: 5px 0;
 }
 
@@ -146,14 +146,19 @@ li {
   align-self: flex-end;
 }
 
-/* .div-ul{
+.carbon-projects{
+  display: flex;
+  justify-content: space-around;
+    
+}
+
+.projects{
+  display: flex;
+  flex-direction: column;
+}
+
+.projects a{
+  text-decoration:none;
   font-size: 20px;
+  color: #fa990e;
 }
-
-.div-ul:not(:last-child){
-  margin-right: 40px;
-}
-
-.div-ul, li{
-  margin: 5px 0;
-} */
