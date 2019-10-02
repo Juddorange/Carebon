@@ -120,34 +120,22 @@ export default function Profile(props) {
     }
     return carbonArray
   }
+
   //WIP
-  function getTimePassed(date) {
-    var date = new Date(date)
-    console.log(date)
-    var now = new Date()
-    console.log(now)
-    return (now.getTime() - date.getTime()) / (1000 * 60 * 60 * 24)
+  function getTimePassedInHours(date) {
+    var date = new Date(date).toUTCString()
+    var now = new Date().toUTCString()
+    return (now.getTime() - date.getTime()) / (1000 * 60 * 60)
   }
 
   //charts
   function formatStats(arr) {
     // console.log('DATASET', arr)
-    // console.log('NOW', new Date())
-    // console.log('CREATED AT 0', new Date(arr[0].created_at).toUTCString())
-    // console.log('CREATED AT 1', new Date(arr[1].created_at).toUTCString())
-    // console.log('CREATED AT 2', new Date(arr[2].created_at).toUTCString())
-    // console.log(
-    //   'TIME PASSED 0',
-    //   getTimePassed(new Date(arr[0].created_at).toUTCString())
-    // )
-    // console.log(
-    //   'TIME PASSED 1',
-    //   getTimePassed(new Date(arr[1].created_at).toUTCString())
-    // )
-    // console.log(
-    //   'TIME PASSED 2',
-    //   getTimePassed(new Date(arr[2].created_at).toUTCString())
-    // )
+    console.log('NOW', new Date())
+    console.log('NOW TO UTC', new Date().toUTCString())
+    console.log('JUST DATE', new Date(arr[0].created_at))
+    console.log('TO UTC', new Date(arr[0].created_at).toUTCString())
+
     //Pie chart data
     let bicycleTravels = 0,
       trainTravels = 0,
