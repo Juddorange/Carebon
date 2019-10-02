@@ -132,6 +132,14 @@ export default function Profile(props) {
 
 	let labelounes = [ 1, 2, 3 ];
 
+	//display transport mode
+	function displayMode(mode) {
+		if (mode === 'CAR') return 'fas fa-car';
+		else if (mode === 'TRAIN') return 'fas fa-train';
+		else if (mode === 'BICYCLE') return 'fas fa-biking';
+		else return 'fas fa-walking';
+	}
+
 	return (
 		<div className="profile">
 			<div className="profile_info">
@@ -261,49 +269,47 @@ export default function Profile(props) {
 				<div className="profile_trips">
 					<h1 style={{ textAlign: 'center' }}>Your trips</h1>
 					<div className="trip_details">
-						{trip.map((trips, i) => (
-							<div className="div-ul" key={i}>
-								<h2>Trip n° {[ i + 1 ]}</h2>
-								<ul>
-									<li>
-										<strong className="title_detail">Departure : </strong> {trips.departure}
-									</li>
-									<li>
-										<strong className="title_detail">Arrival : </strong>
+						{trip
+							.sort((t1, t2) => {
+								if (t1.timestamps > t2.timestamps) return 1;
+								return -1;
+							})
+							.map((trips, i) => (
+								<div className="div-ul" key={i}>
+									<h2>
+										<i className={displayMode(trips.transport)} />
+										{'  '}
+										{trips.departure}{' '}
+										{trips.returnTrip === 'ONE WAY' ? (
+											<i class="fas fa-long-arrow-alt-right" />
+										) : (
+											<i class="fas fa-arrows-alt-h" />
+										)}{' '}
 										{trips.arrival}
-									</li>
-									<li>
-										<strong className="title_detail">Transport : </strong>
-										{trips.transport}
-									</li>
-									<li>
-										<strong className="title_detail">Duration : </strong>
-										{trips.duration}
-									</li>
-									<li>
-										<strong className="title_detail">Distance : </strong>
-										{trips.distance} km
-									</li>
-									<li>
-										<strong className="title_detail">Carbon footprint : </strong>
-										{trips.carbon} kg
-									</li>
-									<li>
-										<strong className="title_detail">One way / Two way ? </strong>
-										{trips.returnTrip}
-									</li>
-									<li>
-										<strong className="title_detail">Recurrence of your trip : </strong>
-										{trips.frequency.number} / {trips.frequency.period}
-									</li>
-									<li>
-										<button className="btn-delete" onClick={() => deleteTrip(trips._id)}>
-											Delete Trip
-										</button>
-									</li>
-								</ul>
-							</div>
-						))}
+									</h2>
+									<ul>
+										<li>
+											<strong className="title_detail">Duration : </strong>
+											{trips.duration}
+										</li>
+										<li>
+											<strong className="title_detail">Distance : </strong>
+											{trips.distance} km
+										</li>
+										<li>
+											<strong className="title_detail">Carbon footprint : </strong>
+											{trips.carbon} kg
+										</li>
+										<li>
+											<strong className="title_detail">Recurrence of your trip : </strong>
+											{trips.frequency.number} / {trips.frequency.period}
+										</li>
+									</ul>
+									<button className="btn-delete" onClick={() => deleteTrip(trips._id)}>
+										<i class="fas fa-times" />
+									</button>
+								</div>
+							))}
 					</div>
 				</div>
 			</div>

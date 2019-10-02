@@ -4,28 +4,24 @@ import {
   withScriptjs,
   withGoogleMap,
   Marker,
+  Polyline,
   DirectionsRenderer,
 } from 'react-google-maps'
-import { SearchBox } from 'react-google-maps/lib/components/places/SearchBox'
 import _ from 'lodash'
 
 const Map = React.memo(props => {
-  const myWayPoints = props.markers.map(m => {
-    const str = m.position.lat + ',' + m.position.lng
-    return { location: str }
-  })
+  // const mapMe = arr => {
+  //   return arr.map(a => a.lat_lngs[0])
+  // }
+  console.log(props)
 
   useEffect(() => {
-    if (props.markers.length <= 1) return
     const DirectionsService = new window.google.maps.DirectionsService()
     DirectionsService.route(
       {
-        origin:
-          props.markers[0].position.lat + ',' + props.markers[0].position.lng,
-        waypoints: myWayPoints,
-        destination:
-          props.markers[0].position.lat + ',' + props.markers[0].position.lng,
-        travelMode: window.google.maps.TravelMode.WALKING,
+        origin: props.trips.origin,
+        destination: props.trips.destination,
+        travelMode: window.google.maps.TravelMode[props.trips.mode],
       },
       (result, status) => {
         if (status === window.google.maps.DirectionsStatus.OK) {
@@ -35,52 +31,34 @@ const Map = React.memo(props => {
         }
       }
     )
-  }, [props.markers])
+  }, [props.markers, props.trips])
+
+  const polyOptions = {
+    strokeColor: props.trips.color,
+    strokeOpacity: 0.5,
+    zIndex: 1,
+    strokeWeight: 5,
+  }
+
+  function handleMe(e) {
+    console.log(e, 'this is meee')
+  }
 
   return (
     <GoogleMap
       onClick={props.handleMapClicked}
       ref={props.onMapMounted}
-      onBoundsChanged={props.onBoundsChanged}
       defaultZoom={12}
       center={props.center}
       defaultCenter={{ lat: 48.866667, lng: 2.333333 }}
     >
-      <SearchBox
-        ref={props.onSearchBoxMounted}
-        onPlacesChanged={props.onPlacesChanged}
-        controlPosition={window.google.maps.ControlPosition.TOP_LEFT}
-      >
-        <input
-          type="text"
-          style={{
-            boxSizing: `border-box`,
-            backgroundColor: 'black',
-            color: 'white',
-            border: `1px solid transparent`,
-            width: `240px`,
-            height: `32px`,
-            marginTop: `27px`,
-            padding: `0 12px`,
-            borderRadius: `3px`,
-            boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
-            fontSize: `14px`,
-            outline: `none`,
-            textOverflow: `ellipses`,
-          }}
+      {props.directions && (
+        <Polyline
+          onClick={handleMe}
+          options={polyOptions}
+          path={props.directions.routes[0].overview_path}
         />
-      </SearchBox>
-      {props.markers.map((marker, i) => (
-        <Marker
-          onClick={props.handleMarkerClick}
-          icon={{
-            url: 'https://image.flaticon.com/icons/svg/1241/1241771.svg',
-            scaledSize: new window.google.maps.Size(16, 16),
-          }}
-          key={i}
-          position={marker.position}
-        />
-      ))}
+      )}
       <DirectionsRenderer directions={props.directions} />
     </GoogleMap>
   )
@@ -105,15 +83,14 @@ const AppMap = props => {
     /* eslint-disable */
   }, [])
 
-  const onSearchBoxMounted = ref => (refs.searchBox = ref)
   const onMapMounted = ref => (refs.map = ref)
-  const onBoundsChanged = () => {
-    setState({
-      ...state,
-      bounds: refs.map.getBounds(),
-      center: refs.map.getCenter(),
-    })
-  }
+  // const onBoundsChanged = () => {
+  //   setState({
+  //     ...state,
+  //     bounds: refs.map.getBounds(),
+  //     center: refs.map.getCenter(),
+  //   })
+  // }
 
   const onPlacesChanged = () => {
     const places = refs.searchBox.getPlaces()
@@ -160,14 +137,13 @@ const AppMap = props => {
   return (
     <div style={{ height: '50vh' }}>
       <WrapperMap
+        trips={props.trips}
         handleMapClicked={handleMapClicked}
         handleMarkerClick={handleMarkerClick}
         directions={state.directions}
-        onBoundsChanged={onBoundsChanged}
         center={state.center}
         onMapMounted={onMapMounted}
         markers={state.markers}
-        onSearchBoxMounted={onSearchBoxMounted}
         onPlacesChanged={onPlacesChanged}
         handleDirections={handleDirections}
         googleMapURL={`https://maps.googleapis.com/maps/api/js?key=AIzaSyC4R6AN7SmujjPUIGKdyao2Kqitzr1kiRg&v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_APIKEY}`}
