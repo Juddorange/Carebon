@@ -10,12 +10,11 @@ import {
 import _ from 'lodash'
 
 const Map = React.memo(props => {
-  const mapMe = arr => {
-    return arr.map(a => a.lat_lngs[0])
-  }
+  // const mapMe = arr => {
+  //   return arr.map(a => a.lat_lngs[0])
+  // }
+  console.log(props)
 
-  // console.log(props.directions.routes[0].legs[0].steps)
-  console.log(props.directions)
   useEffect(() => {
     const DirectionsService = new window.google.maps.DirectionsService()
     DirectionsService.route(
@@ -32,14 +31,15 @@ const Map = React.memo(props => {
         }
       }
     )
-  }, [props.markers])
+  }, [props.markers, props.trips])
 
   const polyOptions = {
-    strokeColor: 'red',
+    strokeColor: props.trips.color,
     strokeOpacity: 0.5,
     zIndex: 1,
     strokeWeight: 5,
   }
+
   function handleMe(e) {
     console.log(e, 'this is meee')
   }

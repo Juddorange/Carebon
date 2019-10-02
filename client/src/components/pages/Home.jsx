@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import api from '../../api'
+import Map from './MyMapComponent'
 
 export default function Search(props) {
   function timeConvert(n) {
@@ -31,6 +32,9 @@ export default function Search(props) {
     transports: [],
     return: false,
     errorMsg: '',
+    mapSearch: false,
+    displayedMode: '',
+    color: '',
   })
 
   let transports = trip.transports
@@ -82,7 +86,11 @@ export default function Search(props) {
                 }
               }
           }
-          setTrip({ ...trip, errorMsg: '', transports: searchedTrips })
+          setTrip({
+            ...trip,
+            errorMsg: '',
+            transports: searchedTrips,
+          })
           setPreviousSavedTrip(savedTrips)
         }
       })
@@ -141,138 +149,189 @@ export default function Search(props) {
     else return 'fas fa-walking'
   }
 
+  function handleResultOnclick(e) {
+    setTrip({ ...trip, mapSearch: false, color: '' })
+    console.log(e.target)
+    console.log(e.target.nodeName)
+    if (e.target.nodeName === 'I') e.target = e.target.parentNode.parentNode
+    else if (e.target.nodeName !== 'UL') e.target = e.target.parentNode
+    let displayedColor
+    let getMode = e.target.firstElementChild.firstElementChild.id.toUpperCase()
+    console.log(getMode)
+    if (getMode === 'CAR') {
+      displayedColor = 'red'
+      getMode = 'DRIVING'
+    } else if (getMode === 'TRAIN') {
+      displayedColor = 'yellow'
+      getMode = 'TRANSIT'
+    } else if (getMode === 'BICYCLE') {
+      displayedColor = 'purple'
+      getMode = 'BICYCLING'
+    } else if (getMode === 'WALKING') {
+      displayedColor = 'green'
+      getMode = 'WALKING'
+    }
+
+    setTrip({
+      ...trip,
+      mapSearch: true,
+      displayedMode: getMode,
+      color: displayedColor,
+    })
+  }
+
   return (
-    <div className="Home">
-      <h2>TRACK A JOURNEY</h2>
-      {/*<pre>{JSON.stringify(previousSavedTrip)}</pre> */}
-      <form action="" onSubmit={handleSubmit} className="searchForm">
-        <input
-          className="searchInput"
-          type="text"
-          name="origin"
-          value={trip.origin}
-          onChange={handleChange}
-          placeholder="Departure"
-          required
-        />
-        <input
-          className="searchInput"
-          type="text"
-          name="destination"
-          value={trip.destination}
-          onChange={handleChange}
-          placeholder="Destination"
-          required
-        />
-        <div className="checkbox">
-          <label className="labelCheckbox">Return Trip</label>
+    <div>
+      <div className="Home">
+        <h2>TRACK A JOURNEY</h2>
+        {/*<pre>{JSON.stringify(previousSavedTrip)}</pre> */}
+        <form action="" onSubmit={handleSubmit} className="searchForm">
           <input
-            type="checkbox"
-            name="return"
-            value={trip.return}
-            id="return"
+            className="searchInput"
+            type="text"
+            name="origin"
+            value={trip.origin}
             onChange={handleChange}
-          />
-        </div>
-        <div id="frequency">
-          <label htmlFor="">Frequency:</label>
-          <input
-            className="frequencyInput"
-            value={trip.frequencyNumber}
-            name="frequency"
-            type="number"
-            min="0"
+            placeholder="Departure"
             required
-            onChange={handleChange}
           />
-          Day
           <input
-            type="radio"
-            name="period"
-            value="DAY"
+            className="searchInput"
+            type="text"
+            name="destination"
+            value={trip.destination}
             onChange={handleChange}
+            placeholder="Destination"
+            required
           />
-          Week
-          <input
-            type="radio"
-            name="period"
-            value="WEEK"
-            onChange={handleChange}
-          />
-          Month
-          <input
-            type="radio"
-            name="period"
-            value="MONTH"
-            onChange={handleChange}
-          />
-        </div>
-        <button className="searchBtn">GO</button>
-      </form>
-      <div className="tripsAnswer">
-        {trip.errorMsg ? <p className="errorSearch">{trip.errorMsg}</p> : ''}
-        {!transports.length ? (
-          ''
-        ) : (
-          <div className="firstAnswer">
-            <p className="result">
-              Results for {trip.origin} to {trip.destination}
-            </p>
-            <ul>
-              <li className="iconLi">MODE</li>
-              <li className="textLi">DISTANCE</li>
-              <li className="textLi">DURATION</li>
-              <li className="textLi">CARBON FOOTPRINT</li>
-              <li className="btnLi" />
-            </ul>
+          <div className="checkbox">
+            <label className="labelCheckbox">Return Trip</label>
+            <input
+              type="checkbox"
+              name="return"
+              value={trip.return}
+              id="return"
+              onChange={handleChange}
+            />
           </div>
-        )}
-        {transports
-          .sort((m1, m2) => {
-            if (m1.carbon > m2.carbon) return 1
-            else if (m1.carbon < m2.carbon) return -1
-            else {
-              if (m1.time > m2.time) return 1
-              if (m1.time < m2.time) return -1
-            }
-          })
-          .map(
-            (mode, i) =>
-              mode.error || (
-                <div className="answer" key={i}>
-                  <ul>
-                    <li className="iconLi">
-                      <i className={displayMode(mode.mode)} />
-                    </li>
-                    <li className="textLi">
-                      {trip.return === true ? mode.distance * 2 : mode.distance}{' '}
-                      km
-                    </li>
-                    <li className="textLi">
-                      {trip.return === true
-                        ? timeConvert(mode.time * 2)
-                        : timeConvert(mode.time)}
-                    </li>
-                    <li className="textLi">
-                      {trip.return === true ? mode.carbon * 2 : mode.carbon} kg
-                    </li>
-                    <li className="btnLi">
-                      <button
-                        className="saveTrip"
-                        onClick={() => handlesaveTrip(i)}
-                      >
-                        {mode.saved ? (
-                          <i class="fas fa-star" />
-                        ) : (
-                          <i class="far fa-star" />
-                        )}
-                      </button>
-                    </li>
-                  </ul>
-                </div>
-              )
+          <div id="frequency">
+            <label htmlFor="">Frequency:</label>
+            <input
+              className="frequencyInput"
+              value={trip.frequencyNumber}
+              name="frequency"
+              type="number"
+              min="0"
+              required
+              onChange={handleChange}
+            />
+            Day
+            <input
+              type="radio"
+              name="period"
+              value="DAY"
+              onChange={handleChange}
+            />
+            Week
+            <input
+              type="radio"
+              name="period"
+              value="WEEK"
+              onChange={handleChange}
+            />
+            Month
+            <input
+              type="radio"
+              name="period"
+              value="MONTH"
+              onChange={handleChange}
+            />
+          </div>
+          <button className="searchBtn">GO</button>
+        </form>
+        <div className="tripsAnswer">
+          {trip.errorMsg ? <p className="errorSearch">{trip.errorMsg}</p> : ''}
+          {!transports.length ? (
+            ''
+          ) : (
+            <div className="firstAnswer">
+              <p className="result">
+                Results for {trip.origin} to {trip.destination}
+              </p>
+              <ul>
+                <li className="iconLi">MODE</li>
+                <li className="textLi">DISTANCE</li>
+                <li className="textLi">DURATION</li>
+                <li className="textLi">CARBON FOOTPRINT</li>
+                <li className="btnLi" />
+              </ul>
+            </div>
           )}
+          {transports
+            .sort((m1, m2) => {
+              if (m1.carbon > m2.carbon) return 1
+              else if (m1.carbon < m2.carbon) return -1
+              else {
+                if (m1.time > m2.time) return 1
+                if (m1.time < m2.time) return -1
+              }
+            })
+            .map(
+              (transport, i) =>
+                transport.error || (
+                  <div className="answer" key={i}>
+                    <ul onClick={handleResultOnclick}>
+                      <li className="iconLi">
+                        <i
+                          className={displayMode(transport.mode)}
+                          id={transport.mode}
+                        />
+                      </li>
+                      <li className="textLi">
+                        {trip.return === true
+                          ? transport.distance * 2
+                          : transport.distance}{' '}
+                        km
+                      </li>
+                      <li className="textLi">
+                        {trip.return === true
+                          ? timeConvert(transport.time * 2)
+                          : timeConvert(transport.time)}
+                      </li>
+                      <li className="textLi">
+                        {trip.return === true
+                          ? transport.carbon * 2
+                          : transport.carbon}{' '}
+                        kg
+                      </li>
+                      <li className="btnLi">
+                        <button
+                          className="saveTrip"
+                          onClick={() => handlesaveTrip(i)}
+                        >
+                          {transport.saved ? (
+                            <i className="fas fa-star" />
+                          ) : (
+                            <i className="far fa-star" />
+                          )}
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                )
+            )}
+        </div>
       </div>
+      {trip.mapSearch && (
+        <Map
+          trips={{
+            color: trip.color,
+            origin: trip.origin,
+            destination: trip.destination,
+            mode: trip.displayedMode,
+          }}
+        />
+      )}
     </div>
   )
 }

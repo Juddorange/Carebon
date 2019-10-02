@@ -9,12 +9,13 @@ export default function Test() {
   let trip1 = { origin: 'Paris', destination: 'Brest', mode: 'WALKING' }
   let trip2 = { origin: 'Paris', destination: 'Brest', mode: 'TRANSIT' }
   let trip3 = { origin: 'Paris', destination: 'Brest', mode: 'DRIVING' }
+  let trip4 = { origin: 'Paris', destination: 'Brest', mode: 'BICYCLING' }
   let trips = [trip1, trip2, trip3]
 
   return (
     <div>
       <button>TEST ME</button>
-      <Map trips={trip1} />
+      <Map trips={{ origin: 'Paris', destination: 'Brest', mode: 'WALKING' }} />
     </div>
   )
 }
