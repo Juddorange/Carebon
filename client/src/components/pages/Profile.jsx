@@ -215,8 +215,46 @@ export default function Profile(props) {
 							}}
 						/>
 					</div>
-					<div className="doughnut">
-						<TripsDoughnut width={'50vw'} height={'50vh'} labels={labelounes} data={[ 1, 2, 3 ]} />
+					<div className="carbon-projects">
+						<div className="doughnut">
+							<TripsDoughnut width={'30vw'} height={'30vh'} labels={labelounes} data={[ 1, 2, 3 ]} />
+						</div>
+						<div className="projects">
+							<a
+								href="https://offset.climateneutralnow.org/allprojects"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								United Nations
+							</a>
+							<a
+								href="https://www.climatepartner.com/en/carbon-offset-projects"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								Climate Partner
+							</a>
+							<a
+								href="https://www.carbonfootprint.com/carbonoffsetprojects.html"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								Carbon Footprint
+							</a>
+							<a
+								href="https://www.goldstandard.org/take-action/offset-your-emissions"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								Gold Standard
+							</a>
+							<a href="https://eco-act.com/our-projects/" target="_blank" rel="noopener noreferrer">
+								Ecoact
+							</a>
+							<a href="https://climatecare.org/project-map/" target="_blank" rel="noopener noreferrer">
+								Climate Care
+							</a>
+						</div>
 					</div>
 				</div>
 				<div className="profile_trips">

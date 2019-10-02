@@ -93,7 +93,8 @@
 }
 
 .trip-charts{
-  margin: 0 120px;
+  width: 60%;
+  margin-left: 75px;
 }
 
 .line{
@@ -119,4 +120,16 @@
 
 .div-ul, li{
   margin: 5px 0;
+}
+
+.projects{
+  display: flex;
+  flex-direction: column;
+  width: 120px;
+}
+
+.carbon-projects{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
