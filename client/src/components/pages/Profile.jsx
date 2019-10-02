@@ -153,6 +153,14 @@ export default function Profile(props) {
     })
   }
 
+  //display transport mode
+  function displayMode(mode) {
+    if (mode === 'CAR') return 'fas fa-car'
+    else if (mode === 'TRAIN') return 'fas fa-train'
+    else if (mode === 'BICYCLE') return 'fas fa-biking'
+    else return 'fas fa-walking'
+  }
+
   useEffect(() => {
     api
       .getSavedTrip()
@@ -164,8 +172,6 @@ export default function Profile(props) {
       .catch(err => console.log(err))
     /* eslint-disable */
   }, [])
-
-  let labelounes = [1, 2, 3]
 
   return (
     <div className="profile">
@@ -240,79 +246,120 @@ export default function Profile(props) {
               title={'Carbon emitted by travel'}
               max-width={'30vw'}
               height={'30vh'}
-              labels={statistics.labels}
+              labels={statistics.lineLabels}
               data={{
                 carbonEmittedPerTrip: statistics.carbonEmittedPerTrip,
                 average: statistics.average,
               }}
             />
-          </div>
-
-          <div className="doughnut">
-            <GraphTripsDoughnut
-              width={'50vw'}
-              height={'50vh'}
-              labels={['train', 'car', 'foot', 'bicycle']}
-              data={statistics.tripsByMode}
-            />
+          </div>{' '}
+          <div className="carbon-projects">
+            <div className="doughnut">
+              <GraphTripsDoughnut
+                width={'50vw'}
+                height={'50vh'}
+                labels={['train', 'car', 'foot', 'bicycle']}
+                data={statistics.tripsByMode}
+              />
+            </div>
+            <div className="projects">
+              <h2>Carbon offset projects</h2>
+              <a
+                href="https://offset.climateneutralnow.org/allprojects"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                United Nations
+              </a>
+              <a
+                href="https://www.climatepartner.com/en/carbon-offset-projects"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Climate Partner
+              </a>
+              <a
+                href="https://www.carbonfootprint.com/carbonoffsetprojects.html"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Carbon Footprint
+              </a>
+              <a
+                href="https://www.goldstandard.org/take-action/offset-your-emissions"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Gold Standard
+              </a>
+              <a
+                href="https://eco-act.com/our-projects/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Ecoact
+              </a>
+              <a
+                href="https://climatecare.org/project-map/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Climate Care
+              </a>
+            </div>
           </div>
         </div>
         <div className="profile_trips">
           <h1 style={{ textAlign: 'center' }}>Your trips</h1>
           <div className="trip_details">
-            {trip.map((trips, i) => (
-              <div className="div-ul" key={i}>
-                <h2>Trip n° {[i + 1]}</h2>
-                <ul>
-                  <li>
-                    <strong className="title_detail">Departure : </strong>{' '}
-                    {trips.departure}
-                  </li>
-                  <li>
-                    <strong className="title_detail">Arrival : </strong>
+            {trip
+              .sort((t1, t2) => {
+                if (t1.timestamps > t2.timestamps) return 1
+                return -1
+              })
+              .map((trips, i) => (
+                <div className="div-ul" key={i}>
+                  <h2>
+                    <i className={displayMode(trips.transport)} />
+                    {'  '}
+                    {trips.departure}{' '}
+                    {trips.returnTrip === 'ONE WAY' ? (
+                      <i className="fas fa-long-arrow-alt-right" />
+                    ) : (
+                      <i className="fas fa-arrows-alt-h" />
+                    )}{' '}
                     {trips.arrival}
-                  </li>
-                  <li>
-                    <strong className="title_detail">Transport : </strong>
-                    {trips.transport}
-                  </li>
-                  <li>
-                    <strong className="title_detail">Duration : </strong>
-                    {trips.duration}
-                  </li>
-                  <li>
-                    <strong className="title_detail">Distance : </strong>
-                    {trips.distance} km
-                  </li>
-                  <li>
-                    <strong className="title_detail">
-                      Carbon footprint :{' '}
-                    </strong>
-                    {trips.carbon} kg
-                  </li>
-                  <li>
-                    <strong className="title_detail">
-                      One way / Two way ?{' '}
-                    </strong>
-                    {trips.returnTrip}
-                  </li>
-                  <li>
-                    <strong className="title_detail">
-                      Recurrence of your trip :{' '}
-                    </strong>
-                    {trips.frequency.number} / {trips.frequency.period}
-                  </li>
-                  <li>
-                    <button
-                      className="btn-delete"
-                      onClick={() => deleteTrip(trips._id)}
-                    >
-                      Delete Trip
-                    </button>
-                  </li>
-                </ul>
-              </div>
-            ))}
+                  </h2>
+                  <ul>
+                    <li>
+                      <strong className="title_detail">Duration : </strong>
+                      {trips.duration}
+                    </li>
+                    <li>
+                      <strong className="title_detail">Distance : </strong>
+                      {trips.distance} km
+                    </li>
+                    <li>
+                      <strong className="title_detail">
+                        Carbon footprint :{' '}
+                      </strong>
+                      {trips.carbon} kg
+                    </li>
+                    <li>
+                      <strong className="title_detail">
+                        Recurrence of your trip :{' '}
+                      </strong>
+                      {trips.frequency.number} / {trips.frequency.period}
+                    </li>
+                  </ul>
+                  <button
+                    className="btn-delete"
+                    onClick={() => deleteTrip(trips._id)}
+                  >
+                    <i className="fas fa-times" />
+                  </button>
+                </div>
+              ))}
           </div>
         </div>
       </div>
