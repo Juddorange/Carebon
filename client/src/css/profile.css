@@ -121,15 +121,14 @@
   box-shadow: 0px 0px 8px 0px #e0e0e0;
   padding: 20px;
   border-radius: 20px;
+  margin-bottom: 20px;
 }
 
 .div-ul:not(:last-child) {
   margin-right: 10px;
-  margin-bottom: 20px;
 }
 
-.div-ul,
-li {
+.div-ul li {
   margin: 5px 0;
 }
 

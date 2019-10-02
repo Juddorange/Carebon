@@ -281,9 +281,9 @@ export default function Profile(props) {
 										{'  '}
 										{trips.departure}{' '}
 										{trips.returnTrip === 'ONE WAY' ? (
-											<i class="fas fa-long-arrow-alt-right" />
+											<i className="fas fa-long-arrow-alt-right" />
 										) : (
-											<i class="fas fa-arrows-alt-h" />
+											<i className="fas fa-arrows-alt-h" />
 										)}{' '}
 										{trips.arrival}
 									</h2>
@@ -306,7 +306,7 @@ export default function Profile(props) {
 										</li>
 									</ul>
 									<button className="btn-delete" onClick={() => deleteTrip(trips._id)}>
-										<i class="fas fa-times" />
+										<i className="fas fa-times" />
 									</button>
 								</div>
 							))}
