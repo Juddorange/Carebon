@@ -104,7 +104,7 @@ export default function Profile(props) {
             formatStats(res)
           })
           .catch(err => console.log(err))
-        /*Eslint-disabled */
+        /* eslint-disable */
       })
       .catch(err => console.log(err))
   }
@@ -162,7 +162,7 @@ export default function Profile(props) {
         formatStats(res)
       })
       .catch(err => console.log(err))
-    /*Eslint-disabled */
+    /* eslint-disable */
   }, [])
 
   let labelounes = [1, 2, 3]
@@ -235,7 +235,7 @@ export default function Profile(props) {
       </div>
       <div className="trip-charts">
         <div className="charts">
-          {/* <div className="line">
+          <div className="line">
             <GraphCarbonOverTime
               title={'Carbon emitted by travel'}
               max-width={'30vw'}
@@ -246,7 +246,7 @@ export default function Profile(props) {
                 average: statistics.average,
               }}
             />
-          </div> */}
+          </div>
 
           <div className="doughnut">
             <GraphTripsDoughnut
