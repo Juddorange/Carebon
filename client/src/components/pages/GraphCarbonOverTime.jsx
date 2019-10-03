@@ -7,20 +7,29 @@ export default function GraphCarbonOverTime(props) {
     responsive: true,
     tooltips: {
       callbacks: {
-        label: function(tooltip, data) {
-          console.log(tooltip.datasetIndex)
-          console.log('data', data)
-          console.log('tooltip', tooltip)
-          var labello = data.toolTipLabels[tooltip.index]
+        // title: function(tooltipItem, data) {
+        //   console.log('tooltipItem', tooltipItem)
+        //   console.log('data', data)
 
-          return labello
+        //   var labello = data.toolTipLabels[tooltipItem.index]
+
+        //   return labello
+        // },
+
+        label: function(tooltipItem, data) {
+          console.log(tooltipItem.datasetIndex)
+          console.log('data', data)
+          console.log('tooltip', tooltipItem)
+          var labello = data.toolTipLabels[tooltipItem.index]
+          var value = tooltipItem.value
+          return [labello, value + 'kgs']
         },
-        labelColor: function(tooltipItem, chart) {
-          return {
-            borderColor: 'rgb(255, 0, 0)',
-            backgroundColor: 'rgb(255, 0, 0)',
-          }
-        },
+        // labelColor: function(tooltipItem, chart) {
+        //   return {
+        //     borderColor: 'rgb(255, 0, 0)',
+        //     backgroundColor: 'rgb(255, 0, 0)',
+        //   }
+        // },
         // labelTextColor: function(tooltipItem, chart) {
         //   return '#543453'
         // },
