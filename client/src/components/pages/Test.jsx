@@ -3,7 +3,6 @@ import React from 'react'
 
 import { withScriptjs } from 'react-google-maps'
 import Map from './MyMapComponent'
-import GraphCarbonOverTime2 from './GraphCarbonOverTime2'
 // import './style.css'
 
 export default function Test() {
@@ -15,7 +14,7 @@ export default function Test() {
 
   return (
     <div>
-      <GraphCarbonOverTime2 />
+      {/* <GraphCarbonOverTime /> */}
 
       {/* <Map trips={{ origin: 'Paris', destination: 'Brest', mode: 'WALKING' }} /> */}
     </div>
