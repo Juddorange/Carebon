@@ -25,13 +25,13 @@ export default function Login(props) {
 				<form className="form-login" onSubmit={handleSubmit}>
 					<div className="login-detail">
 						<label>
-							<strong>Email:</strong>
+							<strong>Email</strong>
 						</label>
 						<input className="input_login" type="email" {...getInputProps('email')} placeholder="Email" />
 					</div>
 					<div className="login-detail">
 						<label>
-							<strong>Password:</strong>
+							<strong>Password</strong>
 						</label>
 						<input
 							className="input_login"
