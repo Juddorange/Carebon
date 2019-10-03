@@ -17,9 +17,6 @@ export default function GraphCarbonOverTime(props) {
         // },
 
         label: function(tooltipItem, data) {
-          console.log(tooltipItem.datasetIndex)
-          console.log('data', data)
-          console.log('tooltip', tooltipItem)
           var labello = data.toolTipLabels[tooltipItem.index]
           var value = tooltipItem.value
           return [labello, value + 'kgs']

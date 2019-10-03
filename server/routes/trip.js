@@ -124,7 +124,6 @@ router.post('/google-trip', (req, res, next) => {
             for (element of responseArray) {
               if (value.request.path.includes(element.tag)) {
                 element.carbon = Number(value.data.carbonFootprint)
-                console.log('Element with added carbon', element)
               }
             }
           })
@@ -188,7 +187,7 @@ router.post('/saved-trip', isLoggedIn, (req, res) => {
 router.get('/saved-trip', isLoggedIn, (req, res) => {
   Trip.find({ userId: req.user._id })
     .then(dbRes => {
-      console.log(dbRes), res.json(dbRes)
+      res.json(dbRes)
     })
     .catch(err => console.log(err))
 })
@@ -212,7 +211,6 @@ router.post('/delete/one-trip', isLoggedIn, (req, res) => {
     ],
   })
     .then(dbRes => {
-      console.log(dbRes)
       res.json({ dbRes, msg: 'trip unsaved' })
     })
     .catch(err => console.log(err))

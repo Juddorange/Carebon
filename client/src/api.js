@@ -237,4 +237,12 @@ export default {
       .then(res => res.data)
       .catch(err => console.log(err))
   },
+
+  //Get Carbon average for all users
+  getCarbonAvg() {
+    return service
+      .get('/profile/carbonAvg')
+      .then(res => res.data)
+      .catch(err => console.log(err))
+  },
 }

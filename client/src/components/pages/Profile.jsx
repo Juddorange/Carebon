@@ -26,6 +26,7 @@ export default function Profile(props) {
     tripsByMode: { train: 0, car: 0, foot: 0, bicycle: 0 },
     averageCarbonPerMonth: 0,
   })
+  const [carbonAvg, setCarbonAvg] = useState(0)
 
   //update profile
   useEffect(() => {
@@ -33,6 +34,22 @@ export default function Profile(props) {
       .getProfile()
       .then(res => {
         setUser(res)
+      })
+      .catch(err => console.log(err))
+  }, [])
+
+  // update carbon average
+  useEffect(() => {
+    console.log('it has begun')
+    api
+      .getCarbonAvg()
+      .then(res => {
+        let arrLength = res.length
+        for (let carbs in res) if (carbs === 0) arrLength -= 1
+        let carbAvg =
+          Math.floor((res.reduce((acc, cv) => acc + cv, 0) * 100) / arrLength) /
+          100
+        setCarbonAvg(carbAvg)
       })
       .catch(err => console.log(err))
   }, [])
@@ -111,6 +128,13 @@ export default function Profile(props) {
   }
 
   //charts
+  function updateAvgProfile(value) {
+    api
+      .updateProfile('carbonAvg', value)
+      .then(res => console.log(res))
+      .catch(err => console.log(err))
+  }
+
   function formatStats(arr) {
     //Pie chart data
     let bicycleTravels = 0,
@@ -151,7 +175,6 @@ export default function Profile(props) {
       average.push(averageNumber)
     }
 
-    console.log('toolTipLabels', toolTipLabels)
     //Average carbon emitted per Month data
     let totalCarbonPerMonthArray = arr.map(trip => {
       let period = trip.frequency.period
@@ -176,6 +199,7 @@ export default function Profile(props) {
       lineLabels,
       averageCarbonPerMonth,
     })
+    updateAvgProfile(averageCarbonPerMonth)
   }
 
   //display transport mode
@@ -190,7 +214,6 @@ export default function Profile(props) {
     api
       .getSavedTrip()
       .then(res => {
-        console.log(res)
         setTrip(res)
         formatStats(res)
       })
@@ -201,6 +224,8 @@ export default function Profile(props) {
   return (
     <div className="profile">
       <div className="profile_info">
+        <p>Your average footprint : {statistics.averageCarbonPerMonth}</p>
+        <p>Our users average footprint : {carbonAvg}</p>
         <h1>PROFILE</h1>
         <br />
         <div className="profile_image">
