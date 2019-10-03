@@ -1,10 +1,14 @@
-.Home {
+#Home {
   padding-top: 10px;
-  padding-bottom: 40px;
   width: 100vw;
   background-image: url('/img/header.jpg');
-  min-height: 100vh;
+  min-height: 110vh;
   background-size: cover;
+  padding-bottom: 40px;
+}
+
+.Home {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -47,9 +51,10 @@
 #frequency {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   justify-content: space-between;
   margin-top: 30px;
-  width: 50%;
+  width: 60%;
 }
 
 #frequency label {
@@ -87,6 +92,12 @@
   margin: 0 30px 0 10px;
 }
 
+.radioBoxes {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .searchBtn {
   width: 10%;
   margin-top: 30px;
@@ -106,7 +117,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100vw;
+  width: 100%;
 }
 
 .firstAnswer {
@@ -173,18 +184,13 @@
   color: #f7f9f9;
 }
 
-.saveTrip,
-.addTrip {
+.saveTrip {
   border: none;
   color: #f7f9f9;
   font-family: Raleway;
   font-size: 12px;
   border-radius: 10px;
-  padding: 10px;
-}
-
-.saveTrip,
-.addTrip {
+  padding: 0;
   background-color: rgba(247, 249, 249, 0);
   font-size: 20px;
 }
@@ -203,6 +209,7 @@
   text-align: center;
   color: #a5dbe5;
   font-size: 30px;
+  margin: 0;
 }
 
 .resultText span {
@@ -214,12 +221,53 @@ button:focus {
   outline: none;
 }
 
-/* animation*/
-/* 
-.slide-fade li {
-  transition: all 0.4s ease-out;
-  opacity: 0;
+/*map*/
+
+.tripsAnswer.is-map {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 40%;
 }
-.slide-fade li.show {
-  opacity: 1;
-} */
+
+.search-map {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100vw;
+}
+
+.map {
+  width: 55%;
+  padding-bottom: 15px;
+}
+
+.map.not-active {
+  display: none;
+}
+
+.mapContainer {
+  height: 100%;
+  width: 100%;
+}
+
+.answer.is-active {
+  background-color: #a5dbe5;
+  box-shadow: 0px 0px 8px 0px #80acb2;
+}
+
+.tripsAnswer.is-map .answer li {
+  font-size: 18px;
+}
+
+.tripsAnswer.is-map .firstAnswer li {
+  font-size: 15px;
+}
+
+.tripsAnswer.is-map .firstAnswer,
+.tripsAnswer.is-map .answer {
+  width: 80%;
+}
+
+.tripsAnswer.is-map i {
+  font-size: 25px;
+}

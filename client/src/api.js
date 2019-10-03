@@ -198,6 +198,7 @@ export default {
     }
     if (trip[trip.length - 1].return === false) newTrip.returnTrip = 'ONE WAY'
     else newTrip.returnTrip = 'RETURN TRIP'
+
     return service
       .post('/saved-trip', newTrip)
       .then(res => res.data)

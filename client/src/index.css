@@ -4,6 +4,7 @@
 @import url('./css/login.css');
 @import url('./css/signup.css');
 @import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
+@import url('./css/home_responsive.css');
 
 /*color palette
 white: #f7f9f9
@@ -24,5 +25,5 @@ body {
   margin: 0;
   box-sizing: border-box;
   font-family: Raleway;
-  background-color:rgba(247, 249, 249)
+  background-color: rgba(247, 249, 249);
 }
