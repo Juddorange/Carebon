@@ -1,0 +1,161 @@
+@media screen and (max-width: 413px) {
+  .login {
+    height: 78vh;
+    width: 90%;
+    margin: 0 16px;
+    padding-top: 15px;
+  }
+  
+  .login-detail {
+    margin: 0 0 18px 20px;
+    font-size: 15px;
+  }
+  
+  .btn-login {
+    margin-top: 17px;
+    font-size: 20px;
+  }
+  
+  .h2_login {
+    font-size: 30px;
+  }
+  
+  .input_login {
+    width: 60%;
+    padding: 8px;
+    font-size: 12px;
+    border-radius: 10px;
+    margin-left: 10px;
+  }
+  
+  #login {
+    min-height: 100vh;
+    padding-top: 15px;
+  }
+  
+  .info-danger {
+    font-size: 17px;
+    margin: 30px;
+  }
+
+}
+
+@media screen and (min-width: 414px) and (max-width: 767px) {
+  .login {
+    height: 80vh;
+    width: 90%;
+    margin: 0 20px;
+    padding-top: 15px;
+  }
+  
+  .login-detail {
+    margin: 0 0 18px 20px;
+  }
+  
+  .h2_login {
+    font-size: 35px;
+  }
+  
+  .input_login {
+    width: 55%;
+    padding: 8px;
+    font-size: 15px;
+    border-radius: 10px;
+    margin-left: 15px;
+  }
+  
+  #login {
+    min-height: 100vh;
+    padding-top: 27px;
+  }
+  
+  .info-danger {
+    font-size: 25px;
+    margin: 30px;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .login {
+    height: 80vh;
+    width: 70%;
+    margin: 0 120px;
+    padding-top: 15px;
+  }
+  
+  .login-detail {
+    font-size: 25px;
+    margin: 0 0 18px 60px;
+  }
+  
+  .h2_login {
+    font-size: 45px;
+  }
+  
+  .input_login {
+    width: 55%;
+    padding: 8px;
+    font-size: 20px;
+    border-radius: 10px;
+    margin-left: 15px;
+  }
+  
+  #login {
+    min-height: 100vh;
+    padding-top: 27px;
+  }
+  
+  .info-danger {
+    font-size: 30px;
+    margin: 30px;
+  }
+
+  .btn-login {
+    font-size: 30px;
+    padding: 15px 40px;
+}
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1439px) {
+  .login {
+    height: 80vh;
+    width: 70%;
+    margin: 0 160px;
+    padding-top: 20px;
+  }
+  
+  .login-detail {
+    font-size: 25px;
+    margin: 0 0 18px 60px;
+  }
+  
+  .h2_login {
+    font-size: 45px;
+  }
+  
+  .input_login {
+    width: 55%;
+    padding: 8px;
+    font-size: 20px;
+    border-radius: 10px;
+    margin-left: 15px;
+  }
+  
+  #login {
+    min-height: 100vh;
+    padding-top: 35px;
+  }
+  
+  .info-danger {
+    font-size: 30px;
+    margin: 30px;
+  }
+
+  .form {
+    width: 100%
+  }
+  .btn-login {
+    font-size: 30px;
+    padding: 15px 40px;
+}
+}
