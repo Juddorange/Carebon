@@ -2,7 +2,7 @@
   .signup {
     height: 78vh;
     width: 90%;
-    margin: 0 16px;
+    margin: 0 5%;
     padding-top: 15px;
   }
   
@@ -44,7 +44,7 @@
   .signup {
     height: 80vh;
     width: 90%;
-    margin: 0 20px;
+    margin: 0 5%;
     padding-top: 15px;
   }
   
@@ -79,7 +79,7 @@
   .signup {
     height: 80vh;
     width: 70%;
-    margin: 0 120px;
+    margin: 0 15%;
     padding-top: 15px;
   }
   
@@ -120,7 +120,7 @@
   .signup {
     height: 80vh;
     width: 70%;
-    margin: 0 160px;
+    margin: 0 15%;
     padding-top: 20px;
   }
   

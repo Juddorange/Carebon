@@ -86,7 +86,7 @@ export default function Profile(props) {
 		api
 			.deleteProfile()
 			.then((res) => {
-				props.history.push('/signup');
+				api.logout().then((res) => props.history.push('/signup')).catch((err) => console.log(err));
 			})
 			.catch((err) => console.log(err));
 	}
