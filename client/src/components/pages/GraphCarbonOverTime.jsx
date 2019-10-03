@@ -3,7 +3,7 @@ import { Line } from 'react-chartjs-2'
 
 export default function GraphCarbonOverTime(props) {
   const options = {
-    maintainAspectRatio: true,
+    maintainAspectRatio: false,
     responsive: true,
     tooltips: {
       callbacks: {
@@ -35,8 +35,8 @@ export default function GraphCarbonOverTime(props) {
         label: 'Carbon in kgs',
         fill: true,
         lineTension: 0.3,
-        backgroundColor: 'rgba(75,192,192,0.4)',
-        borderColor: 'rgba(75,192,192,1)',
+        backgroundColor: 'rgba(165, 219, 229,0.4)',
+        borderColor: 'rgba(165, 219, 229  )',
         borderCapStyle: 'butt',
         borderDash: [],
         borderDashOffset: 0.0,
@@ -56,18 +56,18 @@ export default function GraphCarbonOverTime(props) {
         label: 'Average',
         fill: false,
         lineTension: 0.3,
-        backgroundColor: 'rgba(75,192,192,0.4)',
+        backgroundColor: '#f7f9f9',
         borderColor: '#fa990e',
         borderCapStyle: 'butt',
         borderDash: [],
         borderDashOffset: 0.0,
         borderJoinStyle: 'miter',
-        pointBorderColor: 'rgba(75,192,192,1)',
+        pointBorderColor: '#fa990e',
         pointBackgroundColor: '#fff',
         pointBorderWidth: 2,
         pointHoverRadius: 5,
-        pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-        pointHoverBorderColor: 'rgba(220,220,220,1)',
+        pointHoverBackgroundColor: '#f7f9f9',
+        pointHoverBorderColor: '#fa990e',
         pointHoverBorderWidth: 2,
         pointRadius: 5,
         pointHitRadius: 50,

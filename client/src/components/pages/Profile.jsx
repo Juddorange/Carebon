@@ -266,15 +266,12 @@ export default function Profile(props) {
       </div>
       <div className="trip-charts">
         <div className="charts">
+          <h1 style={{ color: '#f29833' }}>DASHBOARD</h1>
           <div className="line">
-            <h2>
-              Average carbon emission per month{' '}
-              {statistics.averageCarbonPerMonth} kgs
-            </h2>
             <GraphCarbonOverTime
-              title={'Carbon over a year'}
-              max-width={'30vw'}
-              height={'30vh'}
+              title={'CARBON OVER TIME'}
+              width={'100%'}
+              height={'300px'}
               labels={statistics.lineLabels}
               toolTipLabels={statistics.toolTipLabels}
               data={{
@@ -286,17 +283,33 @@ export default function Profile(props) {
           <div className="carbon-projects">
             <div className="doughnut">
               <GraphTripsDoughnut
-                width={'50vw'}
-                height={'50vh'}
+                width={'100%'}
+                height={'auto'}
                 labels={['train', 'car', 'foot', 'bicycle']}
                 data={statistics.tripsByMode}
               />
+            </div>
+            <div className="stats">
+              <h1>STATISTICS</h1>
+              <h3 className="statsTitle">
+                <strong>{statistics.averageCarbonPerMonth}</strong>
+                Your average carbon emission per month in kg{' '}
+              </h3>
+              <h3 className="statsTitle">
+                <strong>
+                  {(statistics.averageCarbonPerMonth * (25 / 1000)).toFixed(2)}€
+                </strong>{' '}
+                Cost to offset your monthly carbon footprint{' '}
+              </h3>
             </div>
           </div>
         </div>
         <div className="projects">
           <h1>CARBON OFFSET PROJECTS</h1>
-          <p>If you can't reduce, offset by investing in partner's program!</p>
+          <p>
+            You can offset your carbon footprint by investing into our partners'
+            programs!
+          </p>
           <a
             href="https://offset.climateneutralnow.org/allprojects"
             target="_blank"

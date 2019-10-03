@@ -14,16 +14,16 @@ export default function GraphTripsDoughnut(props) {
     datasets: [
       {
         data: tripsValues,
-        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
-        hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+        backgroundColor: ['#a5dbe5', ' #5b8d27', '#fecc46', '#fa990e'],
+        hoverBackgroundColor: ['#a5dbe5', ' #5b8d27', '#fecc46', '#fa990e'],
       },
     ],
-    options: { maintainAspectRatio: false, responsive: true },
+    options: { maintainAspectRatio: false, responsive: false },
   }
 
   return (
     <div>
-      <h2>Preferred modes of travel</h2>
+      <h2>PREFERRED MODES OF TRAVEL</h2>
       <div
         style={{
           height: props.height,
