@@ -13,7 +13,6 @@ const Map = React.memo(props => {
   // const mapMe = arr => {
   //   return arr.map(a => a.lat_lngs[0])
   // }
-  console.log(props)
 
   useEffect(() => {
     const DirectionsService = new window.google.maps.DirectionsService()
@@ -120,11 +119,7 @@ const AppMap = props => {
   const handleDirections = result => {
     setState({ ...state, directions: result })
   }
-  const handleMarkerClick = props => {
-    console.log(props)
-    console.log(props.latLng.lat())
-    console.log(props.latLng.lng())
-  }
+  const handleMarkerClick = props => {}
   const handleMapClicked = e => {
     setState({
       ...state,
@@ -135,7 +130,7 @@ const AppMap = props => {
     })
   }
   return (
-    <div style={{ height: '50vh' }}>
+    <div className="mapContainer">
       <WrapperMap
         trips={props.trips}
         handleMapClicked={handleMapClicked}
