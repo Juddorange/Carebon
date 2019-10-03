@@ -190,7 +190,7 @@ export default function Profile(props) {
 	return (
 		<div className="profile">
 			<div className="profile_info">
-				<h1>PROFILE</h1>
+				<h1>Profile</h1>
 				<br />
 				<div className="profile_image">
 					<img style={{ width: '100%' }} src={user.picture} alt="img" />
@@ -243,10 +243,10 @@ export default function Profile(props) {
 							<i className="fas fa-pencil-alt" />
 						</button>
 					</div>
-					<button className="btn-delete" onClick={handleDelete}>
-						Delete account
-					</button>
 				</div>
+				<button className="btn-delete" onClick={handleDelete}>
+					Delete account
+				</button>
 			</div>
 			<div className="trip-charts">
 				<div className="charts">
@@ -273,48 +273,47 @@ export default function Profile(props) {
 								data={statistics.tripsByMode}
 							/>
 						</div>
+						<div className="projects">
+							<h2>Carbon offset projects</h2>
+							<a
+								href="https://offset.climateneutralnow.org/allprojects"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								United Nations
+							</a>
+							<a
+								href="https://www.climatepartner.com/en/carbon-offset-projects"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								Climate Partner
+							</a>
+							<a
+								href="https://www.carbonfootprint.com/carbonoffsetprojects.html"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								Carbon Footprint
+							</a>
+							<a
+								href="https://www.goldstandard.org/take-action/offset-your-emissions"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								Gold Standard
+							</a>
+							<a href="https://eco-act.com/our-projects/" target="_blank" rel="noopener noreferrer">
+								Ecoact
+							</a>
+							<a href="https://climatecare.org/project-map/" target="_blank" rel="noopener noreferrer">
+								Climate Care
+							</a>
+						</div>
 					</div>
 				</div>
-				<div className="projects">
-					<h1>CARBON OFFSET PROJECTS</h1>
-					<p>If you can't reduce, offset by investing in partner's program!</p>
-					<a
-						href="https://offset.climateneutralnow.org/allprojects"
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						United Nations
-					</a>
-					<a
-						href="https://www.climatepartner.com/en/carbon-offset-projects"
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						Climate Partner
-					</a>
-					<a
-						href="https://www.carbonfootprint.com/carbonoffsetprojects.html"
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						Carbon Footprint
-					</a>
-					<a
-						href="https://www.goldstandard.org/take-action/offset-your-emissions"
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						Gold Standard
-					</a>
-					<a href="https://eco-act.com/our-projects/" target="_blank" rel="noopener noreferrer">
-						Ecoact
-					</a>
-					<a href="https://climatecare.org/project-map/" target="_blank" rel="noopener noreferrer">
-						Climate Care
-					</a>
-				</div>
 				<div className="profile_trips">
-					<h1 style={{ textAlign: 'center' }}>YOUR TRIPS</h1>
+					<h1 style={{ textAlign: 'center' }}>Your trips</h1>
 					<div className="trip_details">
 						{trip
 							.sort((t1, t2) => {
