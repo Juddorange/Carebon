@@ -140,7 +140,8 @@ const AppMap = props => {
         markers={state.markers}
         onPlacesChanged={onPlacesChanged}
         handleDirections={handleDirections}
-        googleMapURL={`https://maps.googleapis.com/maps/api/js?key=AIzaSyC4R6AN7SmujjPUIGKdyao2Kqitzr1kiRg&v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_APIKEY}`}
+        // googleMapURL={`https://maps.googleapis.com/maps/api/js?key=AIzaSyC4R6AN7SmujjPUIGKdyao2Kqitzr1kiRg&v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_APIKEY}`}
+        googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_APIKEY}`}
         loadingElement={<div style={{ height: '100%' }} />}
         containerElement={<div style={{ height: '100%' }} />}
         mapElement={<div style={{ height: '100%' }} />}
