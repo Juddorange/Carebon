@@ -205,12 +205,29 @@ export default function Profile(props) {
     updateAvgProfile(averageCarbonPerMonth)
   }
 
+  //display transport mode
+  function displayMode(mode) {
+    if (mode === 'CAR') return 'fas fa-car'
+    else if (mode === 'TRAIN') return 'fas fa-train'
+    else if (mode === 'BICYCLE') return 'fas fa-biking'
+    else return 'fas fa-walking'
+  }
+
+  useEffect(() => {
+    api
+      .getSavedTrip()
+      .then(res => {
+        setTrip(res)
+        formatStats(res)
+      })
+      .catch(err => console.log(err))
+    /* eslint-disable */
+  }, [])
+
   return (
     <div className="profile">
       <div className="profile_info">
         <h1>PROFILE</h1>
-        <p>Your average footprint : {statistics.averageCarbonPerMonth}</p>
-        <p>Our users average footprint : {carbonAvg}</p>
         <br />
         <div className="profile_image">
           <img style={{ width: '100%' }} src={user.picture} alt="img" />
@@ -303,6 +320,10 @@ export default function Profile(props) {
               <h3 className="statsTitle">
                 <strong>{statistics.averageCarbonPerMonth}</strong>
                 Your average carbon emission per month in kg{' '}
+                <h3 className="statsTitleCommunity">
+                  <strong>{carbonAvg}</strong>Our community's monthly average
+                  footprint in kg
+                </h3>
               </h3>
               <h3 className="statsTitle">
                 <strong>

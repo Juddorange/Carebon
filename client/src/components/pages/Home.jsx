@@ -28,7 +28,7 @@ export default function Home() {
     origin: '',
     destination: '',
     frequency: 0,
-    period: '',
+    period: 'DAY',
     transports: [],
     return: false,
     errorMsg: '',
@@ -261,7 +261,6 @@ export default function Home() {
     <div id="Home">
       <div className="Home">
         <h2>TRACK A JOURNEY</h2>
-        {/*<pre>{JSON.stringify(previousSavedTrip)}</pre> */}
         <form action="" onSubmit={handleSubmit} className="searchForm">
           <input
             className="searchInput"
