@@ -3,9 +3,7 @@ import {
   GoogleMap,
   withScriptjs,
   withGoogleMap,
-  Marker,
   Polyline,
-  DirectionsRenderer,
 } from 'react-google-maps'
 import _ from 'lodash'
 
@@ -30,6 +28,7 @@ const Map = React.memo(props => {
         }
       }
     )
+    /* eslint-disable */
   }, [props.markers, props.trips])
 
   const polyOptions = {

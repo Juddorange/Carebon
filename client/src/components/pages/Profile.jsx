@@ -21,9 +21,10 @@ export default function Profile(props) {
   const [statistics, setStatistics] = useState({
     carbonEmittedPerTrip: [],
     average: [],
+    toolTipLabels: [],
     lineLabels: [],
-    numberOfTrips: 0,
     tripsByMode: { train: 0, car: 0, foot: 0, bicycle: 0 },
+    averageCarbonPerMonth: 0,
   })
 
   //update profile
@@ -104,14 +105,14 @@ export default function Profile(props) {
             formatStats(res)
           })
           .catch(err => console.log(err))
-        /*Eslint-disabled */
+        /* eslint-disable */
       })
       .catch(err => console.log(err))
   }
 
   //charts
   function formatStats(arr) {
-    console.log(arr)
+    //Pie chart data
     let bicycleTravels = 0,
       trainTravels = 0,
       carTravels = 0,
@@ -130,6 +131,7 @@ export default function Profile(props) {
       bicycle: bicycleTravels,
     }
 
+    //Line chart data
     let carbonEmittedPerTrip = arr.map(v => v.carbon)
     let averageNumber =
       Math.round(
@@ -137,19 +139,42 @@ export default function Profile(props) {
           carbonEmittedPerTrip.length) *
           100
       ) / 100
+    let toolTipLabels = []
     let lineLabels = []
     let average = []
-    for (let i = 1; i < arr.length + 1; i++) {
-      lineLabels.push(i)
+
+    for (let i = 0; i < arr.length; i++) {
+      toolTipLabels.push(
+        arr[i].departure + '-' + arr[i].arrival + ' (' + arr[i].transport + ')'
+      )
+      lineLabels.push(i + 1)
       average.push(averageNumber)
     }
+
+    console.log('toolTipLabels', toolTipLabels)
+    //Average carbon emitted per Month data
+    let totalCarbonPerMonthArray = arr.map(trip => {
+      let period = trip.frequency.period
+      let number = trip.frequency.number
+      let carbon = trip.carbon
+      if (period === 'day') number = number * 30
+      else if (period === 'week') number = number * 4
+
+      return (carbon = carbon * number)
+    })
+    let averageCarbonPerMonth =
+      Math.round(
+        100 * totalCarbonPerMonthArray.reduce((acc, cv) => acc + cv, 0)
+      ) / 100
 
     setStatistics({
       ...statistics,
       carbonEmittedPerTrip,
       average,
-      lineLabels,
+      toolTipLabels,
       tripsByMode,
+      lineLabels,
+      averageCarbonPerMonth,
     })
   }
 
@@ -170,7 +195,7 @@ export default function Profile(props) {
         formatStats(res)
       })
       .catch(err => console.log(err))
-    /*Eslint-disabled */
+    /* eslint-disable */
   }, [])
 
   return (
@@ -242,11 +267,16 @@ export default function Profile(props) {
       <div className="trip-charts">
         <div className="charts">
           <div className="line">
+            <h2>
+              Average carbon emission per month{' '}
+              {statistics.averageCarbonPerMonth} kgs
+            </h2>
             <GraphCarbonOverTime
-              title={'Carbon emitted by travel'}
+              title={'Carbon over a year'}
               max-width={'30vw'}
               height={'30vh'}
               labels={statistics.lineLabels}
+              toolTipLabels={statistics.toolTipLabels}
               data={{
                 carbonEmittedPerTrip: statistics.carbonEmittedPerTrip,
                 average: statistics.average,

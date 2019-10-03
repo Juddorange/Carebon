@@ -2,8 +2,34 @@ import React from 'react'
 import { Line } from 'react-chartjs-2'
 
 export default function GraphCarbonOverTime(props) {
+  const options = {
+    maintainAspectRatio: true,
+    responsive: true,
+    tooltips: {
+      callbacks: {
+        label: function(tooltip, data) {
+          console.log(tooltip.datasetIndex)
+          console.log('data', data)
+          console.log('tooltip', tooltip)
+          var labello = data.toolTipLabels[tooltip.index]
+
+          return labello
+        },
+        labelColor: function(tooltipItem, chart) {
+          return {
+            borderColor: 'rgb(255, 0, 0)',
+            backgroundColor: 'rgb(255, 0, 0)',
+          }
+        },
+        // labelTextColor: function(tooltipItem, chart) {
+        //   return '#543453'
+        // },
+      },
+    },
+  }
   const data = {
     labels: props.labels,
+    toolTipLabels: props.toolTipLabels,
     datasets: [
       {
         label: 'Carbon in kgs',
@@ -25,7 +51,6 @@ export default function GraphCarbonOverTime(props) {
         pointRadius: 5,
         pointHitRadius: 50,
         data: props.data.carbonEmittedPerTrip,
-        options: { maintainAspectRatio: false, responsive: true },
       },
       {
         label: 'Average',
@@ -47,7 +72,6 @@ export default function GraphCarbonOverTime(props) {
         pointRadius: 5,
         pointHitRadius: 50,
         data: props.data.average,
-        options: { maintainAspectRatio: false, responsive: true },
       },
     ],
   }
@@ -63,7 +87,7 @@ export default function GraphCarbonOverTime(props) {
         }}
         className="line-chart-container"
       >
-        <Line data={data} />
+        <Line data={data} options={options} />
       </div>
     </div>
   )

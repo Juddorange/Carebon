@@ -2,15 +2,13 @@ import React from 'react'
 import { Doughnut } from 'react-chartjs-2'
 
 export default function GraphTripsDoughnut(props) {
-  console.log(props.data)
   let tripsModes = []
   let tripsValues = []
   for (let element in props.data) {
     tripsModes.push(element)
     tripsValues.push(props.data[element])
   }
-  console.log('tripsModes', tripsModes)
-  console.log('tripsValues', tripsValues)
+
   const data = {
     labels: tripsModes,
     datasets: [
