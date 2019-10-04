@@ -46,7 +46,7 @@ const Map = React.memo(props => {
     <GoogleMap
       onClick={props.handleMapClicked}
       ref={props.onMapMounted}
-      defaultZoom={12}
+      defaultZoom={10}
       center={props.center}
       defaultCenter={{ lat: 48.866667, lng: 2.333333 }}
     >
