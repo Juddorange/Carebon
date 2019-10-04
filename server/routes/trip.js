@@ -41,6 +41,7 @@ function handleGoogleResponse(req, res) {
 router.post('/google-trip', (req, res, next) => {
   handleGoogleResponse(req, res)
     .then(response => {
+      console.log(response[0].data.routes[0].bounds)
       // set up objects for each transport mode
       let anyCar =
         response[0].data.routes.length > 0
