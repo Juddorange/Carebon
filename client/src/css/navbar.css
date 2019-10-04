@@ -5,8 +5,7 @@
   align-items: center;
 }
 
-.link,
-.logo {
+.link {
   color: #fecc46;
   text-decoration: none;
   padding: 5px;
@@ -15,7 +14,12 @@
 }
 
 .logo {
-  width: 20%;
+  margin-top: 10px;
+  padding-left: 10px;
+}
+
+.logo img {
+  width: 30%;
 }
 
 .logLinks {
