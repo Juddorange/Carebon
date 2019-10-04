@@ -86,6 +86,7 @@ export default function Home() {
             })
           } else {
             let searchedTrips = values[0]
+            console.log(searchedTrips)
             let savedTrips = values[1]
             for (let i = 0; i < searchedTrips.length; i++) {
               for (let j = 0; j < savedTrips.length; j++)
