@@ -227,7 +227,6 @@ export default function Profile(props) {
   return (
     <div className="profile">
       <div className="profile_info">
-        <h1>PROFILE</h1>
         <br />
         <div className="profile_image">
           <img style={{ width: '100%' }} src={user.picture} alt="img" />
@@ -292,7 +291,7 @@ export default function Profile(props) {
       </div>
       <div className="trip-charts">
         <div className="charts">
-          <h1 style={{ color: '#f29833' }}>DASHBOARD</h1>
+          <h1 style={{ color: '#fecc46', marginTop: '0' }}>DASHBOARD</h1>
           <div className="line">
             <GraphCarbonOverTime
               title={'CARBON OVER TIME'}
@@ -316,7 +315,7 @@ export default function Profile(props) {
               />
             </div>
             <div className="stats">
-              <h1>STATISTICS</h1>
+              <h2>STATISTICS</h2>
               <h3 className="statsTitle">
                 <strong>{statistics.averageCarbonPerMonth}</strong>
                 Your average carbon emission per month in kg{' '}
@@ -334,8 +333,9 @@ export default function Profile(props) {
             </div>
           </div>
         </div>
+        <hr />
         <div className="projects">
-          <h1>CARBON OFFSET PROJECTS</h1>
+          <h2>CARBON OFFSET PROJECTS</h2>
           <p>
             You can offset your carbon footprint by investing into our partners'
             programs!
@@ -383,8 +383,9 @@ export default function Profile(props) {
             Climate Care
           </a>
         </div>
+        <hr />
         <div className="profile_trips">
-          <h1 style={{ textAlign: 'center' }}>YOUR TRIPS</h1>
+          <h2 style={{ textAlign: 'center' }}>YOUR TRIPS</h2>
           <div className="trip_details">
             {trip
               .sort((t1, t2) => {

@@ -367,8 +367,67 @@
 }
 
 /* small to medium desktop */
-/* from 1024ox to 1440px */
-@media screen and (min-width: 1024px) and (max-width: 1440px) {
+/* from 1024ox to 1439px */
+@media screen and (min-width: 1024px) and (max-width: 1439px) {
+  .Home h2 {
+    font-size: 70px;
+  }
+
+  searchForm {
+    width: 90%;
+  }
+
+  .searchInput {
+    padding: 0 10px;
+    margin-right: 0;
+    width: 100%;
+    height: 40px;
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+
+  .checkbox {
+    margin-top: 0;
+    width: 100%;
+  }
+
+  .labelCheckbox {
+    font-size: 20px;
+  }
+
+  #frequency {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  #frequency label {
+    margin-top: 0;
+    font-size: 20px;
+  }
+
+  .radioInput,
+  .frequencyInput {
+    margin: 0;
+  }
+
+  .radioBoxes {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 50%;
+  }
+
+  .frequencyInput {
+    width: 20%;
+    margin-bottom: 0;
+    height: 30px;
+  }
+
+  .searchBtn {
+    width: 40%;
+    margin-left: 30%;
+    margin-right: 30%;
+  }
 }
 
 /* Medium to big desktop

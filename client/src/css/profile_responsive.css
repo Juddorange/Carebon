@@ -1,0 +1,439 @@
+/* media queries for responsive*/
+
+/* phones, under 413px */
+@media screen and (max-width: 413px) {
+  .profile_info {
+    width: 30%;
+    padding: 0 10px 0 10px;
+    margin-right: 0;
+  }
+  .profile_image {
+    width: 50px;
+    height: 50px;
+  }
+  .profile_detail_info {
+    margin: 10px 0;
+    margin-top: 20px;
+    width: 100%;
+  }
+
+  .profile_info label {
+    margin-bottom: 10px;
+    font-size: 12px;
+    margin-right: 0;
+  }
+  .input_profile {
+    font-size: 10px;
+    width: 40%;
+    padding: 5px;
+  }
+
+  .edit-btn {
+    padding: 5px;
+  }
+
+  .fas.fa-pencil-alt {
+    font-size: 15px;
+    margin-left: 10px;
+  }
+
+  .btn-delete {
+    font-size: 10px;
+    padding: 5px;
+    margin-top: 5px;
+  }
+
+  .trip-charts {
+    width: 60%;
+    padding: 0 10px;
+  }
+
+  .line h2 {
+    font-size: 20px;
+  }
+
+  .carbon-projects {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+    flex-direction: column;
+  }
+
+  .doughnut :first-child {
+    display: none;
+  }
+
+  .stats {
+    width: 100%;
+    padding: 0;
+    height: auto;
+  }
+
+  .stats h1 {
+    font-size: 15px;
+  }
+
+  .statsTitle {
+    font-size: 12px;
+    margin-top: 20px;
+    width: auto;
+    padding: 0 10px;
+  }
+  .projects {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .projects p {
+    font-size: 12px;
+    width: auto;
+  }
+
+  .projects h2 {
+    font-size: 20px;
+  }
+
+  .projects a {
+    width: 90%;
+  }
+
+  .profile_trips h2 {
+    font-size: 20px;
+    color: #777777;
+  }
+
+  .div-ul {
+    width: 90%;
+    font-size: 20px;
+  }
+
+  .div-ul h2 {
+    font-size: 15px;
+  }
+
+  .div-ul li {
+    font-size: 15px;
+  }
+
+  .div-ul .btn-delete {
+    font-size: 20px;
+  }
+
+  .statsTitle strong {
+    font-size: 35px;
+  }
+
+  .statsTitleCommunity {
+    font-size: 12px;
+  }
+
+  .charts h1 {
+    font-size: 30px;
+  }
+}
+
+/* big phones / small tablet */
+/* from 415px to 767px */
+@media screen and (min-width: 414px) and (max-width: 767px) {
+  .profile_info {
+    width: 30%;
+    padding: 0 10px 0 10px;
+    margin-right: 0;
+  }
+  .profile_image {
+    width: 80px;
+    height: 80px;
+  }
+  .profile_detail_info {
+    margin: 10px 0;
+    margin-top: 20px;
+    width: 100%;
+  }
+
+  .profile_info label {
+    margin-bottom: 10px;
+    font-size: 12px;
+    margin-right: 0;
+  }
+  .input_profile {
+    font-size: 10px;
+    width: 60%;
+    padding: 5px;
+  }
+
+  .edit-btn {
+    padding: 5px;
+  }
+
+  .fas.fa-pencil-alt {
+    font-size: 15px;
+    margin-left: 10px;
+  }
+
+  .btn-delete {
+    font-size: 10px;
+    padding: 5px;
+    margin-top: 5px;
+  }
+
+  .trip-charts {
+    width: 60%;
+    padding: 0 10px;
+  }
+
+  .line h2 {
+    font-size: 20px;
+  }
+
+  .carbon-projects {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+    flex-direction: column;
+  }
+
+  .doughnut :first-child {
+    display: none;
+  }
+
+  .stats {
+    width: 100%;
+    padding: 0;
+    height: auto;
+  }
+
+  .stats h1 {
+    font-size: 15px;
+  }
+
+  .statsTitle {
+    font-size: 12px;
+    margin-top: 20px;
+    width: auto;
+    padding: 0 10px;
+  }
+  .projects {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .projects p {
+    font-size: 12px;
+    width: auto;
+  }
+
+  .projects h2 {
+    font-size: 20px;
+  }
+
+  .projects a {
+    width: 90%;
+  }
+
+  .profile_trips h2 {
+    font-size: 20px;
+    color: #777777;
+  }
+
+  .div-ul {
+    width: 90%;
+    font-size: 20px;
+  }
+
+  .div-ul h2 {
+    font-size: 15px;
+  }
+
+  .div-ul li {
+    font-size: 15px;
+  }
+
+  .div-ul .btn-delete {
+    font-size: 20px;
+  }
+
+  .statsTitle strong {
+    font-size: 35px;
+  }
+
+  .statsTitleCommunity {
+    font-size: 12px;
+  }
+
+  .charts h1 {
+    font-size: 30px;
+  }
+}
+
+/* tablets */
+/* from 768px to 1024px */
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .profile_info {
+    width: 30%;
+    padding: 0 10px 0 10px;
+    margin-right: 0;
+  }
+  .profile_image {
+    width: 80px;
+    height: 80px;
+  }
+  .profile_detail_info {
+    margin: 10px 0;
+    margin-top: 20px;
+    width: 100%;
+  }
+
+  .profile_info label {
+    margin-bottom: 10px;
+    font-size: 12px;
+    margin-right: 0;
+  }
+  .input_profile {
+    font-size: 10px;
+    width: 70%;
+    padding: 5px;
+  }
+
+  .edit-btn {
+    padding: 5px;
+  }
+
+  .fas.fa-pencil-alt {
+    font-size: 15px;
+    margin-left: 10px;
+  }
+
+  .btn-delete {
+    font-size: 10px;
+    padding: 5px;
+    margin-top: 5px;
+  }
+
+  .trip-charts {
+    width: 70%;
+    padding: 0 10px;
+  }
+
+  .line h2 {
+    font-size: 20px;
+  }
+
+  .carbon-projects {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+    flex-direction: column;
+  }
+
+  .doughnut {
+    width: 100%;
+  }
+
+  .doughnut :first-child {
+    height: auto;
+    margin-bottom: 50px;
+  }
+
+  .stats {
+    width: 60%;
+    padding: 0;
+    height: auto;
+  }
+
+  .stats h1 {
+    font-size: 15px;
+  }
+
+  .statsTitle {
+    font-size: 12px;
+    margin-top: 20px;
+    width: auto;
+    padding: 0 10px;
+  }
+  .projects {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .projects p {
+    font-size: 12px;
+    width: 100%;
+  }
+
+  .projects h2 {
+    font-size: 20px;
+  }
+
+  .projects a {
+    width: 40%;
+  }
+
+  .profile_trips h2 {
+    font-size: 20px;
+    color: #777777;
+  }
+
+  .div-ul {
+    width: 40%;
+    font-size: 20px;
+  }
+
+  .div-ul h2 {
+    font-size: 15px;
+  }
+
+  .div-ul li {
+    font-size: 15px;
+  }
+
+  .div-ul .btn-delete {
+    font-size: 20px;
+  }
+
+  .statsTitle strong {
+    font-size: 35px;
+  }
+
+  .statsTitleCommunity {
+    font-size: 12px;
+  }
+
+  .charts h1 {
+    font-size: 30px;
+  }
+}
+
+/* small to medium desktop */
+/* from 1024ox to 1439px */
+@media screen and (min-width: 1024px) and (max-width: 1439px) {
+  .profile_image {
+    width: 150px;
+    height: 150px;
+  }
+
+  .input_profile {
+    width: 50%;
+  }
+
+  .stats {
+    height: auto;
+  }
+
+  .div-ul {
+    width: 43%;
+  }
+}
+
+/* Medium to big desktop
+/* above 1440px */
+@media screen and (min-width: 1441px) {
+}
