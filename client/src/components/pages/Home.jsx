@@ -90,20 +90,22 @@ export default function Home() {
             let savedTrips = values[1]
             for (let i = 0; i < searchedTrips.length; i++) {
               for (let j = 0; j < savedTrips.length; j++)
-                if (
-                  searchedTrips[i].mode.toUpperCase() ===
-                    savedTrips[j].transport &&
-                  trip.origin.toUpperCase() === savedTrips[j].departure &&
-                  trip.destination.toUpperCase() === savedTrips[j].arrival
-                ) {
+                if (!searchedTrips[i].error) {
                   if (
-                    savedTrips[j].returnTrip === knowReturnTrip(trip.return)
+                    searchedTrips[i].mode.toUpperCase() ===
+                      savedTrips[j].transport &&
+                    trip.origin.toUpperCase() === savedTrips[j].departure &&
+                    trip.destination.toUpperCase() === savedTrips[j].arrival
                   ) {
-                    // (trip.return === true &&
-                    //   savedTrips[j].returnTrip === 'RETURN TRIP') ||
-                    // (trip.return === false &&
-                    //   savedTrips[j].returnTrip === 'ONE WAY')
-                    searchedTrips[i].saved = true
+                    if (
+                      savedTrips[j].returnTrip === knowReturnTrip(trip.return)
+                    ) {
+                      // (trip.return === true &&
+                      //   savedTrips[j].returnTrip === 'RETURN TRIP') ||
+                      // (trip.return === false &&
+                      //   savedTrips[j].returnTrip === 'ONE WAY')
+                      searchedTrips[i].saved = true
+                    }
                   }
                 }
             }
@@ -230,6 +232,10 @@ export default function Home() {
       e.target.className === 'far fa-star' ||
       e.target.className === 'fas fa-star'
     ) {
+      setTrip({
+        ...trip,
+        mapSearch: trip.mapSearch ? true : false,
+      })
       return
     } else if (e.target.nodeName === 'I')
       e.target = e.target.parentNode.parentNode
@@ -368,61 +374,62 @@ export default function Home() {
                   if (m1.time < m2.time) return -1
                 }
               })
-              .map(
-                (transport, i) =>
-                  transport.error || (
-                    <div
-                      className={
-                        trip.displayedMode ===
-                        convertDisplayedModeToMode(transport.mode)
-                          ? 'answer is-active'
-                          : 'answer'
-                      }
-                      key={i}
-                    >
-                      <ul onClick={handleResultOnclick}>
-                        <li className="iconLi">
-                          <i
-                            className={displayMode(transport.mode)}
-                            id={transport.mode}
-                          />
+              .map((transport, i) =>
+                !transport.error ? (
+                  <div
+                    className={
+                      trip.displayedMode ===
+                      convertDisplayedModeToMode(transport.mode)
+                        ? 'answer is-active'
+                        : 'answer'
+                    }
+                    key={i}
+                  >
+                    <ul onClick={handleResultOnclick}>
+                      <li className="iconLi">
+                        <i
+                          className={displayMode(transport.mode)}
+                          id={transport.mode}
+                        />
+                      </li>
+                      <li className="textLi">
+                        {trip.return === true
+                          ? transport.distance * 2
+                          : transport.distance}{' '}
+                        km
+                      </li>
+                      <li className="textLi">
+                        {trip.return === true
+                          ? timeConvert(transport.time * 2)
+                          : timeConvert(transport.time)}
+                      </li>
+                      <li className="textLi">
+                        {trip.return === true
+                          ? transport.carbon * 2
+                          : transport.carbon}{' '}
+                        kg
+                      </li>
+                      {api.isLoggedIn() ? (
+                        <li className="btnLi">
+                          <button
+                            className="saveTrip"
+                            onClick={() => handlesaveTrip(i)}
+                          >
+                            {transport.saved ? (
+                              <i className="fas fa-star" />
+                            ) : (
+                              <i className="far fa-star" />
+                            )}
+                          </button>
                         </li>
-                        <li className="textLi">
-                          {trip.return === true
-                            ? transport.distance * 2
-                            : transport.distance}{' '}
-                          km
-                        </li>
-                        <li className="textLi">
-                          {trip.return === true
-                            ? timeConvert(transport.time * 2)
-                            : timeConvert(transport.time)}
-                        </li>
-                        <li className="textLi">
-                          {trip.return === true
-                            ? transport.carbon * 2
-                            : transport.carbon}{' '}
-                          kg
-                        </li>
-                        {api.isLoggedIn() ? (
-                          <li className="btnLi">
-                            <button
-                              className="saveTrip"
-                              onClick={() => handlesaveTrip(i)}
-                            >
-                              {transport.saved ? (
-                                <i className="fas fa-star" />
-                              ) : (
-                                <i className="far fa-star" />
-                              )}
-                            </button>
-                          </li>
-                        ) : (
-                          ''
-                        )}
-                      </ul>
-                    </div>
-                  )
+                      ) : (
+                        ''
+                      )}
+                    </ul>
+                  </div>
+                ) : (
+                  ''
+                )
               )}
           </div>
           <div className={trip.mapSearch === false ? 'map not-active' : 'map'}>
