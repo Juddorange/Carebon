@@ -294,7 +294,7 @@ export default function Profile(props) {
           <h1 style={{ color: '#fecc46', marginTop: '0' }}>DASHBOARD</h1>
           <div className="line">
             <GraphCarbonOverTime
-              title={'CARBON OVER TIME'}
+              title={'CARBON PER COMMUTE'}
               width={'100%'}
               height={'300px'}
               labels={statistics.lineLabels}
@@ -385,7 +385,7 @@ export default function Profile(props) {
         </div>
         <hr />
         <div className="profile_trips">
-          <h2 style={{ textAlign: 'center' }}>YOUR TRIPS</h2>
+          <h2 style={{ textAlign: 'center' }}>YOUR COMMUTES</h2>
           <div className="trip_details">
             {trip
               .sort((t1, t2) => {
