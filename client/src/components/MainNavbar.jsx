@@ -10,7 +10,7 @@ function MainNavbar(props) {
   return (
     <nav className="navbar">
       <NavLink className="logo" to="/" exact>
-        Home
+        <img src="/img/CAREBON-Logo.png" alt="logo" />
       </NavLink>
       <div className="logLinks">
         {!api.isLoggedIn() && (

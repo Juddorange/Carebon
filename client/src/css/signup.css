@@ -34,6 +34,7 @@
 .h2_signup {
   font-size: 40px;
   text-align: center;
+  color: #777777;
 }
 
 .input_signup {
@@ -63,7 +64,7 @@
   margin-top: 30px;
 }
 
-.btn-signup-flex{
+.btn-signup-flex {
   display: flex;
   justify-content: center;
 }
