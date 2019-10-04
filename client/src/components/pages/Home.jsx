@@ -239,13 +239,13 @@ export default function Home() {
       displayedColor = 'red'
       getMode = 'DRIVING'
     } else if (getMode === 'TRAIN') {
-      displayedColor = 'yellow'
+      displayedColor = '#de54f0'
       getMode = 'TRANSIT'
     } else if (getMode === 'BICYCLE') {
       displayedColor = 'purple'
       getMode = 'BICYCLING'
     } else if (getMode === 'WALKING') {
-      displayedColor = 'green'
+      displayedColor = '#24e08f'
       getMode = 'WALKING'
     }
 

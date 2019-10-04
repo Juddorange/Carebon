@@ -6,7 +6,7 @@ import {
   Polyline,
 } from 'react-google-maps'
 import _ from 'lodash'
-console.log(process.env.REACT_APP_GOOGLE_APIKEY)
+
 const Map = React.memo(props => {
   // const mapMe = arr => {
   //   return arr.map(a => a.lat_lngs[0])
@@ -46,7 +46,7 @@ const Map = React.memo(props => {
     <GoogleMap
       onClick={props.handleMapClicked}
       ref={props.onMapMounted}
-      defaultZoom={12}
+      defaultZoom={10}
       center={props.center}
       defaultCenter={{ lat: 48.866667, lng: 2.333333 }}
     >
